@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import {HttpClient} from "@angular/common/http";
+import {HttpClient} from '@angular/common/http';
 
 import {DataApiService} from '../../../../servicios/data-api.service';
 import { productosInteface } from './productosInterface';
+import {SelectItem} from 'primeng/api';
 
 
 
@@ -14,29 +15,27 @@ import { productosInteface } from './productosInterface';
 })
 
 
-  
+
 export class ItemProductosComponent implements OnInit {
 
-  
-  public platos : productosInteface [] ;
+
+  public platos: productosInteface [] ;
   public cantidadPlatos: number;
+
   constructor( public apiService: DataApiService ) {  }
-  
 
-   
-  
+
   ngOnInit() {
-
-    this.apiService.getAllPlatos()
-    .subscribe(data =>{  
-      this.platos = data ;
-      this.cantidadPlatos= data.length;
-      
-      ;}
-    );
-   
-   
+    this.obtenerTodosLosPlatos();
   }
-  
+
+  obtenerTodosLosPlatos() {
+    this.apiService.getAllPlatos()
+      .subscribe(data => { this.platos = data ;  this.cantidadPlatos = data.length;}
+
+      );
+  }
+
+
 
 }

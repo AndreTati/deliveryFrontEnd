@@ -21,6 +21,11 @@ import { ListaProductosComponent } from './componentes/catalogo/lista-productos/
 import { ItemProductosComponent } from './componentes/catalogo/lista-productos/item-productos/item-productos.component';
 import {HttpClientModule} from '@angular/common/http';
 import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categorias-filtro/categorias-filtro.component';
+import {DataViewModule} from "primeng/dataview";
+import {PanelModule} from "primeng/panel";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {DropdownModule} from "primeng/primeng";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -37,15 +42,15 @@ import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categor
     ListaProductosComponent,
     ItemProductosComponent,
     CategoriasFiltroComponent
-    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,HttpClientModule
-   
+    AngularFireDatabaseModule, HttpClientModule, DataViewModule, PanelModule, BrowserAnimationsModule, DropdownModule, NgbModule
+
   ],
   providers: [AngularFireAuth],
   bootstrap: [AppComponent]

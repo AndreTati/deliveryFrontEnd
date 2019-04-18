@@ -1,25 +1,50 @@
- 
- <div class="row">
- <div id="for" *ngFor="let platosTraidos of platos;let indice=index">
-   <div class="col-md-10" >
-  <div class="card" style="width: 12rem;"  >
-   
-    <img class="card-img-top"  height="125"   src= {{platos[indice].imagen.url}} alt="Producto">
-    
-    <div class="card-body">
-      <h5 class="card-title" style="font-size:medium">  {{platos[indice].nombre}}     </h5>
-      <p class="card-text" style="font-size:small"> $ {{ 100*platos[indice].categoria.porcentajeGanancia}}    
-                            | Tiempo Preparacion: {{platos[indice].tiempoPreparacion}} </p>
-      <div id="Footer"  align="center" >
-        
-       <div class="btn-group">
-          <button type="button" class="btn btn-sm btn-info" id={{platos[indice].nombre}}>Descripcion</button>
-           <button type="button"  class="btn btn-success"> <i class="fa fa-cart-plus"></i> </button>
+<p-dataView #dv [value]="platos"
+            filterBy="categoria.nombre,nombre"
+            [paginator]="true"
+            [rows]="8"
+            [totalRecords]="cantidadPlatos"
+            layout="grid">
+
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <div class="ui-g">
+
+        <div class="ui-g-6 ui-md-5 filter-container">
+
+          <div style="position:relative">
+            <input type="search" class="form-control form-control-lg form-control-borderless" pInputText
+                   placeholder="¿Que estas buscando para comer? " (keyup)="dv.filter($event.target.value)">
+
+          </div>
         </div>
-       </div>
+        <div class="ui-g-6 ui-md-4" style="text-align:right">
+
+        </div>
+      </div>
     </div>
-  </div>
-  <br>
-</div>
-</div>
-</div>
+  </p-header>
+
+
+  <ng-template let-platos pTemplate="gridItem">
+    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+      <p-panel [header]="platos.nombre" [style]="{'text-align':'center'}">
+        <div id="imagen"><img src={{platos.imagen.url}} style='height: 125px; width: 125px; '></div>
+
+        <div class="plato-detalle">Tiempo estimado:{{platos.tiempoPreparacion}}</div>
+        <div class="plato-detalle">Precio : {{platos.categoria.porcentajeGanancia}}</div>
+        <hr class="ui-widget-content" style="border-top:0">
+
+        <div class="btn-group ">
+
+          <button type="button" id={{platos.nombre}} class="btn-info" placement="top"
+                  ngbPopover="*Ejemplo :   Huevos,Azucar,Choclo Etc" popoverTitle="{{platos.nombre}} contiene">
+            Descripcion
+          </button>
+          <button type="button" class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
+        </div>
+      </p-panel>
+    </div>
+  </ng-template>
+
+
+</p-dataView>
