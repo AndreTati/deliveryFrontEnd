@@ -30,8 +30,8 @@
       <p-panel [header]="platos.nombre" [style]="{'text-align':'center'}">
         <div id="imagen"><img src={{platos.imagen.url}} style='height: 125px; width: 125px; '></div>
 
-        <div class="plato-detalle">Tiempo estimado:{{platos.tiempoPreparacion}}</div>
-        <div class="plato-detalle">Precio : {{platos.categoria.porcentajeGanancia}}</div>
+        <div class="plato-detalle">Tiempo estimado:{{platos.tiempoPreparacion}} minutos</div>
+        <div class="plato-detalle">Precio : $ {{platos.categoria.porcentajeGanancia}}</div>
         <hr class="ui-widget-content" style="border-top:0">
 
         <div class="btn-group ">
