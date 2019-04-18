@@ -6,21 +6,26 @@
         <div class="card_register">
           <div class="card">
             <div class="card-body text-center">
-              <form #formRegister="ngForm" class="box" (ngSubmit)="onAddUser()">
+
+              <form class="box" [formGroup]="ngForm" (ngSubmit)="onAddUser()">
                   <h1 class="h3 mb-3 font-weight-normal">A GOOD TASTE </h1>
                 <h2 class="h3 mb-3 font-weight-normal">Registro</h2>
                 <div class="alert alert-danger" role="alert" *ngIf="isError">
                   {{msgError}}
                 </div>
+
+                <!-- EMAIL -->
                 <div class="form-group">
-                  <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required minlength="8">
+                  <input type="email" formControlName="email" class="form-control" placeholder="Correo Electronico" [(ngModel)]="email" required minlength="8">
                 </div>
                 <div class="alert alert-danger" role="alert" *ngIf="email.touched && !email.valid">
                   <div *ngIf="email.errors.required">Email es obligatorio :(</div>
                   <div *ngIf="email.errors.minlength">Email debe tener al menos 8 caracteres</div>
                 </div>
+
+                <!-- PASSWORD -->
                 <div class="form-group">
-                  <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required minlength="6"
+                  <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" [(ngModel)]="password" required minlength="6"
                     maxlength="10">
                 </div>
                 <div class="alert alert-danger" role="alert" *ngIf="password.touched && !password.valid">
@@ -28,129 +33,150 @@
                   <div *ngIf="password.errors.minlength">Contraseña debe tener al menos 5 caracteres</div>
                 </div>
 
+                <!-- NOMBRE -->
                 <div class="form-group">
-                 <input type="text" class="form-control" placeholder="Nombre" />
+                  <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.error}"/>
                   <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                      <div *ngIf="f.nombre.errors.required">Por favor, ingresa tu Nombre</div>
+                    <div *ngIf="f.nombre.errors.required">Por favor, ingresa tu Nombre</div>
                   </div>
                 </div>
 
+                <!-- APELLIDO -->
                 <div class="form-group">
-   
-                  <input type="text" class="form-control" placeholder="Apellido" />
+                  <input type="text" formControlName="apellido" class="form-control" placeholder="Apellido" [ngClass]="{ 'is-invalid': submitted && f.apellido.errors }" />
                   <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
-                      <div *ngIf="f.apellido.errors.required">Por favor, ingresa tu Apellido</div>
+                    <div *ngIf="f.apellido.errors.required">Por favor, ingresa tu Apellido</div>
                   </div>
-              </div>
-               
-              <div class="form-group">
-                  
-                  <input type="text"  class="form-control"  placeholder="DNI" />
-                  <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
-                      <div *ngIf="f.dni.errors.required">El DNI es obligatorio</div>
-                    </div>
-              </div>
-              <div class="form-group">
-                   <input type="number"   class="form-control" placeholder="Telefono" />
-                  <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
-                      <div *ngIf="f.telefono.errors.required">El telefono es obligatorio</div>
-                     </div>
-              </div>
-
-
-              <div class="form-group">
-                <h5>Fecha Nacimiento</h5>
-                <input type="date" class="form-control" placeholder="Fecha Nacimiento" />
-                
-                <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
-                  </div>
-            </div>
-                
-            <div class="form-group">
-               <h5>Sexo</h5>
-                <label><input type="radio" id="masculino"  value="masculino"   class="form-control"  /><span>Masculino</span></label>
-                 
-                <label><input type="radio" id="femenino"  value="femenino" class="form-control" /><span>Femenino</span></label>
-                
-                <div *ngIf="submitted && f.sexo.errors" class="invalid-feedback">
-                    
-                    
                 </div>
-            </div>     
-            
-            
 
+                <!-- DNI -->
+                <div class="form-group">
+                  <input type="text" formControlName="dni" class="form-control" placeholder="DNI" [ngClass]="{ 'is-invalid': submitted && f.dni.errors }" />
+                  <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
+                    <div *ngIf="f.dni.errors.required">El DNI es obligatorio</div>
+
+                  </div>
+                </div>
+
+                <!-- TELEFONO -->
+                <div class="form-group">
+                  <input type="number" formControlName="telefono" class="form-control" placeholder="Telefono" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" />
+                  <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
+                    <div *ngIf="f.telefono.errors.required">El telefono es obligatorio</div>
+
+                  </div>
+                </div>
+
+                <!-- FECHA DE NACIMIENTO -->
+                <div class="form-group">
+                  <h5><label>Fecha de Nacimiento</label></h5>
+                  <input type="date" formControlName="fechaNacimiento" class="form-control" placeholder="Fecha de Nacimiento" [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }" />
+                  <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
+
+                  </div>
+                </div>
+
+                <!-- SEXO -->
+                <div class="form-group" formControlName="sexo">
+                  <h5>Sexo</h5><br>
+                  <label><input type="radio" id="masculino"  value="masculino" formControlName="sexo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" /><span>Masculino</span></label>
+                  <label><input type="radio" id="femenino"  value="femenino" formControlName="sexo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" /><span>Femenino</span></label>
+
+                  <div *ngIf="submitted && f.sexo.errors" class="invalid-feedback">
+                  </div>
+                </div>
+            
+            
+                <!--DESPLEGABLE DE DOMICILIO PARA RELLENAR LOS CAMPOS-->
 
 
             <p>
               <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 Domicilio (Tocar Boton)
               </a>
-          </p>
+            </p>
             <div class="collapse" id="collapseExample">
               <div class="card card-body">
                   <div class="form-group">
-                     
-                      <input type="text"   class="form-control" placeholder="Calle" />
+                    <input type="text" formControlName="calle"  class="form-control" placeholder="Calle" />
                       <div *ngIf="submitted && f.calle.errors" class="invalid-feedback">
                           <div *ngIf="f.calle.errors.required">La calle es obligatoria</div>
                        </div>
                   </div>
+                <!-- NUMERO CALLE -->
                   <div class="form-group">
-                     
-                      <input type="number"  class="form-control" placeholder="Numero Calle"/>
+                    <input type="number" formControlName="numerocalle"  class="form-control" placeholder="Numero Calle"/>
                       <div *ngIf="submitted && f.numerocalle.errors" class="invalid-feedback">
                           <div *ngIf="f.numerocalle.errors.required">El numero de la calle es obligatorio</div>
                           
                       </div>
                   </div>
+                <!-- NUMERO PISO -->
                   <div class="form-group">
-                       
-                      <input type="number"   class="form-control" placeholder="Piso" />
+                    <input type="number" formControlName="numeropiso" class="form-control" placeholder="Piso" />
                       <div *ngIf="submitted && f.numeropiso.errors" class="invalid-feedback">
                          </div>
                   </div>
+
+                <!-- NUMERO DEPTO -->
                   <div class="form-group">
-                     
-                      <input type="number"  class="form-control" placeholder="Departamento" />
+                    <input type="number" formControlName="numerodepto"  class="form-control" placeholder="Departamento" />
                       <div *ngIf="submitted && f.numerodepto.errors" class="invalid-feedback">
                             </div>
                   </div>
-                  <div class="form-group">
-                      <label>Localidad</label>
+
+                <!-- PROVINCIA -->
+                <div class="form-group" formControlName="provincia">
+                  <h5>Provincia</h5>
+                  <div  class="form-control">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownProvincias" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Localidad
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                        <a class="dropdown-item" href="#provincias">
+                          <li *ngFor = "let nombre of provincias; let indice = index"  class="btn btn-info list-inline-item" id={{provincias[indice].id} name={{provincias[indice].nombre}}}>{{nombre}}</li>
+                        </a>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- LOCALIDAD
+                  <div class="form-group" formControlName="localidad">
+                      <h5>Localidad</h5>
                       <div  class="form-control">
-      
-                          <select ng-model="selectedName" ng-options="x for x in names">
-                          </select>
+                        <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownLocalidades" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Localidad
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                            <a class="dropdown-item" href="#">
+                              <li *ngFor = "let localidadesLista of localidades ; let indice=index"  class="btn btn-info list-inline-item" id=  {{localidades[indice].id} name=  {{localidades[indice].nombre}}}>{{localidades[indice].nombre}}</li>
+                            </a>
+
+                          </div>
+                        </div>
                           </div>
                       </div>
-                  
-                  <div class="form-group">
-                      <input type="number"  class="form-control" placeholder="Codigo postal" />
-                      <div *ngIf="submitted && f.codigopostal.errors" class="invalid-feedback">
-                        </div>
+                -->
+                <!-- CODIGO POSTAL -->
+                <div class="form-group">
+
+                  <input type="number" formControlName="codigopostal" class="form-control" placeholder="Codigo Postal" [ngClass]="{ 'is-invalid': submitted && f.codigopostal.errors }" />
+                  <div *ngIf="submitted && f.codigopostal.errors" class="invalid-feedback">
+                    <div *ngIf="f.codigopostal.errors.maxlength">Codigo postal hasta 5 numeros</div>
                   </div>
+                </div>
+
               </div>
             </div>
 
 
-
-
-
-
-
-
-
-
-            
-
-
-
-
-
-                
-
-
+<!-- BOTON DE REGISTRAR EL FORM -->
                 <hr>
                 
                 <button  type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
