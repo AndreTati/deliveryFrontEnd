@@ -3,8 +3,9 @@ import { HttpClient} from '@angular/common/http';
 import {productosInteface} from '../componentes/catalogo/lista-productos/item-productos/productosInterface';
 import { Observable } from 'rxjs';
 import {categoriasInterface} from '../componentes/catalogo/filtro/categorias-filtro/categoriasInterface';
-import {ProvinciasInterface} from "../componentes/usuarios/register/ProvinciasInterface";
-import { LocalidadesInterface} from "../componentes/usuarios/register/LocalidadesInterface";
+import { Localidad } from "../componentes/usuarios/register/listarLocalidades";
+import { Provincia } from "../componentes/usuarios/register/listarLocalidades";
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,10 @@ export class DataApiService {
     return this.httpClientApi.get<categoriasInterface[]>(this._urlAllCategorias);
   }
 
-  getAllProvincias (): Observable<ProvinciasInterface[]> {
-    return this.httpClientApi.get<ProvinciasInterface[]>(this._urlAllProvincias);
+  getAllProvincias (): Observable<Provincia[]> {
+    return this.httpClientApi.get<Provincia[]>(this._urlAllProvincias);
   }
-  getAllLocalidades (): Observable<LocalidadesInterface[]> {
-    return this.httpClientApi.get<LocalidadesInterface[]>(this._urlAllLocalidades);
+  getAllLocalidades (): Observable<Localidad[]> {
+    return this.httpClientApi.get<Localidad[]>(this._urlAllLocalidades);
   }
 }
