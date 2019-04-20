@@ -25,6 +25,9 @@ import {PanelModule} from "primeng/panel";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DropdownModule} from "primeng/primeng";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ArticulocategoriaComponent } from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
+import { PlatocategoriaComponent } from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
+import {TableModule} from "primeng/table";
 
 
 
@@ -40,7 +43,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FiltroComponent,
     ListaProductosComponent,
     ItemProductosComponent,
-    CategoriasFiltroComponent
+    CategoriasFiltroComponent,
+    ArticulocategoriaComponent,
+    PlatocategoriaComponent
 
   ],
   imports: [
@@ -55,7 +60,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     PanelModule,
     BrowserAnimationsModule,
     DropdownModule,
-    NgbModule
+    NgbModule,
+    TableModule
 
   ],
   providers: [AngularFireAuth],

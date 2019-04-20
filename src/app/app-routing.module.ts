@@ -5,16 +5,19 @@ import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegisterComponent } from './componentes/usuarios/register/register.component';
 import { Page404Component } from './componentes/usuarios/page404/page404.component';
 import { ListaProductosComponent} from './componentes/catalogo/lista-productos/lista-productos.component';
+import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
+
 
 const routes: Routes = [
   // '' es home vacio SON DIRECCIONES DEL CLIENTE,Hay que HACER SEGURAS LAS RUTAS QUE SON SOLO PARA AUTENTIFICADOS
   // CON LOS GUARDS
   
   {path: 'componentes/home', component : ListaProductosComponent },
+  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent},
   {path: '', component : ListaProductosComponent },
-  {path :'user/login', component : LoginComponent},
-  {path: 'user/register',component: RegisterComponent},
-  {path: 'catalogo/lista', component:ListaProductosComponent},
+  {path : 'user/login', component : LoginComponent},
+  {path: 'user/register', component: RegisterComponent},
+  {path: 'catalogo/lista', component: ListaProductosComponent},
   {path: '**', component: Page404Component}
   
 
