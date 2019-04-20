@@ -9,8 +9,7 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegisterComponent } from './componentes/usuarios/register/register.component';
 import { Page404Component } from './componentes/usuarios/page404/page404.component';
-import { FormsModule} from '@angular/forms';
-
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { environment } from '../environments/environment';
 
 import { AngularFireModule } from '@angular/fire';
@@ -47,9 +46,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule, HttpClientModule, DataViewModule, PanelModule, BrowserAnimationsModule, DropdownModule, NgbModule
+    AngularFireDatabaseModule,
+    HttpClientModule,
+    DataViewModule,
+    PanelModule,
+    BrowserAnimationsModule,
+    DropdownModule,
+    NgbModule
 
   ],
   providers: [AngularFireAuth],

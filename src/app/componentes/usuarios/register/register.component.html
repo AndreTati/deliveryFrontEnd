@@ -1,170 +1,147 @@
-<br> 
-<section id="register" class="mb-5 mt-5">
-  <div class="container">
-    <div class="row">
-     <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
-        <div class="card_register">
-          <div class="card">
-            <div class="card-body text-center">
-              <form #formRegister="ngForm" class="box" (ngSubmit)="onAddUser()">
-                  <h1 class="h3 mb-3 font-weight-normal">A GOOD TASTE </h1>
-                <h2 class="h3 mb-3 font-weight-normal">Registro</h2>
-                <div class="alert alert-danger" role="alert" *ngIf="isError">
-                  {{msgError}}
-                </div>
-                <div class="form-group">
-                  <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required minlength="8">
-                </div>
-                <div class="alert alert-danger" role="alert" *ngIf="email.touched && !email.valid">
-                  <div *ngIf="email.errors.required">Email es obligatorio :(</div>
-                  <div *ngIf="email.errors.minlength">Email debe tener al menos 8 caracteres</div>
-                </div>
-                <div class="form-group">
-                  <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password" required minlength="6"
-                    maxlength="10">
-                </div>
-                <div class="alert alert-danger" role="alert" *ngIf="password.touched && !password.valid">
-                  <div *ngIf="password.errors.required">La contraseña es obligatoria</div>
-                  <div *ngIf="password.errors.minlength">Contraseña debe tener al menos 5 caracteres</div>
-                </div>
+<!-- Comienzo formulario registro -->
+<br>
+<div class="container">
+<div class="card">
+  <div class="card-body text-center">
+<form [formGroup]="formGroup" (ngSubmit)="registrar()">
+<div class="row">
+  <div class="col">
+  <!-- NOMBRE -->
 
-                <div class="form-group">
-                 <input type="text" class="form-control" placeholder="Nombre" />
-                  <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                      <div *ngIf="f.nombre.errors.required">Por favor, ingresa tu Nombre</div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-   
-                  <input type="text" class="form-control" placeholder="Apellido" />
-                  <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
-                      <div *ngIf="f.apellido.errors.required">Por favor, ingresa tu Apellido</div>
-                  </div>
-              </div>
-               
-              <div class="form-group">
-                  
-                  <input type="text"  class="form-control"  placeholder="DNI" />
-                  <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
-                      <div *ngIf="f.dni.errors.required">El DNI es obligatorio</div>
-                    </div>
-              </div>
-              <div class="form-group">
-                   <input type="number"   class="form-control" placeholder="Telefono" />
-                  <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
-                      <div *ngIf="f.telefono.errors.required">El telefono es obligatorio</div>
-                     </div>
-              </div>
+  <input type="text"
+         name="nombre"
+         formControlName="nombre"
+         placeholder="Nombre">
 
 
-              <div class="form-group">
-                <h5>Fecha Nacimiento</h5>
-                <input type="date" class="form-control" placeholder="Fecha Nacimiento" />
-                
-                <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
-                  </div>
-            </div>
-                
-            <div class="form-group">
-               <h5>Sexo</h5>
-                <label><input type="radio" id="masculino"  value="masculino"   class="form-control"  /><span>Masculino</span></label>
-                 
-                <label><input type="radio" id="femenino"  value="femenino" class="form-control" /><span>Femenino</span></label>
-                
-                <div *ngIf="submitted && f.sexo.errors" class="invalid-feedback">
-                    
-                    
-                </div>
-            </div>     
-            
-            
+  <!-- APELLIDO -->
+
+  <input type="text"
+         name="apellido"
+         formControlName="apellido"
+         placeholder="Apellido">
+
+
+  <!-- EMAIL -->
+  <div>
+  <input type="email"
+         name="email"
+         formControlName="email"
+         placeholder="Correo Electronico">
+  </div>
+
+  <!-- PASSWORD -->
+  <div>
+  <input type="password"
+         name="password"
+         formControlName="password"
+         placeholder="Contraseña">
+  </div>
+
+  <!-- TELEFONO -->
+  <div>
+  <input type="number"
+         name="telefono"
+         formControlName="telefono"
+         placeholder="Telefono">
+  </div>
+
+  <!-- DNI -->
+  <div>
+  <input type="text"
+         name="dni"
+         formControlName="dni"
+         placeholder="DNI">
+  </div>
+
+  <!-- FECHA DE NACIMIENTO -->
+  <div>
+  <input type="date"
+         name="fechaNacimiento"
+         formControlName="fechaNacimiento"
+         placeholder="fechaNacimiento">
+  </div>
+
+  <!-- SEXO -->
+  <div>
+  <input type="radio"
+         name="sexo"
+         value="Hombre"> Hombre
+    <input type="radio"
+           name="sexo"
+           value="Mujer"> Mujer
+  </div>
+
+  </div><!--FIN COLUMNA 1-->
+
+  <div class="col">
 
 
 
-            <p>
-              <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Domicilio (Tocar Boton)
-              </a>
-          </p>
-            <div class="collapse" id="collapseExample">
-              <div class="card card-body">
-                  <div class="form-group">
-                     
-                      <input type="text"   class="form-control" placeholder="Calle" />
-                      <div *ngIf="submitted && f.calle.errors" class="invalid-feedback">
-                          <div *ngIf="f.calle.errors.required">La calle es obligatoria</div>
-                       </div>
-                  </div>
-                  <div class="form-group">
-                     
-                      <input type="number"  class="form-control" placeholder="Numero Calle"/>
-                      <div *ngIf="submitted && f.numerocalle.errors" class="invalid-feedback">
-                          <div *ngIf="f.numerocalle.errors.required">El numero de la calle es obligatorio</div>
-                          
-                      </div>
-                  </div>
-                  <div class="form-group">
-                       
-                      <input type="number"   class="form-control" placeholder="Piso" />
-                      <div *ngIf="submitted && f.numeropiso.errors" class="invalid-feedback">
-                         </div>
-                  </div>
-                  <div class="form-group">
-                     
-                      <input type="number"  class="form-control" placeholder="Departamento" />
-                      <div *ngIf="submitted && f.numerodepto.errors" class="invalid-feedback">
-                            </div>
-                  </div>
-                  <div class="form-group">
-                      <label>Localidad</label>
-                      <div  class="form-control">
-      
-                          <select ng-model="selectedName" ng-options="x for x in names">
-                          </select>
-                          </div>
-                      </div>
-                  
-                  <div class="form-group">
-                      <input type="number"  class="form-control" placeholder="Codigo postal" />
-                      <div *ngIf="submitted && f.codigopostal.errors" class="invalid-feedback">
-                        </div>
-                  </div>
-              </div>
-            </div>
+<!-- BOTON DOMICILIO DESPLEGABLE-->
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        + Domicilio
+      </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
 
-
-
-
-
-
-
-
-
-
-            
-
-
-
-
-
-                
-
-
-                <hr>
-                
-                <button  type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
-                <ng-template #btnDisabled>
-                  <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Registrar</button>
-                </ng-template>
-                <div class="form-group">
-                  <a routerLink="/user/login" class="form-control login-user">Tienes una cuenta?</a>
-                </div>
-              </form>
-            </div>
-          </div>
+        <!-- PROVINCIA -->
+        <div ng-app="myApp" ng-controller="myCtrl">
+          <select name="provincia"
+                  formControlName="provincia">
+            <option value="">Selecciona Provincia</option>
+            <option *ngFor="let provincia of provincias">
+              {{provincia.nombre}}
+            </option>
+          </select>
         </div>
+
+        <!-- LOCALIDAD -->
+        <div ng-app="myApp" ng-controller="myCtrl">
+          <select name="localidad"
+                  formControlName="localidad"
+                  ng-model="localidad"
+                  ng-options="x for x in names">
+          </select>
+        </div>
+
+        <!-- CALLE -->
+        <input type="text"
+               name="calle"
+               formControlName="calle"
+               placeholder="Calle">
+
+        <!-- Numero -->
+        <input type="number"
+               name="numero"
+               formControlName="numero"
+               placeholder="Numero">
+
+        <!-- Departamento -->
+        <input type="number"
+               name="departamento"
+               formControlName="departamento"
+               placeholder="N° Depto">
+
+        <!-- CP -->
+        <input type="number"
+               name="codigopostal"
+               formControlName="codigopostal"
+               placeholder="Codigo Postal">
       </div>
     </div>
+
+
+
+  </div><!-- Fin Columna 2 -->
+</div>
+</form>
+
+    <button (click)="registrar()"
+            [disabled]="formGroup.invalid">Registrarse</button>
+
   </div>
-</section>
+</div>
+</div>
