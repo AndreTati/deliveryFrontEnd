@@ -67,7 +67,7 @@ public cantidadLocalidades: number;
   }
 
   // METODO PARA OBTENER LAS PROVINCIAS DEL SELECT PROVINCIAS
-  obtenerTodasLasProvincias() {
+ /* obtenerTodasLasProvincias() {
     this.apiService.getAllProvincias()
       .subscribe(data => { this.provincias = data ;  this.cantidadProvincias = data.length;}
 
@@ -84,6 +84,8 @@ console.log(this.fkProvinciaAuxiliar);
 
      );
  }
+
+  */
 
 
 

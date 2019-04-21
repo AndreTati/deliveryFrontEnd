@@ -14,6 +14,11 @@
       <div class="modal-body">
         <form id="formCategoriaArticulo">
           <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" type="hidden" id="id" name="id">
+            </div>
+          </div>
+          <div class="form-group">
             <label for="nombre">Nombre Articulo</label>
             <div class="input-group">
               <input id="nombre" name="nombre" [(ngModel)]="nombre" class="form-control" placeholder="Ejemplo : Lacteos" >

@@ -29,6 +29,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TableModule} from "primeng/table";
 import {ArticulocategoriaComponent} from "./componentes/usuarioAdministrador/articulocategoria/articulocategoria.component";
 import {PlatocategoriaComponent} from "./componentes/usuarioAdministrador/platocategoria/platocategoria.component";
+import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/articulo.component';
 
 
 
@@ -46,7 +47,8 @@ import {PlatocategoriaComponent} from "./componentes/usuarioAdministrador/platoc
     ItemProductosComponent,
     CategoriasFiltroComponent,
     ArticulocategoriaComponent,
-    PlatocategoriaComponent
+    PlatocategoriaComponent,
+    ArticuloComponent
 
 
   ],

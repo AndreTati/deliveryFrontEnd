@@ -6,6 +6,8 @@ import { RegisterComponent } from './componentes/usuarios/register/register.comp
 import { Page404Component } from './componentes/usuarios/page404/page404.component';
 import { ListaProductosComponent} from './componentes/catalogo/lista-productos/lista-productos.component';
 import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
+import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
+import {ArticuloComponent} from './componentes/usuarioAdministrador/articulo/articulo.component';
 
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path: 'componentes/home', component : ListaProductosComponent },
   {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent},
   {path: '', component : ListaProductosComponent },
+  {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent},
+  {path: 'usuarioAdministrador/articulo', component : ArticuloComponent},
   {path : 'user/login', component : LoginComponent},
   {path: 'user/register', component: RegisterComponent},
   {path: 'catalogo/lista', component: ListaProductosComponent},
