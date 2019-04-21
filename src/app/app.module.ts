@@ -27,6 +27,8 @@ import {DropdownModule} from "primeng/primeng";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {TableModule} from "primeng/table";
+import {ArticulocategoriaComponent} from "./componentes/usuarioAdministrador/articulocategoria/articulocategoria.component";
+import {PlatocategoriaComponent} from "./componentes/usuarioAdministrador/platocategoria/platocategoria.component";
 
 
 
@@ -43,6 +45,8 @@ import {TableModule} from "primeng/table";
     ListaProductosComponent,
     ItemProductosComponent,
     CategoriasFiltroComponent,
+    ArticulocategoriaComponent,
+    PlatocategoriaComponent
 
 
   ],

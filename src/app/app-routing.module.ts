@@ -5,7 +5,7 @@ import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegisterComponent } from './componentes/usuarios/register/register.component';
 import { Page404Component } from './componentes/usuarios/page404/page404.component';
 import { ListaProductosComponent} from './componentes/catalogo/lista-productos/lista-productos.component';
-//import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
+import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
 
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
   // CON LOS GUARDS
   
   {path: 'componentes/home', component : ListaProductosComponent },
- // {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent},
+  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent},
   {path: '', component : ListaProductosComponent },
   {path : 'user/login', component : LoginComponent},
   {path: 'user/register', component: RegisterComponent},
