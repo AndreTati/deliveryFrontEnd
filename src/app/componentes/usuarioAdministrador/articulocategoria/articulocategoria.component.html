@@ -1,0 +1,84 @@
+<br><br><br>
+
+<div class="container">
+  <br>
+  <div class="row">
+
+    <ng-template #content let-modalArticulo>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Agregar Categoria de Articulos</h4>
+        <button type="button" class="close" aria-label="Cerrar" (click)="modalArticulo.close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="formCategoriaArticulo">
+          <div class="form-group">
+            <label for="nombre">Nombre Articulo</label>
+            <div class="input-group">
+              <input id="nombre" name="nombre" [(ngModel)]="nombre" class="form-control" placeholder="Ejemplo : Lacteos" >
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripcion</label>
+            <div class="input-group">
+
+              <input id="descripcion"  name="descripcion" [(ngModel)]="descripcion" class="form-control" placeholder="Una descripcion sobre la categoria">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" (click)="modalArticulo.close()">Enviar</button>
+      </div>
+    </ng-template>
+
+
+    <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
+
+
+
+
+    <div class="col-md-12">
+
+
+
+
+      <!-- AQUI EMPIZA EL PRIME NG TABLE -->
+      <h1 align="center" class="first">Categoria de Articulos </h1>
+      <p-table [value]="articuloCategoria">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Accion</th>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-articuloCategoria>
+          <tr>
+            <td>{{articuloCategoria.nombre}}</td>
+            <td>{{articuloCategoria.descripcion}}</td>
+            <td>
+              <button class="btn btn-sm  btn-danger" id="eliminar" value="{{articuloCategoria.id}}" >Eliminar ID: {{articuloCategoria.id}} </button>
+
+              <button class="btn btn-sm  btn-info" id="modificar" value="{{articuloCategoria.id}}" >Modificar ID: {{articuloCategoria.id}} </button>
+            </td>
+
+          </tr>
+        </ng-template>
+      </p-table>
+      <br>
+
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+</div>
+
