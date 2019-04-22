@@ -9,8 +9,7 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegisterComponent } from './componentes/usuarios/register/register.component';
 import { Page404Component } from './componentes/usuarios/page404/page404.component';
-import { FormsModule} from '@angular/forms';
-
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { environment } from '../environments/environment';
 
 import { AngularFireModule } from '@angular/fire';
@@ -27,6 +26,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {DropdownModule} from "primeng/primeng";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+import {TableModule} from "primeng/table";
+import {ArticulocategoriaComponent} from "./componentes/usuarioAdministrador/articulocategoria/articulocategoria.component";
+import {PlatocategoriaComponent} from "./componentes/usuarioAdministrador/platocategoria/platocategoria.component";
+import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/articulo.component';
+
 
 
 @NgModule({
@@ -41,15 +45,27 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     FiltroComponent,
     ListaProductosComponent,
     ItemProductosComponent,
-    CategoriasFiltroComponent
+    CategoriasFiltroComponent,
+    ArticulocategoriaComponent,
+    PlatocategoriaComponent,
+    ArticuloComponent
+
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule, HttpClientModule, DataViewModule, PanelModule, BrowserAnimationsModule, DropdownModule, NgbModule
+    AngularFireDatabaseModule,
+    HttpClientModule,
+    DataViewModule,
+    PanelModule,
+    BrowserAnimationsModule,
+    DropdownModule,
+    NgbModule,
+    TableModule
 
   ],
   providers: [AngularFireAuth],

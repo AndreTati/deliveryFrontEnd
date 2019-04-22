@@ -1,196 +1,175 @@
-<br> 
-<section id="register" class="mb-5 mt-5">
-  <div class="container">
-    <div class="row">
-     <div class="col-xs-12 col-sm-6 col-md-4 mx-auto">
-        <div class="card_register">
-          <div class="card">
-            <div class="card-body text-center">
+<!-- Comienzo formulario registro -->
+<br>
+<div class="container">
+<div class="card">
+  <div class="card-body text-center">
+<form [formGroup]="registroUsuario" (ngSubmit)="registrar()">
+<div class="row">
+  <div class="col">
 
-              <form class="box" [formGroup]="ngForm" (ngSubmit)="onAddUser()">
-                  <h1 class="h3 mb-3 font-weight-normal">A GOOD TASTE </h1>
-                <h2 class="h3 mb-3 font-weight-normal">Registro</h2>
-                <div class="alert alert-danger" role="alert" *ngIf="isError">
-                  {{msgError}}
-                </div>
+    <!-- NOMBRE -->
+    <div class="form-group">
+  <input type="text"
+         name="nombre"
+         formControlName="nombre"
+         placeholder="Nombre">
 
-                <!-- EMAIL -->
-                <div class="form-group">
-                  <input type="email" formControlName="email" class="form-control" placeholder="Correo Electronico" [(ngModel)]="email" required minlength="8">
-                </div>
-                <div class="alert alert-danger" role="alert" *ngIf="email.touched && !email.valid">
-                  <div *ngIf="email.errors.required">Email es obligatorio :(</div>
-                  <div *ngIf="email.errors.minlength">Email debe tener al menos 8 caracteres</div>
-                </div>
+  </div>
+  <!-- APELLIDO -->
+    <div class="form-group">
+      <div>
+  <input type="text"
+         name="apellido"
+         formControlName="apellido"
+         placeholder="Apellido">
+  </div>
+  </div>
 
-                <!-- PASSWORD -->
-                <div class="form-group">
-                  <input type="password" formControlName="password" class="form-control" placeholder="Contraseña" [(ngModel)]="password" required minlength="6"
-                    maxlength="10">
-                </div>
-                <div class="alert alert-danger" role="alert" *ngIf="password.touched && !password.valid">
-                  <div *ngIf="password.errors.required">La contraseña es obligatoria</div>
-                  <div *ngIf="password.errors.minlength">Contraseña debe tener al menos 5 caracteres</div>
-                </div>
+  <!-- EMAIL -->
+    <div class="form-group">
+  <div>
+  <input type="email"
+         name="email"
+         formControlName="email"
+         placeholder="Correo Electronico">
+  </div>
+  </div>
 
-                <!-- NOMBRE -->
-                <div class="form-group">
-                  <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.error}"/>
-                  <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-                    <div *ngIf="f.nombre.errors.required">Por favor, ingresa tu Nombre</div>
-                  </div>
-                </div>
+  <!-- PASSWORD -->
+    <div class="form-group">
+  <div>
+  <input type="password"
+         name="password"
+         formControlName="password"
+         placeholder="Contraseña">
+  </div>
+  </div>
 
-                <!-- APELLIDO -->
-                <div class="form-group">
-                  <input type="text" formControlName="apellido" class="form-control" placeholder="Apellido" [ngClass]="{ 'is-invalid': submitted && f.apellido.errors }" />
-                  <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
-                    <div *ngIf="f.apellido.errors.required">Por favor, ingresa tu Apellido</div>
-                  </div>
-                </div>
+  <!-- TELEFONO -->
+    <div class="form-group">
+  <div>
+  <input type="number"
+         name="telefono"
+         formControlName="telefono"
+         placeholder="Telefono">
+  </div>
+  </div>
 
-                <!-- DNI -->
-                <div class="form-group">
-                  <input type="text" formControlName="dni" class="form-control" placeholder="DNI" [ngClass]="{ 'is-invalid': submitted && f.dni.errors }" />
-                  <div *ngIf="submitted && f.dni.errors" class="invalid-feedback">
-                    <div *ngIf="f.dni.errors.required">El DNI es obligatorio</div>
+  <!-- DNI -->
+    <div class="form-group">
+  <div>
+  <input type="text"
+         name="dni"
+         formControlName="dni"
+         placeholder="DNI">
+  </div>
+  </div>
 
-                  </div>
-                </div>
+  <!-- FECHA DE NACIMIENTO -->
+    <div class="form-group">
+  <div>
+  <input type="date"
+         name="fechaNacimiento"
+         formControlName="fechaNacimiento"
+         placeholder="fechaNacimiento">
+  </div>
+  </div>
 
-                <!-- TELEFONO -->
-                <div class="form-group">
-                  <input type="number" formControlName="telefono" class="form-control" placeholder="Telefono" [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" />
-                  <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
-                    <div *ngIf="f.telefono.errors.required">El telefono es obligatorio</div>
+  <!-- SEXO -->
+    <div class="form-group">
+  <div>
+  <input type="radio"
+         name="sexo"
+         value="Hombre"> Hombre
+    <input type="radio"
+           name="sexo"
+           value="Mujer"> Mujer
+  </div>
+  </div>
+  </div><!--FIN COLUMNA 1-->
 
-                  </div>
-                </div>
-
-                <!-- FECHA DE NACIMIENTO -->
-                <div class="form-group">
-                  <h5><label>Fecha de Nacimiento</label></h5>
-                  <input type="date" formControlName="fechaNacimiento" class="form-control" placeholder="Fecha de Nacimiento" [ngClass]="{ 'is-invalid': submitted && f.fechaNacimiento.errors }" />
-                  <div *ngIf="submitted && f.fechaNacimiento.errors" class="invalid-feedback">
-
-                  </div>
-                </div>
-
-                <!-- SEXO -->
-                <div class="form-group" formControlName="sexo">
-                  <h5>Sexo</h5><br>
-                  <label><input type="radio" id="masculino"  value="masculino" formControlName="sexo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" /><span>Masculino</span></label>
-                  <label><input type="radio" id="femenino"  value="femenino" formControlName="sexo" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sexo.errors }" /><span>Femenino</span></label>
-
-                  <div *ngIf="submitted && f.sexo.errors" class="invalid-feedback">
-                  </div>
-                </div>
-            
-            
-                <!--DESPLEGABLE DE DOMICILIO PARA RELLENAR LOS CAMPOS-->
-
-
-            <p>
-              <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                Domicilio (Tocar Boton)
-              </a>
-            </p>
-            <div class="collapse" id="collapseExample">
-              <div class="card card-body">
-                  <div class="form-group">
-                    <input type="text" formControlName="calle"  class="form-control" placeholder="Calle" />
-                      <div *ngIf="submitted && f.calle.errors" class="invalid-feedback">
-                          <div *ngIf="f.calle.errors.required">La calle es obligatoria</div>
-                       </div>
-                  </div>
-                <!-- NUMERO CALLE -->
-                  <div class="form-group">
-                    <input type="number" formControlName="numerocalle"  class="form-control" placeholder="Numero Calle"/>
-                      <div *ngIf="submitted && f.numerocalle.errors" class="invalid-feedback">
-                          <div *ngIf="f.numerocalle.errors.required">El numero de la calle es obligatorio</div>
-                          
-                      </div>
-                  </div>
-                <!-- NUMERO PISO -->
-                  <div class="form-group">
-                    <input type="number" formControlName="numeropiso" class="form-control" placeholder="Piso" />
-                      <div *ngIf="submitted && f.numeropiso.errors" class="invalid-feedback">
-                         </div>
-                  </div>
-
-                <!-- NUMERO DEPTO -->
-                  <div class="form-group">
-                    <input type="number" formControlName="numerodepto"  class="form-control" placeholder="Departamento" />
-                      <div *ngIf="submitted && f.numerodepto.errors" class="invalid-feedback">
-                            </div>
-                  </div>
-
-                <!-- PROVINCIA -->
-                <div class="form-group" formControlName="provincia">
-                  <h5>Provincia</h5>
-                  <div  class="form-control">
-                    <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownProvincias" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Localidad
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                        <a class="dropdown-item" href="#provincias">
-                          <li *ngFor = "let nombre of provincias; let indice = index"  class="btn btn-info list-inline-item" id={{provincias[indice].id} name={{provincias[indice].nombre}}}>{{nombre}}</li>
-                        </a>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- LOCALIDAD
-                  <div class="form-group" formControlName="localidad">
-                      <h5>Localidad</h5>
-                      <div  class="form-control">
-                        <div class="dropdown">
-                          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownLocalidades" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Localidad
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                            <a class="dropdown-item" href="#">
-                              <li *ngFor = "let localidadesLista of localidades ; let indice=index"  class="btn btn-info list-inline-item" id=  {{localidades[indice].id} name=  {{localidades[indice].nombre}}}>{{localidades[indice].nombre}}</li>
-                            </a>
-
-                          </div>
-                        </div>
-                          </div>
-                      </div>
-                -->
-                <!-- CODIGO POSTAL -->
-                <div class="form-group">
-
-                  <input type="number" formControlName="codigopostal" class="form-control" placeholder="Codigo Postal" [ngClass]="{ 'is-invalid': submitted && f.codigopostal.errors }" />
-                  <div *ngIf="submitted && f.codigopostal.errors" class="invalid-feedback">
-                    <div *ngIf="f.codigopostal.errors.maxlength">Codigo postal hasta 5 numeros</div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
+  <div class="col">
 
 
-<!-- BOTON DE REGISTRAR EL FORM -->
-                <hr>
-                
-                <button  type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
-                <ng-template #btnDisabled>
-                  <button type="submit" disabled=true class="btn btn-lg btn-secondary btn-block">Registrar</button>
-                </ng-template>
-                <div class="form-group">
-                  <a routerLink="/user/login" class="form-control login-user">Tienes una cuenta?</a>
-                </div>
-              </form>
-            </div>
-          </div>
+
+<!-- BOTON DOMICILIO DESPLEGABLE-->
+    <p>
+      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        + Domicilio
+      </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+
+        <!-- PROVINCIA -->
+        <div class="form-group">
+        <div ng-app="myApp" ng-controller="provinciaCtrl">
+          <select name="provincia"
+                  formControlName="provincia"
+                  (change)="obtenerLocalidades($event)">
+            <option value="">Selecciona Provincia</option>
+            <option [value]="provincia.id" *ngFor="let provincia of provincias">
+              {{provincia.nombre}}
+            </option>
+          </select>
         </div>
+      </div>
+
+        <!-- LOCALIDAD -->
+        <div class="form-group">
+          <div ng-app="selectLocalidad" ng-controller="localidadCtrl">
+            <select name="localidad"
+                    formControlName="localidad">
+              <option value="">Seleccionar Localidad</option>
+              <ng-container *ngFor="let localidad of localidades">
+                <option *ngIf="localidad.provincia.id == fkProvinciaAuxiliar">
+                  {{localidad.nombre}}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+
+          <input type="text"
+                 name="calle"
+                 formControlName="calle"
+                 placeholder="Calle">
+        </div>
+
+
+        <div class="form-group">
+        <input type="number"
+               name="numero"
+               formControlName="numero"
+               placeholder="Numero">
+      </div>
+
+        <!-- Departamento -->
+        <div class="form-group">
+        <input type="number"
+               name="departamento"
+               formControlName="departamento"
+               placeholder="N° Depto">
+      </div>
+
+        <!-- CP -->
+        <div class="form-group">
+        <input type="number"
+               name="codigopostal"
+               formControlName="codigopostal"
+               placeholder="Codigo Postal">
       </div>
     </div>
   </div>
-</section>
+
+
+  </div><!-- Fin Columna 2 -->
+</div>
+</form>
+
+    <button (click)="registrar()"
+            [disabled]="registroUsuario.invalid">Registrarse</button>
+
+  </div>
+</div>
+</div>
+
