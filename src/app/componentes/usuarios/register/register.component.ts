@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Provincia } from "./listarLocalidades";
 import { Localidad } from "./listarLocalidades";
 import { DataApiService} from '../../../servicios/data-api.service';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -67,7 +67,7 @@ public cantidadLocalidades: number;
   }
 
   // METODO PARA OBTENER LAS PROVINCIAS DEL SELECT PROVINCIAS
- /* obtenerTodasLasProvincias() {
+  obtenerTodasLasProvincias() {
     this.apiService.getAllProvincias()
       .subscribe(data => { this.provincias = data ;  this.cantidadProvincias = data.length;}
 
@@ -85,16 +85,12 @@ console.log(this.fkProvinciaAuxiliar);
      );
  }
 
-  */
-
-
-
-
-  // Metodo para registrar a los clientes
+ 
+ // Metodo para registrar a los clientes
   registrar() {
 const usuario = this.registroUsuario.value;
 console.log(usuario);
-    this.authService.registerUser(this.email, this.password)
+this.authService.registerUser(this.email, this.password)
 
  .then((res) => {
 this.router.navigate(['/componentes/home']);

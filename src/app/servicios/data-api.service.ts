@@ -3,11 +3,13 @@ import { HttpClient} from '@angular/common/http';
 import {productosInteface} from '../componentes/catalogo/lista-productos/item-productos/productosInterface';
 import { Observable } from 'rxjs';
 import {categoriasInterface} from '../componentes/catalogo/filtro/categorias-filtro/categoriasInterface';
-//import {ProvinciasInterface} from '../componentes/usuarios/register/ProvinciasInterface';
-//import { LocalidadesInterface} from '../componentes/usuarios/register/LocalidadesInterface';
+
+
 import {articuloCategoriaInterface} from '../componentes/usuarioAdministrador/articulocategoria/articuloCategoriaInterface';
-import {platoCategoriaInterface} from "../componentes/usuarioAdministrador/platocategoria/platoCategoriaInterface";
-import {articuloInterface} from "../componentes/usuarioAdministrador/articulo/articuloInterface";
+import {platoCategoriaInterface} from '../componentes/usuarioAdministrador/platocategoria/platoCategoriaInterface';
+import {articuloInterface} from '../componentes/usuarioAdministrador/articulo/articuloInterface';
+import {Localidad} from '../componentes/usuarios/register/listarLocalidades';
+import {Provincia} from "../componentes/usuarios/register/listarLocalidades";
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +30,13 @@ export class DataApiService {
   getAllCategorias(): Observable<categoriasInterface[]> {
     return this.httpClientApi.get<categoriasInterface[]>(this._urlAllCategorias);
   }
-
-  /*getAllProvincias(): Observable<ProvinciasInterface[]> {
-    return this.httpClientApi.get<ProvinciasInterface[]>(this._urlAllProvincias);
+// METODOS PARA OBTENER PROVINCIAS Y LOCALIDADES EN EL SELECT DEL FORMULARIO
+  getAllProvincias(): Observable<Provincia[]> {
+    return this.httpClientApi.get<Provincia[]>(this._urlAllProvincias);
   }
-  getAllLocalidades(): Observable<LocalidadesInterface[]> {
-    return this.httpClientApi.get<LocalidadesInterface[]>(this._urlAllLocalidades);
-  } */
+  getAllLocalidades(): Observable<Localidad[]> {
+    return this.httpClientApi.get<Localidad[]>(this._urlAllLocalidades);
+  }
   getAllArticuloCategoria(): Observable <articuloCategoriaInterface[]> {
     return this.httpClientApi.get<articuloCategoriaInterface[]>(this._urlAllArticuloCategoria);
   }
