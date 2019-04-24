@@ -52,7 +52,8 @@
       <!-- AQUI EMPIZA EL PRIME NG TABLE -->
       <h1 align="center" class="first">Categoria de Articulos </h1>
       <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
-      <p-table [value]="articuloCategoria">
+      <p-table [value]="articuloCategoria" [paginator]="true"
+               [rows]="5" [totalRecords]="articuloCategoria.length">
         <ng-template pTemplate="header">
           <tr>
             <th>Nombre</th>

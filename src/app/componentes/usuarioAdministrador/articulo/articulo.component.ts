@@ -23,7 +23,7 @@ export class ArticuloComponent implements OnInit {
   public precioVenta: number;
   public fk_categoria: number;
   public fk_unidadMedida:number;
-  public fk_imagen: number;
+  public fk_imagen : number;
   constructor(public apiService: DataApiService, private modalService: NgbModal) { }
 
   ngOnInit() {

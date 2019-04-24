@@ -53,7 +53,8 @@
       <!-- AQUI EMPIZA EL PRIME NG TABLE -->
       <h1 align="center" class="first">Categoria de Platos</h1>
       <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
-      <p-table [value]="platoCategoria">
+      <p-table [value]="platoCategoria" [paginator]="true"
+               [rows]="5" [totalRecords]="platoCategoria.length">
         <ng-template pTemplate="header">
           <tr>
             <th>Nombre</th>
@@ -65,7 +66,7 @@
         <ng-template pTemplate="body" let-platoCategoria>
           <tr>
             <td>{{platoCategoria.nombre}}</td>
-            <td>{{platoCategoria.porcentajeGanancia}}</td>
+            <td>{{platoCategoria.porcentajeGanancia}} % </td>
             <td>
               <button class="btn btn-sm  btn-danger" id="eliminar" value="{{platoCategoria.id}}" >Eliminar ID: {{platoCategoria.id}} </button>
 
