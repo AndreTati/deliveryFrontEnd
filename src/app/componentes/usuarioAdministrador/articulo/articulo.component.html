@@ -132,88 +132,121 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="col-md-12">
 
       <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
       <br>
 
-      <p-dataView #dv [value]="articulos"
-                  filterBy="nombre,categoria.nombre"
-                  [paginator]="true"
-                  [rows]="8"
-                  [totalRecords]="cantidadArticulos"
-                  layout="grid">
+      <!--  <p-dataView #dv [value]="articulos"
+                    filterBy="nombre,categoria.nombre"
+                    [paginator]="true"
+                    [rows]="8"
+                    [totalRecords]="cantidadArticulos"
+                    layout="grid">
 
-        <p-header>
-          <div class="ui-helper-clearfix">
-            <div class="ui-g">
+          <p-header>
+            <div class="ui-helper-clearfix">
+              <div class="ui-g">
 
-              <div class="ui-g-6 ui-md-5 filter-container">
+                <div class="ui-g-6 ui-md-5 filter-container">
 
-                <div style="position:relative">
-                  <input type="search" class="form-control form-control-lg form-control-borderless" pInputText
-                         placeholder="Busca por nombre o categoria " (keyup)="dv.filter($event.target.value)">
+                  <div style="position:relative">
+                    <input type="search" class="form-control form-control-lg form-control-borderless" pInputText
+                           placeholder="Busca por nombre o categoria " (keyup)="dv.filter($event.target.value)">
+
+                  </div>
+                </div>
+                <div class="ui-g-6 ui-md-4" style="text-align:right">
 
                 </div>
               </div>
-              <div class="ui-g-6 ui-md-4" style="text-align:right">
-
-              </div>
             </div>
-          </div>
-        </p-header>
+          </p-header>
 
 
-        <ng-template let-articulos pTemplate="gridItem">
-          <div style="padding:.5em" class="ui-g-12 ui-md-3">
-            <p-panel [header]="articulos.nombre" [style]="{'text-align':'center'}">
-              <div id="imagen"> <img src={{articulos.imagen.url}} style='height: 125px; width: 125px; '></div>
-
-              <div class="articulo-detalle">Descripcion:{{articulos.descripcion}} </div>
-              <div class="articulo-detalle">Precio Compra : $ {{articulos.precioCompra}}</div>
-              <div class="articulo-detalle">Precio Venta : $ {{articulos.precioVenta}}</div>
-              <div class="articulo-detalle">Stock Actual  :  {{articulos.stock}}</div>
-              <div class="articulo-detalle">Stock Maximo:  {{articulos.stockMaximo}}</div>
-              <div class="articulo-detalle">Stock Minimo:  {{articulos.stockMinimo}}</div>
-              <div class="articulo-detalle">Es Insumo:  {{articulos.esInsumo}}</div>
-              <div class="articulo-detalle">Categoria:  {{articulos.categoria.nombre}}</div>
-              <div class="articulo-detalle">Unidad de medida:  {{articulos.unidadMedida.nombre}} | {{articulos.unidadMedida.abreviatura}}</div>
+         <ng-template let-articulos pTemplate="gridItem">
+                    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                      <p-panel [header]="articulos.nombre" [style]="{'text-align':'center'}">
+                        <div id="imagen"> <img src={{articulos.imagen.url}} style='height: 125px; width: 125px; '></div>
 
 
-              <hr class="ui-widget-content" style="border-top:0">
+                        <div class="articulo-detalle">Precio Compra : $ {{articulos.precioCompra}}</div>
+                        <div class="articulo-detalle" *ngIf="!articulos.esInsumo">Precio Venta : $ {{articulos.precioVenta}}</div>
+                        <div class="articulo-detalle">Stock Actual  :  {{articulos.stock}}</div>
+                        <button type="button" class="btn btn-outline-secondary mr-2" placement="top"
+                                ngbPopover=" {{articulos.descripcion}}
+                                            |Stock Maximo:  {{articulos.stockMaximo}}
+                                            |Stock Minimo:  {{articulos.stockMinimo}}
 
-              <div class="btn-group ">
+                                            |Categoria:  {{articulos.categoria.nombre}}
+                                            |Unidad de medida:  {{articulos.unidadMedida.nombre}} : {{articulos.unidadMedida.abreviatura}}
+                                                " popoverTitle={{articulos.nombre}}>
+                          Mas Info <i class="fa fa-info"></i>
+                        </button>
 
-                <button type="button" id={{articulos.id}} class="btn-info" >
-                       Modificar
-                </button>
-                <button type="button" value={{articulos.id}} class="btn-danger" >
-                  Eliminar
-                </button>
-              </div>
-            </p-panel>
-          </div>
+                        <hr class="ui-widget-content" style="border-top:0">
+
+                        <div class="btn-group ">
+
+                          <button type="button" id={{articulos.id}} class="btn-info" >
+                                 Modificar
+                          </button>
+                          <button type="button" value={{articulos.id}} class="btn-danger" >
+                            Eliminar
+                          </button>
+                        </div>
+                      </p-panel>
+                    </div>
+                  </ng-template>
+
+
+        </p-dataView>   -->
+
+      <p-table [value]="articulos" [responsive]="true" [paginator]="true"
+               [rows]="5" [totalRecords]="articulos.length">
+        <ng-template pTemplate="header">
+          <tr>
+            <th >Nombre Articulo</th>
+            <th>Descripcion </th>
+            <th>Precio Compra</th>
+            <th>Precio Venta</th>
+            <th>Stock Minimo </th>
+            <th>Stock Maximo</th>
+            <th>Stock Actual</th>
+            <th>Estado Insumo</th>
+            <th>Categoria</th>
+            <th>Unidad Medida </th>
+            <th>Accion </th>
+
+          </tr>
         </ng-template>
+        <ng-template pTemplate="body" let-articulos>
+          <tr>
+            <td >  <div id="imagen" align="center"> <img src={{articulos.imagen.url}} style='height: 50px; width: 50px; '></div> {{articulos.nombre}}</td>
+            <td>{{articulos.descripcion}}</td>
+            <td>{{articulos.precioCompra}}</td>
+            <td>{{articulos.precioVenta}}</td>
+            <td>{{articulos.stockMinimo}}</td>
+            <td>{{articulos.stockMaximo}}</td>
+            <td>{{articulos.stock}}</td>
+            <td *ngIf="articulos.esInsumo">Si</td>
+            <td *ngIf="!articulos.esInsumo">No</td>
+
+            <td>{{articulos.categoria.nombre}}</td>
+            <td>{{articulos.unidadMedida.nombre}}</td>
+            <td>
+
+              <button type="button" value={{articulos.id}} class="btn-info btn-sm" >Modificar</button>
+              <button type="button" value={{articulos.id}} class="btn-danger btn-sm" >Eliminar</button>
 
 
-      </p-dataView>
+
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+
 
 
 
@@ -221,5 +254,5 @@
 
       <br>
     </div>
-   </div>
+  </div>
 </div>

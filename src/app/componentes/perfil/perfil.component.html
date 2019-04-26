@@ -1,0 +1,176 @@
+<hr>
+<hr>
+<br>
+
+<div class="container">
+
+  <div class="card">
+
+    <div class="card-body">
+
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-2" align="center">
+          <br>
+          <table class="table table-borderless text-center">
+            <tbody>
+            <tr>
+              <td>
+
+                <img
+                  src="https://img.freepik.com/vector-gratis/lado-soleado-arriba-huevo-frito-grafico-ilustracion_53876-9119.jpg?size=338&ext=jpg"
+                  class="card-img-top rounded-circle img-thumbnail" alt="...">
+
+              </td>
+            </tr>
+            <tr>
+
+              <h6>{{cliente.email}}</h6>
+
+            </tr>
+            <tr>
+
+              <br>
+              <button type="button" class="btn btn-success btn-lg btn-block">EDITAR</button>
+              <br>
+
+            </tr>
+            <tr>
+
+              <button type="button" class="btn btn-danger btn-lg btn-block">PEDIDOS</button>
+
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="col-md-8">
+          <br>
+          <div class="card">
+            <h5 class="card-header">Datos personales</h5>
+            <div class="card-body">
+
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="nombre"><img
+                    src="https://img.icons8.com/material/24/000000/name.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Nombre" aria-describedby="basic-addon1"
+                       [value]="cliente.nombre" pTooltip="Ingrese su nombre" tooltipPosition="top">
+                <input type="text" class="form-control" placeholder="Apellido" aria-describedby="basic-addon1"
+                       [value]="cliente.apellido" pTooltip="Ingrese su apellido" tooltipPosition="top">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="dni"><img
+                    src="https://img.icons8.com/material/24/000000/identification-documents.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="DNI" aria-describedby="basic-addon1"
+                       [value]="cliente.dni" pTooltip="Ingrese su DNI" tooltipPosition="top">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="telefono"><img
+                    src="https://img.icons8.com/material/24/000000/phone.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Telefono" aria-describedby="basic-addon1"
+                       [value]="cliente.telefono" pTooltip="Ingrese su telefono" tooltipPosition="top">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="sexo"><img
+                    src="https://img.icons8.com/material/24/000000/transgender.png"></span>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01" pTooltip="Ingrese su sexo" tooltipPosition="top">
+                  <option value="1" [selected]="cliente.sexo=='Femenino'">Femenino</option>
+                  <option value="2" [selected]="cliente.sexo=='Masculino'">Masculino</option>
+                </select>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="nacimiento"><img
+                    src="https://img.icons8.com/material/24/000000/birthday.png"></span>
+                </div>
+                <input class="form-control" type="date" value="{{cliente.fechaNacimiento | date: 'yyyy-MM-dd'}}"
+                       id="fnacimiento" pTooltip="Ingrese su fecha de nacimiento" tooltipPosition="top">
+              </div>
+
+            </div>
+          </div>
+
+          <br>
+          <div class="card">
+            <h5 class="card-header">Domicilio</h5>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="calle"><img
+                    src="https://img.icons8.com/material/24/000000/address.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Calle" aria-describedby="basic-addon1"
+                       [value]="cliente.domicilio.calle" pTooltip="Ingrese su calle" tooltipPosition="top">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="numero"><img
+                    src="https://img.icons8.com/material/24/000000/7.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Numero" aria-describedby="basic-addon1"
+                       [value]="cliente.domicilio.numero" pTooltip="Ingrese su número de calle" tooltipPosition="top">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="CP"><img
+                    src="https://img.icons8.com/material/24/000000/zip-code.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Codigo Postal" aria-describedby="basic-addon1"
+                       [value]="cliente.domicilio.cp" pTooltip="Ingrese su código postal" tooltipPosition="top">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="Piso"><img
+                    src="https://img.icons8.com/material/24/000000/building.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Piso" aria-describedby="basic-addon1"
+                       [value]="cliente.domicilio.piso" pTooltip="Ingrese si es que tiene un nº de departamento"
+                       tooltipPosition="top">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="departamento"><img
+                    src="https://img.icons8.com/material/24/000000/department.png"></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Departamento" aria-describedby="basic-addon1"
+                       [value]="cliente.domicilio.departamento" pTooltip="Ingrese si es que tiene un nº de departamento"
+                       tooltipPosition="top">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="provincia"><img
+                    src="https://img.icons8.com/material/24/000000/city-hall.png"></span>
+                </div>
+                <select class="custom-select" id="inputGroupSelect" pTooltip="Ingrese su provincia"
+                        tooltipPosition="top"
+                        (change)="getLocalidad($event)">
+                  <option value="{{provincia.id}}" [selected]="provincia.id==cliente.domicilio.localidad.provincia.id"
+                          *ngFor="let provincia of provincias">{{provincia.nombre}}</option>
+                </select>
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="localidad"><img
+                    src="https://img.icons8.com/material/24/000000/city.png"></span>
+                </div>
+                <select class="custom-select" id="inputGroupSelect2" pTooltip="Ingrese su localidad"
+                        tooltipPosition="top">
+                  <ng-container *ngFor="let localidad of localidades">
+                    <option value="{{localidad.id}}" [selected]="localidad.id==cliente.domicilio.localidad.id"
+                            *ngIf="localidad.provincia.id==provinciaSeleccionada">{{localidad.nombre}}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-1"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

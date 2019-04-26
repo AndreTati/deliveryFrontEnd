@@ -4,41 +4,6 @@
   <br>
   <div class="row">
 
-    <ng-template #content let-modalArticulo>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Agregar Categoria de Articulos</h4>
-        <button type="button" class="close" aria-label="Cerrar" (click)="modalArticulo.close()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formCategoriaArticulo">
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" type="hidden" id="id" name="id">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="nombre">Nombre Articulo</label>
-            <div class="input-group">
-              <input id="nombre" name="nombre" [(ngModel)]="nombre" class="form-control" placeholder="Ejemplo : Lacteos" >
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="descripcion">Descripcion</label>
-            <div class="input-group">
-
-              <input id="descripcion"  name="descripcion" [(ngModel)]="descripcion" class="form-control" placeholder="Una descripcion sobre la categoria">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-dark" (click)="modalArticulo.close()">Enviar</button>
-      </div>
-    </ng-template>
-
-
 
 
 
@@ -48,38 +13,71 @@
 
 
 
-
-      <!-- AQUI EMPIZA EL PRIME NG TABLE -->
-      <h1 align="center" class="first">Categoria de Articulos </h1>
-      <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
-      <p-table [value]="articuloCategoria">
-        <ng-template pTemplate="header">
+      <p-table  [columns]="columnas"  [value]="articuloCategoria" selectionMode="single" (onRowSelect)="filaSeleccionada($event)" [(selection)]="articuloSeleccionado"   [paginator]="true" [rows]="5">
+        <ng-template pTemplate="caption">
+          Categoria de Articulos
+        </ng-template>
+        <ng-template pTemplate="header" let-columnas>
           <tr>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Accion</th>
-
+            <th *ngFor="let columna of columnas" [pSortableColumn]="columna.field">
+              {{columna.header}}
+              <p-sortIcon [field]="columna.field"></p-sortIcon>
+            </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-articuloCategoria>
-          <tr>
-            <td>{{articuloCategoria.nombre}}</td>
-            <td>{{articuloCategoria.descripcion}}</td>
-            <td>
-              <button class="btn btn-sm  btn-danger" id="eliminar" value="{{articuloCategoria.id}}" >Eliminar ID: {{articuloCategoria.id}} </button>
 
-              <button class="btn btn-sm  btn-info" id="modificar" value="{{articuloCategoria.id}}" >Modificar ID: {{articuloCategoria.id}} </button>
+        <ng-template pTemplate="body" let-dataFila let-columnas="columns">
+          <tr [pSelectableRow]="dataFila">
+            <td *ngFor="let columna of columnas">
+              {{dataFila[columna.field]}}
             </td>
-
           </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary" let-dataFila>
+          <div style="text-align:left">
+            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Agregar"></button>
+          </div>
         </ng-template>
       </p-table>
-      <br>
 
+      <p-dialog header="Detalle de la Categoria" [(visible)]="mostrarDialogo" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+        <div class="ui-g ui-fluid" *ngIf="articulo">
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="id">ID</label>
+            </div>
+            <div class="ui-g-8">
+              <input  pInputText id="id"  readonly="readonly" disabled="disabled" [(ngModel)]="articulo.id" />
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="nombre">Nombre</label>
+            </div>
+            <div class="ui-g-8">
+              <input pInputText id="nombre" [(ngModel)]="articulo.nombre" />
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="descripcion">Descripcion</label>
+            </div>
+            <div class="ui-g-8">
 
+              <textarea pInputTextarea id="descripcion" autoResize="autoResize" [(ngModel)]="articulo.descripcion" ></textarea>
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button " class="ui-button-rounded ui-button-danger" pButton icon="fa fa-close" (click)="eliminar()" label="Eliminar"></button>
+            <button type="button"  class="ui-button-rounded ui-button-success" pButton icon="fa fa-check" (click)="guardar()" label="Guardar"></button>
+          </div>
+        </p-footer>
+      </p-dialog>
 
-
-
+    <br>
 
 
     </div>

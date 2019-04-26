@@ -15,7 +15,7 @@ export class AuthService {
   registerUser  ( email:string ,pass:string ) { 
  return new Promise ((resolve,reject )=> {
    this.afsAuth.auth.createUserWithEmailAndPassword(email,pass)
-   .then(userData=>  {resolve (userData)
+   .then(userData =>  {resolve (userData)
    alert ("Joya");
   
   },

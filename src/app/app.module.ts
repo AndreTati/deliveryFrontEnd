@@ -9,7 +9,7 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegisterComponent } from './componentes/usuarios/register/register.component';
 import { Page404Component } from './componentes/usuarios/page404/page404.component';
-import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 
 import { AngularFireModule } from '@angular/fire';
@@ -20,16 +20,17 @@ import { ListaProductosComponent } from './componentes/catalogo/lista-productos/
 import { ItemProductosComponent } from './componentes/catalogo/lista-productos/item-productos/item-productos.component';
 import {HttpClientModule} from '@angular/common/http';
 import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categorias-filtro/categorias-filtro.component';
-import {DataViewModule} from "primeng/dataview";
-import {PanelModule} from "primeng/panel";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {DropdownModule} from "primeng/primeng";
+import {DataViewModule} from 'primeng/dataview';
+import {PanelModule} from 'primeng/panel';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ButtonModule, ChartModule, DialogModule, DropdownModule, TooltipModule} from 'primeng/primeng';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import {TableModule} from "primeng/table";
-import {ArticulocategoriaComponent} from "./componentes/usuarioAdministrador/articulocategoria/articulocategoria.component";
-import {PlatocategoriaComponent} from "./componentes/usuarioAdministrador/platocategoria/platocategoria.component";
+import {TableModule} from 'primeng/table';
+import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
+import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
 import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/articulo.component';
+import {PerfilComponent} from './componentes/perfil/perfil.component';
 
 
 
@@ -48,7 +49,7 @@ import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/a
     CategoriasFiltroComponent,
     ArticulocategoriaComponent,
     PlatocategoriaComponent,
-    ArticuloComponent
+    ArticuloComponent, PerfilComponent
 
 
   ],
@@ -65,7 +66,12 @@ import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/a
     BrowserAnimationsModule,
     DropdownModule,
     NgbModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    ButtonModule,
+    TooltipModule,
+    ChartModule,
+
 
   ],
   providers: [AngularFireAuth],

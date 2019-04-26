@@ -11,35 +11,32 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth,private router : Router, private authService : AuthService) {
+  constructor(public afAuth: AngularFireAuth, private router: Router, private authService: AuthService) {
   }
-  public email:string = '';
-  public password:string = '';
-  public isLogged:boolean = false ;
-  public isError: boolean = false;
-  public msgError: string = "";
+  public email = '';
+  public password = '';
+  public isLogged = false ;
+  public isError = false;
+  public msgError = '';
+
   ngOnInit() {
 
   }
 
-  onLogin (): void  {
+  onLogin(): void  {
     this.authService.loginEmailUser(this.email, this.password)
-    .then((res)=>{
-       alert("Bienvenido: "+ this.email);
-       this.isLogged= true;
-       this.isError= false;
+    .then((res) => {
+       alert('Bienvenido:' + this.email);
+       this.isLogged = true;
+       this.isError = false;
        this.router.navigate(['']);
-      
+
     }).catch(err => {
-    this.msgError= err; 
-    this.isError= true;
-    }); 
+    this.msgError = err;
+    this.isError = true;
+    });
   }
-  
 
-  onLoginRedirect () : void {
-
-  }
 
 
 }
