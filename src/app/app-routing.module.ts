@@ -8,6 +8,7 @@ import { ListaProductosComponent} from './componentes/catalogo/lista-productos/l
 import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
 import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
 import {ArticuloComponent} from './componentes/usuarioAdministrador/articulo/articulo.component';
+import {PerfilComponent} from './componentes/perfil/perfil.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path : 'user/login', component : LoginComponent},
   {path: 'user/register', component: RegisterComponent},
   {path: 'catalogo/lista', component: ListaProductosComponent},
+  {path: 'user/perfil', component: PerfilComponent},
   {path: '**', component: Page404Component}
   
 

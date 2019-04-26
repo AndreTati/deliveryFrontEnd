@@ -30,7 +30,9 @@ import {TableModule} from "primeng/table";
 import {ArticulocategoriaComponent} from "./componentes/usuarioAdministrador/articulocategoria/articulocategoria.component";
 import {PlatocategoriaComponent} from "./componentes/usuarioAdministrador/platocategoria/platocategoria.component";
 import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/articulo.component';
-
+import { PerfilComponent } from './componentes/perfil/perfil.component';
+import {TooltipModule} from 'primeng/tooltip';
+import {IconsModule} from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/a
     CategoriasFiltroComponent,
     ArticulocategoriaComponent,
     PlatocategoriaComponent,
-    ArticuloComponent
+    ArticuloComponent,
+    PerfilComponent
 
 
   ],
@@ -65,7 +68,9 @@ import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/a
     BrowserAnimationsModule,
     DropdownModule,
     NgbModule,
-    TableModule
+    TableModule,
+    TooltipModule,
+    IconsModule
 
   ],
   providers: [AngularFireAuth],
