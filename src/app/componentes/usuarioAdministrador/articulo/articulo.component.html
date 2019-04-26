@@ -137,77 +137,77 @@
       <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
       <br>
 
-    <!--  <p-dataView #dv [value]="articulos"
-                  filterBy="nombre,categoria.nombre"
-                  [paginator]="true"
-                  [rows]="8"
-                  [totalRecords]="cantidadArticulos"
-                  layout="grid">
+      <!--  <p-dataView #dv [value]="articulos"
+                    filterBy="nombre,categoria.nombre"
+                    [paginator]="true"
+                    [rows]="8"
+                    [totalRecords]="cantidadArticulos"
+                    layout="grid">
 
-        <p-header>
-          <div class="ui-helper-clearfix">
-            <div class="ui-g">
+          <p-header>
+            <div class="ui-helper-clearfix">
+              <div class="ui-g">
 
-              <div class="ui-g-6 ui-md-5 filter-container">
+                <div class="ui-g-6 ui-md-5 filter-container">
 
-                <div style="position:relative">
-                  <input type="search" class="form-control form-control-lg form-control-borderless" pInputText
-                         placeholder="Busca por nombre o categoria " (keyup)="dv.filter($event.target.value)">
+                  <div style="position:relative">
+                    <input type="search" class="form-control form-control-lg form-control-borderless" pInputText
+                           placeholder="Busca por nombre o categoria " (keyup)="dv.filter($event.target.value)">
+
+                  </div>
+                </div>
+                <div class="ui-g-6 ui-md-4" style="text-align:right">
 
                 </div>
               </div>
-              <div class="ui-g-6 ui-md-4" style="text-align:right">
-
-              </div>
             </div>
-          </div>
-        </p-header>
+          </p-header>
 
 
-       <ng-template let-articulos pTemplate="gridItem">
-                  <div style="padding:.5em" class="ui-g-12 ui-md-3">
-                    <p-panel [header]="articulos.nombre" [style]="{'text-align':'center'}">
-                      <div id="imagen"> <img src={{articulos.imagen.url}} style='height: 125px; width: 125px; '></div>
+         <ng-template let-articulos pTemplate="gridItem">
+                    <div style="padding:.5em" class="ui-g-12 ui-md-3">
+                      <p-panel [header]="articulos.nombre" [style]="{'text-align':'center'}">
+                        <div id="imagen"> <img src={{articulos.imagen.url}} style='height: 125px; width: 125px; '></div>
 
 
-                      <div class="articulo-detalle">Precio Compra : $ {{articulos.precioCompra}}</div>
-                      <div class="articulo-detalle" *ngIf="!articulos.esInsumo">Precio Venta : $ {{articulos.precioVenta}}</div>
-                      <div class="articulo-detalle">Stock Actual  :  {{articulos.stock}}</div>
-                      <button type="button" class="btn btn-outline-secondary mr-2" placement="top"
-                              ngbPopover=" {{articulos.descripcion}}
-                                          |Stock Maximo:  {{articulos.stockMaximo}}
-                                          |Stock Minimo:  {{articulos.stockMinimo}}
+                        <div class="articulo-detalle">Precio Compra : $ {{articulos.precioCompra}}</div>
+                        <div class="articulo-detalle" *ngIf="!articulos.esInsumo">Precio Venta : $ {{articulos.precioVenta}}</div>
+                        <div class="articulo-detalle">Stock Actual  :  {{articulos.stock}}</div>
+                        <button type="button" class="btn btn-outline-secondary mr-2" placement="top"
+                                ngbPopover=" {{articulos.descripcion}}
+                                            |Stock Maximo:  {{articulos.stockMaximo}}
+                                            |Stock Minimo:  {{articulos.stockMinimo}}
 
-                                          |Categoria:  {{articulos.categoria.nombre}}
-                                          |Unidad de medida:  {{articulos.unidadMedida.nombre}} : {{articulos.unidadMedida.abreviatura}}
-                                              " popoverTitle={{articulos.nombre}}>
-                        Mas Info <i class="fa fa-info"></i>
-                      </button>
-
-                      <hr class="ui-widget-content" style="border-top:0">
-
-                      <div class="btn-group ">
-
-                        <button type="button" id={{articulos.id}} class="btn-info" >
-                               Modificar
+                                            |Categoria:  {{articulos.categoria.nombre}}
+                                            |Unidad de medida:  {{articulos.unidadMedida.nombre}} : {{articulos.unidadMedida.abreviatura}}
+                                                " popoverTitle={{articulos.nombre}}>
+                          Mas Info <i class="fa fa-info"></i>
                         </button>
-                        <button type="button" value={{articulos.id}} class="btn-danger" >
-                          Eliminar
-                        </button>
-                      </div>
-                    </p-panel>
-                  </div>
-                </ng-template>
+
+                        <hr class="ui-widget-content" style="border-top:0">
+
+                        <div class="btn-group ">
+
+                          <button type="button" id={{articulos.id}} class="btn-info" >
+                                 Modificar
+                          </button>
+                          <button type="button" value={{articulos.id}} class="btn-danger" >
+                            Eliminar
+                          </button>
+                        </div>
+                      </p-panel>
+                    </div>
+                  </ng-template>
 
 
-      </p-dataView>   -->
+        </p-dataView>   -->
 
       <p-table [value]="articulos" [responsive]="true" [paginator]="true"
                [rows]="5" [totalRecords]="articulos.length">
         <ng-template pTemplate="header">
           <tr>
-            <th>Nombre Articulo</th>
-            <th>Descripcion</th>
+            <th >Nombre Articulo</th>
+            <th>Descripcion </th>
             <th>Precio Compra</th>
             <th>Precio Venta</th>
             <th>Stock Minimo </th>
@@ -254,5 +254,5 @@
 
       <br>
     </div>
-   </div>
+  </div>
 </div>

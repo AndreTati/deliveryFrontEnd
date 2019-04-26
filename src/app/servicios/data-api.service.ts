@@ -23,9 +23,11 @@ export class DataApiService {
  private _urlAllProvincias = 'http://apirestdelivery.herokuapp.com/api/v1/provincia/';
  private _urlAllLocalidades = 'http://apirestdelivery.herokuapp.com/api/v1/localidad/';
  private _urlAllArticuloCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/articulocategoria/';
-  private _urlHTTPVerbArticuloCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/articulocategoria';
+ private _urlHTTPVerbArticuloCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/articulocategoria';
  private _urlAllPlatoCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/platocategoria/';
-  private _urlAllArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo/';
+ private _urllHTTPVerbPlatoCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/platocategoria';
+ private _urlAllArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo/';
+ private _urlHTTPVerbArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo';
  getAllPlatos(): Observable<productosInteface[]> {
     return this.httpClientApi.get<productosInteface[]>(this._urlAllPlatos);
   }
@@ -39,20 +41,21 @@ export class DataApiService {
   getAllLocalidades(): Observable<Localidad[]> {
     return this.httpClientApi.get<Localidad[]>(this._urlAllLocalidades);
   }
-  getAllArticuloCategoria(): Observable <articuloCategoriaInterface[]> {
-    return this.httpClientApi.get<articuloCategoriaInterface[]>(this._urlAllArticuloCategoria);
-  }
-  getAllPlatoCategoria(): Observable <platoCategoriaInterface[]> {
-    return this.httpClientApi.get<platoCategoriaInterface[]>(this._urlAllPlatoCategoria);
-  }
+ 
+  
   getAllArticulos(): Observable<articuloInterface[]>{
     return this.httpClientApi.get<articuloInterface[]>(this._urlAllArticulo);
   }
+  // ACCIONES PARA ARTICULO CATEGORIA
+  getAllArticuloCategoria(): Observable <articuloCategoriaInterface[]> {
+    return this.httpClientApi.get<articuloCategoriaInterface[]>(this._urlAllArticuloCategoria);
+  }
+
    deleteArticuloCategoria(id: number): Observable<{}> {
     const url = `${this._urlHTTPVerbArticuloCategoria}/${id}`; // DELETE api/v1/articulocategoria/id
-    alert(url);
     return this.httpClientApi.delete(url);
   }
+
   updateArticuloCategoria( objetoArticuloCategoria: articuloCategoriaInterface , id: number): Observable<articuloCategoriaInterface> {
     const url = `${this._urlHTTPVerbArticuloCategoria}/${id}`;
 
@@ -63,6 +66,46 @@ export class DataApiService {
 
     return this.httpClientApi.post<articuloCategoriaInterface>(url, objetoArticuloCategoria);
   }
+  // FIN ACCIONES ARTICULO CATEGORIA
+
+
+  // AQUI ACCIONSE PARA PLATO CATEGORIA
+  getAllPlatoCategoria(): Observable <platoCategoriaInterface[]> {
+    return this.httpClientApi.get<platoCategoriaInterface[]>(this._urlAllPlatoCategoria);
+  }
+  deletePlatoCategoria(id: number): Observable<{}> {
+    const url = `${this._urllHTTPVerbPlatoCategoria}/${id}`;
+    return this.httpClientApi.delete(url);
+  }
+  updatePlatoCategoria( objetoPlatoCategoria: platoCategoriaInterface , id: number): Observable<platoCategoriaInterface> {
+    const url = `${this._urllHTTPVerbPlatoCategoria}/${id}`;
+    return this.httpClientApi.put<platoCategoriaInterface>(url, objetoPlatoCategoria);
+  }
+  postPlatoCategoria( objetoPlatoCategoria: platoCategoriaInterface ): Observable<platoCategoriaInterface> {
+    const url = `${this._urllHTTPVerbPlatoCategoria}/`;
+    return this.httpClientApi.post<platoCategoriaInterface>(url, objetoPlatoCategoria);
+  }
+
+
+  // FIN ACCIONES PLATO CATEGORIA
+
+
+  // INICIO ACCIONES PARA ARTICULO
+
+  deleteArticulo(id: number): Observable<{}> {
+    const url = `${this._urlHTTPVerbArticulo}/${id}`;
+    return this.httpClientApi.delete(url);
+  }
+  updateArticulo( objetoArticulo: articuloInterface , id: number): Observable<articuloInterface> {
+    const url = `${this._urlHTTPVerbArticulo}/${id}`;
+    return this.httpClientApi.put<articuloInterface>(url, objetoArticulo);
+  }
+  postArticulo( objetoArticulo: articuloInterface ): Observable<articuloInterface> {
+    const url = `${this._urlHTTPVerbArticulo}/`;
+    return this.httpClientApi.post<articuloInterface>(url, objetoArticulo);
+  }
+  
+  // FIN ACCIONES  ARTICULO
 
 
 

@@ -4,80 +4,79 @@
   <br>
   <div class="row">
 
-    <ng-template #content let-modalPlatoCategoria>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Agregar plato Categoria</h4>
-        <button type="button" class="close" aria-label="Cerrar" (click)="modalPlatoCategoria.close()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formCategoriaPlato">
-          <div class="form-group">
-            <div class="input-group">
-            <input class="form-control" type="hidden" id="id" name="id">
-            </div>
-          </div>
-
-          <div class="form-group">
-
-            <label for="nombre">Nombre Categoria de plato :</label>
-            <div class="input-group">
-              <input type ="text" id="nombre" name="nombre" [(ngModel)]="nombre" class="form-control" placeholder="Ejemplo : Lomos" >
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="porcentajeGanancia">Pocentaje ganancia de plato :</label>
-            <div class="input-group">
-                <input type="number" id="porcentajeGanancia"  name="porcentajeGanancia" [(ngModel)]="porcentajeGanancia" class="form-control" placeholder="Ej: 10  o 15 o 25  , Solo numeros">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-dark" (click)="modalPlatoCategoria.close()">Enviar</button>
-      </div>
-    </ng-template>
-
-
-
-
-
-
 
     <div class="col-md-12">
 
+      <p-table [columns]="columnas" [value]="platoCategoria" selectionMode="single" [(selection)]="platoSeleccionado" (onRowSelect)="filaSeleccionada($event)" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="caption">
+          Categoria de Platos
 
-
-
-      <!-- AQUI EMPIZA EL PRIME NG TABLE -->
-      <h1 align="center" class="first">Categoria de Platos</h1>
-      <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
-      <p-table [value]="platoCategoria" [paginator]="true"
-               [rows]="5" [totalRecords]="platoCategoria.length">
-        <ng-template pTemplate="header">
+        </ng-template>
+        <ng-template pTemplate="header" let-columnas>
           <tr>
-            <th>Nombre</th>
-            <th>Porcentaje ganancia de plato</th>
-            <th>Accion</th>
+            <th *ngFor="let columna of columnas" [pSortableColumn]="columna.field" >
 
+              {{columna.header}}
+              <p-sortIcon  [field]="columna.field"></p-sortIcon>
+            </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-platoCategoria>
-          <tr>
-            <td>{{platoCategoria.nombre}}</td>
-            <td>{{platoCategoria.porcentajeGanancia}} % </td>
-            <td>
-              <button class="btn btn-sm  btn-danger" id="eliminar" value="{{platoCategoria.id}}" >Eliminar ID: {{platoCategoria.id}} </button>
-
-              <button class="btn btn-sm  btn-info" id="modificar" value="{{platoCategoria.id}}" >Modificar ID: {{platoCategoria.id}} </button>
+        <ng-template pTemplate="body" let-filaDatos let-columnas="columns">
+          <tr [pSelectableRow]="filaDatos">
+            <td *ngFor="let columna of columnas">
+              {{filaDatos[columna.field]}}
             </td>
-
           </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-filaDatos>
+          <div style="text-align:left">
+            <button type="button" pButton icon="fa fa-plus" class="ui-button-rounded" (click)="showDialogToAdd()" label="Agregar"></button>
+          </div>
         </ng-template>
       </p-table>
+
+      <p-dialog header="Detalle de Categoria" [(visible)]="mostrarDialogo" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '300px'}">
+        <div class="ui-g ui-fluid" *ngIf="plato">
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="id">Id</label>
+            </div>
+            <div class="ui-g-8">
+              <input pInputText readonly="readonly" disabled="disabled" id="id" [(ngModel)]="plato.id" pTooltip="Id Solo de lectura"   />
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="nombre">Nombre</label>
+            </div>
+            <div class="ui-g-8">
+              <input pInputText id="nombre" [(ngModel)]="plato.nombre" pTooltip="Nombre de la categoria"   />
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="ui-g-4">
+              <label for="porcentajeGanancia">Porcentaje Ganancia</label>
+            </div>
+            <div class="ui-g-8">
+              <input pInputText id="porcentajeGanancia" [(ngModel)]="plato.porcentajeGanancia" pTooltip="Porcentaje de ganancia de tu categoria"   />
+            </div>
+          </div>
+
+        </div>
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-close" class="ui-button-rounded ui-button-danger" (click)="eliminar()" label="Eliminar"></button>
+            <button type="button" pButton icon="fa fa-check" class="ui-button-rounded ui-button-success" (click)="guardar()" label="Guardar"></button>
+          </div>
+        </p-footer>
+      </p-dialog>
+
+
+
       <br>
     </div>
+
+
 
 
   </div>
