@@ -5,6 +5,7 @@ import { Provincia } from "./listarLocalidades";
 import { Localidad } from "./listarLocalidades";
 import { DataApiService} from '../../../servicios/data-api.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Domicilio, Usuario} from "./usuarioInterface";
 
 @Component({
   selector: 'app-register',
@@ -17,10 +18,13 @@ export class RegisterComponent implements OnInit {
  public isError = true;
  public msgError:string = '';
  public fkProvinciaAuxiliar:number;
+ public sexos:string[] = ['Masculino', 'Femenino'];
+public usuario:Usuario;
  // DECLARACION DE LOS ATRIBUTOS DEL USUARIO
-
   email:'';
   password:'';
+  sexo:'';
+
   public provincias: Provincia[];
 public cantidadProvincias: number;
 public localidades: Localidad[];
@@ -65,7 +69,11 @@ public cantidadLocalidades: number;
     }
     return error;
   }
+// METODO DE CAMBIO DE RADIO BUTTON
 
+  radioChange(event : any){
+    this.sexo = event.target.value;
+  }
   // METODO PARA OBTENER LAS PROVINCIAS DEL SELECT PROVINCIAS
   obtenerTodasLasProvincias() {
     this.apiService.getAllProvincias()
@@ -85,12 +93,29 @@ console.log(this.fkProvinciaAuxiliar);
      );
  }
 
- 
+ // METODO PARA REGISTRAR EL FORM EN NUESTRA BASE DE DATOS
+  registrarUsuario(usuario: Usuario){
+    this.apiService.setUsuario(usuario).subscribe((res)=>{
+        console.log('SE INSERTO EL USUARIO CORRECTAMENTE');
+        console.log(res);
+      },
+      err=>{
+        console.log(" Error..");
+        console.log(err);
+      } )
+  }
+
  // Metodo para registrar a los clientes
-  registrar() {
-const usuario = this.registroUsuario.value;
-console.log(usuario);
-this.authService.registerUser(this.email, this.password)
+  registrar(usuario: Usuario) {
+
+    console.log(usuario);
+    let auxPassword = usuario.password;
+    usuario.password = "*******";
+    usuario = this.registroUsuario.value;
+console.log(this.registroUsuario.value);
+//this.registrarUsuario(usuario);
+/*
+this.authService.registerUser(this.email, auxPassword)
 
  .then((res) => {
 this.router.navigate(['/componentes/home']);
@@ -101,5 +126,10 @@ this.isError = false;
   this.isError = true;
 
  } );
-  }
+  }*/
+}
+
+
+
+//FIN DE CLASE
 }

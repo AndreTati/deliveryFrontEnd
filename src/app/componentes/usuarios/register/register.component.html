@@ -3,7 +3,7 @@
 <div class="container">
 <div class="card">
   <div class="card-body text-center">
-<form [formGroup]="registroUsuario" (ngSubmit)="registrar()">
+<form [formGroup]="registroUsuario" (ngSubmit)="registrar(registroUsuario.value)">
 <div class="row">
   <div class="col">
 
@@ -15,6 +15,7 @@
          placeholder="Nombre">
 
   </div>
+
   <!-- APELLIDO -->
     <div class="form-group">
       <div>
@@ -27,13 +28,13 @@
 
   <!-- EMAIL -->
     <div class="form-group">
-  <div>
-  <input type="email"
-         name="email"
-         formControlName="email"
-         placeholder="Correo Electronico">
-  </div>
-  </div>
+      <div>
+        <input type="email"
+               name="email"
+               formControlName="email"
+               placeholder="Correo Electronico">
+      </div>
+    </div>
 
   <!-- PASSWORD -->
     <div class="form-group">
@@ -77,15 +78,19 @@
 
   <!-- SEXO -->
     <div class="form-group">
-  <div>
-  <input type="radio"
-         name="sexo"
-         value="Hombre"> Hombre
-    <input type="radio"
-           name="sexo"
-           value="Mujer"> Mujer
+      <label><b>SEXO</b></label>
+  <div *ngFor="let sexo of sexos">
+
+      <input type="radio"
+             name="sexo"
+             value="{{sexo}}"
+             formControlName="sexo"
+             (change)="radioChange($event)">
+    <i>{{sexo}}</i>
+
   </div>
   </div>
+
   </div><!--FIN COLUMNA 1-->
 
   <div class="col">
@@ -129,20 +134,28 @@
             </select>
           </div>
 
+          <!-- NOMBRE CALLE-->
           <input type="text"
                  name="calle"
                  formControlName="calle"
                  placeholder="Calle">
         </div>
 
-
+        <!-- NUMERO CALLE -->
         <div class="form-group">
         <input type="number"
                name="numero"
                formControlName="numero"
-               placeholder="Numero">
+               placeholder="Numero Calle">
       </div>
 
+        <!-- NUMERO PISO -->
+        <div class="form-group">
+          <input type="number"
+                 name="piso"
+                 formControlName="piso"
+                 placeholder="N° PISO">
+        </div>
         <!-- Departamento -->
         <div class="form-group">
         <input type="number"
@@ -166,7 +179,7 @@
 </div>
 </form>
 
-    <button (click)="registrar()"
+    <button type="submit" (click)="registrar(registroUsuario.value)"
             [disabled]="registroUsuario.invalid">Registrarse</button>
 
   </div>
