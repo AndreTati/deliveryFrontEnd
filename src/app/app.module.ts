@@ -23,7 +23,7 @@ import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categor
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ButtonModule, ChartModule, DialogModule, DropdownModule, TooltipModule} from 'primeng/primeng';
+import {ButtonModule, CardModule, ChartModule, DialogModule, DropdownModule, TooltipModule} from 'primeng/primeng';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {TableModule} from 'primeng/table';
@@ -71,6 +71,7 @@ import {PerfilComponent} from './componentes/perfil/perfil.component';
     ButtonModule,
     TooltipModule,
     ChartModule,
+    CardModule,
 
 
   ],

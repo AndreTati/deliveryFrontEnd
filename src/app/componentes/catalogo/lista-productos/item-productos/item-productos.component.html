@@ -27,8 +27,11 @@
 
   <ng-template let-platos pTemplate="gridItem">
     <div style="padding:.5em" class="ui-g-12 ui-md-3">
-      <p-panel [header]="platos.nombre" [style]="{'text-align':'center'}">
-        <div id="imagen"><img src={{platos.imagen.url}} style='height: 125px; width: 125px; '></div>
+      <p-card [header]="platos.nombre"  [subheader]="platos.categoria.nombre" [style]="{width: '200px' , height: '400px'}" styleClass="ui-card-shadow">
+        <p-header>
+          <img src={{platos.imagen.url}} style="height: 150px" >
+        </p-header>
+
 
         <div class="plato-detalle">Tiempo estimado:{{platos.tiempoPreparacion}} minutos</div>
         <div class="plato-detalle">Precio : $ {{platos.categoria.porcentajeGanancia}}</div>
@@ -40,9 +43,9 @@
                   ngbPopover="*Ejemplo :   Huevos,Azucar,Choclo Etc" popoverTitle="{{platos.nombre}} contiene">
             Descripcion
           </button>
-          <button type="button" class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
+          <button type="button"  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
         </div>
-      </p-panel>
+      </p-card>
     </div>
   </ng-template>
 
