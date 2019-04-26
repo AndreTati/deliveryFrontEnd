@@ -9,7 +9,8 @@ import {articuloCategoriaInterface} from '../componentes/usuarioAdministrador/ar
 import {platoCategoriaInterface} from '../componentes/usuarioAdministrador/platocategoria/platoCategoriaInterface';
 import {articuloInterface} from '../componentes/usuarioAdministrador/articulo/articuloInterface';
 import {Localidad} from '../componentes/usuarios/register/listarLocalidades';
-import {Provincia} from "../componentes/usuarios/register/listarLocalidades";
+import {Provincia} from '../componentes/usuarios/register/listarLocalidades';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class DataApiService {
  private _urlAllProvincias = 'http://apirestdelivery.herokuapp.com/api/v1/provincia/';
  private _urlAllLocalidades = 'http://apirestdelivery.herokuapp.com/api/v1/localidad/';
  private _urlAllArticuloCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/articulocategoria/';
+  private _urlHTTPVerbArticuloCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/articulocategoria';
  private _urlAllPlatoCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/platocategoria/';
   private _urlAllArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo/';
  getAllPlatos(): Observable<productosInteface[]> {
@@ -46,6 +48,23 @@ export class DataApiService {
   getAllArticulos(): Observable<articuloInterface[]>{
     return this.httpClientApi.get<articuloInterface[]>(this._urlAllArticulo);
   }
+   deleteArticuloCategoria(id: number): Observable<{}> {
+    const url = `${this._urlHTTPVerbArticuloCategoria}/${id}`; // DELETE api/v1/articulocategoria/id
+    alert(url);
+    return this.httpClientApi.delete(url);
+  }
+  updateArticuloCategoria( objetoArticuloCategoria: articuloCategoriaInterface , id: number): Observable<articuloCategoriaInterface> {
+    const url = `${this._urlHTTPVerbArticuloCategoria}/${id}`;
+
+    return this.httpClientApi.put<articuloCategoriaInterface>(url, objetoArticuloCategoria);
+ }
+  postArticuloCategoria( objetoArticuloCategoria: articuloCategoriaInterface ): Observable<articuloCategoriaInterface> {
+    const url = `${this._urlHTTPVerbArticuloCategoria}/`;
+
+    return this.httpClientApi.post<articuloCategoriaInterface>(url, objetoArticuloCategoria);
+  }
+
+
 
 
 

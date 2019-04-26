@@ -23,7 +23,7 @@ import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categor
 import {DataViewModule} from "primeng/dataview";
 import {PanelModule} from "primeng/panel";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {DropdownModule} from "primeng/primeng";
+import {ButtonModule, DialogModule, DropdownModule} from "primeng/primeng";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {TableModule} from "primeng/table";
@@ -65,7 +65,9 @@ import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/a
     BrowserAnimationsModule,
     DropdownModule,
     NgbModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    ButtonModule
 
   ],
   providers: [AngularFireAuth],
