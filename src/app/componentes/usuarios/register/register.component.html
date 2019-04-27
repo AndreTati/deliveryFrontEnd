@@ -1,175 +1,186 @@
 <!-- Comienzo formulario registro -->
 <br>
 <div class="container">
-<div class="card">
-  <div class="card-body text-center">
-<form [formGroup]="registroUsuario" (ngSubmit)="registrar()">
-<div class="row">
-  <div class="col">
+  <div class="card">
+    <div class="card-body text-center">
+      <form [formGroup]="registroUsuario" (ngSubmit)="registrar(registroUsuario.value)">
+        <div class="row">
+          <div class="col">
 
-    <!-- NOMBRE -->
-    <div class="form-group">
-  <input type="text"
-         name="nombre"
-         formControlName="nombre"
-         placeholder="Nombre">
+            <!-- NOMBRE -->
+            <div class="form-group">
+              <input type="text"
+                     name="nombre"
+                     formControlName="nombre"
+                     placeholder="Nombre">
 
-  </div>
-  <!-- APELLIDO -->
-    <div class="form-group">
-      <div>
-  <input type="text"
-         name="apellido"
-         formControlName="apellido"
-         placeholder="Apellido">
-  </div>
-  </div>
+            </div>
 
-  <!-- EMAIL -->
-    <div class="form-group">
-  <div>
-  <input type="email"
-         name="email"
-         formControlName="email"
-         placeholder="Correo Electronico">
-  </div>
-  </div>
+            <!-- APELLIDO -->
+            <div class="form-group">
+              <div>
+                <input type="text"
+                       name="apellido"
+                       formControlName="apellido"
+                       placeholder="Apellido">
+              </div>
+            </div>
 
-  <!-- PASSWORD -->
-    <div class="form-group">
-  <div>
-  <input type="password"
-         name="password"
-         formControlName="password"
-         placeholder="Contraseña">
-  </div>
-  </div>
+            <!-- EMAIL -->
+            <div class="form-group">
+              <div>
+                <input type="email"
+                       name="email"
+                       formControlName="email"
+                       placeholder="Correo Electronico">
+              </div>
+            </div>
 
-  <!-- TELEFONO -->
-    <div class="form-group">
-  <div>
-  <input type="number"
-         name="telefono"
-         formControlName="telefono"
-         placeholder="Telefono">
-  </div>
-  </div>
+            <!-- PASSWORD -->
+            <div class="form-group">
+              <div>
+                <input type="password"
+                       name="password"
+                       formControlName="password"
+                       placeholder="Contraseña">
+              </div>
+            </div>
 
-  <!-- DNI -->
-    <div class="form-group">
-  <div>
-  <input type="text"
-         name="dni"
-         formControlName="dni"
-         placeholder="DNI">
-  </div>
-  </div>
+            <!-- TELEFONO -->
+            <div class="form-group">
+              <div>
+                <input type="number"
+                       name="telefono"
+                       formControlName="telefono"
+                       placeholder="Telefono">
+              </div>
+            </div>
 
-  <!-- FECHA DE NACIMIENTO -->
-    <div class="form-group">
-  <div>
-  <input type="date"
-         name="fechaNacimiento"
-         formControlName="fechaNacimiento"
-         placeholder="fechaNacimiento">
-  </div>
-  </div>
+            <!-- DNI -->
+            <div class="form-group">
+              <div>
+                <input type="text"
+                       name="dni"
+                       formControlName="dni"
+                       placeholder="DNI">
+              </div>
+            </div>
 
-  <!-- SEXO -->
-    <div class="form-group">
-  <div>
-  <input type="radio"
-         name="sexo"
-         value="Hombre"> Hombre
-    <input type="radio"
-           name="sexo"
-           value="Mujer"> Mujer
-  </div>
-  </div>
-  </div><!--FIN COLUMNA 1-->
+            <!-- FECHA DE NACIMIENTO -->
+            <div class="form-group">
+              <div>
+                <input type="date"
+                       name="fechaNacimiento"
+                       formControlName="fechaNacimiento"
+                       placeholder="fechaNacimiento">
+              </div>
+            </div>
 
-  <div class="col">
+            <!-- SEXO -->
+            <div class="form-group">
+              <label><b>SEXO</b></label>
+              <div *ngFor="let sexo of sexos">
+
+                <input type="radio"
+                       name="sexo"
+                       value="{{sexo}}"
+                       formControlName="sexo">
+                <i>{{sexo}}</i>
+
+              </div>
+            </div>
+
+          </div><!--FIN COLUMNA 1-->
+
+          <div class="col">
 
 
 
-<!-- BOTON DOMICILIO DESPLEGABLE-->
-    <p>
-      <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        + Domicilio
-      </a>
-    </p>
-    <div class="collapse" id="collapseExample">
-      <div class="card card-body">
+            <!-- BOTON DOMICILIO DESPLEGABLE-->
+            <p>
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                + Domicilio
+              </a>
+            </p>
+            <div class="collapse" id="collapseExample">
+              <div class="card card-body">
 
-        <!-- PROVINCIA -->
-        <div class="form-group">
-        <div ng-app="myApp" ng-controller="provinciaCtrl">
-          <select name="provincia"
-                  formControlName="provincia"
-                  (change)="obtenerLocalidades($event)">
-            <option value="">Selecciona Provincia</option>
-            <option [value]="provincia.id" *ngFor="let provincia of provincias">
-              {{provincia.nombre}}
-            </option>
-          </select>
+                <!-- PROVINCIA -->
+                <div class="form-group">
+                  <div ng-app="myApp" ng-controller="provinciaCtrl">
+                    <select name="provincia"
+
+                            (change)="obtenerLocalidades($event)">
+                      <option value="">Selecciona Provincia</option>
+                      <option [value]="provincia.id" *ngFor="let provincia of provincias">
+                        {{provincia.nombre}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- LOCALIDAD -->
+                <div class="form-group" formGroupName="domicilio">
+                  <div ng-app="selectLocalidad" ng-controller="localidadCtrl">
+                    <select name="localidad"
+                            formControlName="localidad">
+                      <option value="">Seleccionar Localidad</option>
+                      <ng-container *ngFor="let localidad of localidades">
+                        <option [value]="localidad.nombre" *ngIf="localidad.provincia.id == fkProvinciaAuxiliar">
+                          {{localidad.nombre}}
+                        </option>
+                      </ng-container>
+                    </select>
+                  </div>
+
+                  <!-- NOMBRE CALLE-->
+                  <input type="text"
+                         name="calle"
+                         formControlName="calle"
+                         placeholder="Calle">
+                </div>
+
+                <!-- NUMERO CALLE -->
+                <div class="form-group" formGroupName="domicilio">
+                  <input type="number"
+                         name="numero"
+                         formControlName="numero"
+                         placeholder="Numero Calle">
+                </div>
+
+                <!-- NUMERO PISO -->
+                <div class="form-group" formGroupName="domicilio">
+                  <input type="number"
+                         name="piso"
+                         formControlName="piso"
+                         placeholder="N° PISO">
+                </div>
+                <!-- Departamento -->
+                <div class="form-group" formGroupName="domicilio">
+                  <input type="number"
+                         name="departamento"
+                         formControlName="departamento"
+                         placeholder="N° Depto">
+                </div>
+
+                <!-- CP -->
+                <div class="form-group" formGroupName="domicilio">
+                  <input type="number"
+                         name="codigopostal"
+                         formControlName="codigopostal"
+                         placeholder="Codigo Postal">
+                </div>
+              </div>
+            </div>
+
+
+          </div><!-- Fin Columna 2 -->
         </div>
-      </div>
+      </form>
 
-        <!-- LOCALIDAD -->
-        <div class="form-group">
-          <div ng-app="selectLocalidad" ng-controller="localidadCtrl">
-            <select name="localidad"
-                    formControlName="localidad">
-              <option value="">Seleccionar Localidad</option>
-              <ng-container *ngFor="let localidad of localidades">
-                <option *ngIf="localidad.provincia.id == fkProvinciaAuxiliar">
-                  {{localidad.nombre}}
-                </option>
-              </ng-container>
-            </select>
-          </div>
+      <button type="submit" (click)="registrar(registroUsuario.value)"
+              [disabled]="registroUsuario.invalid">Registrarse</button>
 
-          <input type="text"
-                 name="calle"
-                 formControlName="calle"
-                 placeholder="Calle">
-        </div>
-
-
-        <div class="form-group">
-        <input type="number"
-               name="numero"
-               formControlName="numero"
-               placeholder="Numero">
-      </div>
-
-        <!-- Departamento -->
-        <div class="form-group">
-        <input type="number"
-               name="departamento"
-               formControlName="departamento"
-               placeholder="N° Depto">
-      </div>
-
-        <!-- CP -->
-        <div class="form-group">
-        <input type="number"
-               name="codigopostal"
-               formControlName="codigopostal"
-               placeholder="Codigo Postal">
-      </div>
     </div>
   </div>
-
-
-  </div><!-- Fin Columna 2 -->
 </div>
-</form>
-
-    <button (click)="registrar()"
-            [disabled]="registroUsuario.invalid">Registrarse</button>
-
-  </div>
-</div>
-</div>
-

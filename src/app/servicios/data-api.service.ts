@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {productosInteface} from '../componentes/catalogo/lista-productos/item-productos/productosInterface';
 import { Observable } from 'rxjs';
 import {categoriasInterface} from '../componentes/catalogo/filtro/categorias-filtro/categoriasInterface';
@@ -10,6 +10,7 @@ import {platoCategoriaInterface} from '../componentes/usuarioAdministrador/plato
 import {articuloInterface} from '../componentes/usuarioAdministrador/articulo/articuloInterface';
 import {Localidad} from '../componentes/usuarios/register/listarLocalidades';
 import {Provincia} from '../componentes/usuarios/register/listarLocalidades';
+import {Usuario} from "../componentes/usuarios/register/usuarioInterface";
 
 
 @Injectable({
@@ -28,6 +29,7 @@ export class DataApiService {
  private _urllHTTPVerbPlatoCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/platocategoria';
  private _urlAllArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo/';
  private _urlHTTPVerbArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo';
+ private _urlUsuarios = 'http://apirestdelivery.herokuapp.com/api/v1/usuariocliente/';
  getAllPlatos(): Observable<productosInteface[]> {
     return this.httpClientApi.get<productosInteface[]>(this._urlAllPlatos);
   }
@@ -41,8 +43,18 @@ export class DataApiService {
   getAllLocalidades(): Observable<Localidad[]> {
     return this.httpClientApi.get<Localidad[]>(this._urlAllLocalidades);
   }
- 
-  
+
+  // METODO POST PARA REGISTRAR USUARIOS
+
+  setUsuario(usuario: Usuario): Observable<any>{
+
+    //Establezco una cabecera
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+
+    return this.httpClientApi.post<Usuario>(this._urlUsuarios, JSON.stringify(usuario),{headers: headers});
+  }
+
+
   getAllArticulos(): Observable<articuloInterface[]>{
     return this.httpClientApi.get<articuloInterface[]>(this._urlAllArticulo);
   }
