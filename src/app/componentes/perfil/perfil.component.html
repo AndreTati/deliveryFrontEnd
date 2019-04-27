@@ -31,7 +31,7 @@
             <tr>
 
               <br>
-              <button type="button" class="btn btn-success btn-lg btn-block">EDITAR</button>
+              <button type="button" class="btn btn-success btn-lg btn-block" (click)="putUsuario(cliente)" >EDITAR</button>
               <br>
 
             </tr>
@@ -56,8 +56,10 @@
                     src="https://img.icons8.com/material/24/000000/name.png"></span>
                 </div>
                 <input type="text" class="form-control" placeholder="Nombre" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.nombre"
                        [value]="cliente.nombre" pTooltip="Ingrese su nombre" tooltipPosition="top">
                 <input type="text" class="form-control" placeholder="Apellido" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.apellido"
                        [value]="cliente.apellido" pTooltip="Ingrese su apellido" tooltipPosition="top">
               </div>
               <div class="input-group mb-3">
@@ -66,12 +68,14 @@
                     src="https://img.icons8.com/material/24/000000/identification-documents.png"></span>
                 </div>
                 <input type="text" class="form-control" placeholder="DNI" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.dni"
                        [value]="cliente.dni" pTooltip="Ingrese su DNI" tooltipPosition="top">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="telefono"><img
                     src="https://img.icons8.com/material/24/000000/phone.png"></span>
                 </div>
                 <input type="text" class="form-control" placeholder="Telefono" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.telefono"
                        [value]="cliente.telefono" pTooltip="Ingrese su telefono" tooltipPosition="top">
               </div>
               <div class="input-group mb-3">
@@ -79,9 +83,10 @@
                   <span class="input-group-text" id="sexo"><img
                     src="https://img.icons8.com/material/24/000000/transgender.png"></span>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01" pTooltip="Ingrese su sexo" tooltipPosition="top">
-                  <option value="1" [selected]="cliente.sexo=='Femenino'">Femenino</option>
-                  <option value="2" [selected]="cliente.sexo=='Masculino'">Masculino</option>
+                <select class="custom-select" id="inputGroupSelect01" pTooltip="Ingrese su sexo" tooltipPosition="top"
+                        (change)="getSexo($event)">
+                  <option value="Masculino" [selected]="cliente.sexo==='Masculino'">Masculino</option>
+                  <option value="Femenino" [selected]="cliente.sexo==='Femenino'">Femenino</option>
                 </select>
               </div>
               <div class="input-group mb-3">
@@ -90,7 +95,8 @@
                     src="https://img.icons8.com/material/24/000000/birthday.png"></span>
                 </div>
                 <input class="form-control" type="date" value="{{cliente.fechaNacimiento | date: 'yyyy-MM-dd'}}"
-                       id="fnacimiento" pTooltip="Ingrese su fecha de nacimiento" tooltipPosition="top">
+                       id="fnacimiento" pTooltip="Ingrese su fecha de nacimiento" tooltipPosition="top"
+                       [(ngModel)]="cliente.fechaNacimiento">
               </div>
 
             </div>
@@ -106,6 +112,7 @@
                     src="https://img.icons8.com/material/24/000000/address.png"></span>
                 </div>
                 <input type="text" class="form-control" placeholder="Calle" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.domicilio.calle"
                        [value]="cliente.domicilio.calle" pTooltip="Ingrese su calle" tooltipPosition="top">
               </div>
               <div class="input-group mb-3">
@@ -114,12 +121,14 @@
                     src="https://img.icons8.com/material/24/000000/7.png"></span>
                 </div>
                 <input type="text" class="form-control" placeholder="Numero" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.domicilio.numero"
                        [value]="cliente.domicilio.numero" pTooltip="Ingrese su número de calle" tooltipPosition="top">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="CP"><img
                     src="https://img.icons8.com/material/24/000000/zip-code.png"></span>
                 </div>
                 <input type="text" class="form-control" placeholder="Codigo Postal" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.domicilio.cp"
                        [value]="cliente.domicilio.cp" pTooltip="Ingrese su código postal" tooltipPosition="top">
               </div>
               <div class="input-group mb-3">
@@ -128,6 +137,7 @@
                     src="https://img.icons8.com/material/24/000000/building.png"></span>
                 </div>
                 <input type="text" class="form-control" placeholder="Piso" aria-describedby="basic-addon1"
+                       [(ngModel)]="cliente.domicilio.piso"
                        [value]="cliente.domicilio.piso" pTooltip="Ingrese si es que tiene un nº de departamento"
                        tooltipPosition="top">
                 <div class="input-group-prepend">
