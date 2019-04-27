@@ -17,19 +17,20 @@ export class PerfilComponent implements OnInit {
   private provincias:Provincia[];
   private provinciaSeleccionada:number;
   private localidades:Provincia[];
-  private email:string;
+  private email: string;
 
   constructor(private usuarioService:UsuarioService, private dataService:DataApiService, private att:AuthService) {
-    this.att.isAuth().subscribe((data)=>{
+
+  }
+
+  ngOnInit() {
+    this.att.isAuth().subscribe((data) => {
       this.email = data.email;
       this.getUsuario(this.email);
     })
 
     this.getProvincia();
     this.getLocalidad();
-  }
-
-  ngOnInit() {
   }
 
   getUsuario(email:string){
@@ -53,7 +54,7 @@ export class PerfilComponent implements OnInit {
     }
     this.dataService.getAllLocalidades().subscribe((data)=>{
       this.localidades = data;
-    })
+    });
   }
 
 }
