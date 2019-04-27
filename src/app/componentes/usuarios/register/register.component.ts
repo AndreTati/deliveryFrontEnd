@@ -5,6 +5,7 @@ import { Provincia } from "./listarLocalidades";
 import { Localidad } from "./listarLocalidades";
 import { DataApiService} from '../../../servicios/data-api.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Domicilio, Usuario} from "./usuarioInterface";
 
 @Component({
   selector: 'app-register',
@@ -13,18 +14,23 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 
 })
 export class RegisterComponent implements OnInit {
- public registroUsuario: FormGroup;
- public isError = true;
- public msgError:string = '';
- public fkProvinciaAuxiliar:number;
- // DECLARACION DE LOS ATRIBUTOS DEL USUARIO
+  public registroUsuario: FormGroup;
+  public isError = true;
+  public msgError:string = '';
+  public fkProvinciaAuxiliar:number;
+  public sexos:string[] = ['Masculino', 'Femenino'];
 
+  // DECLARACION DE LOS ATRIBUTOS DEL USUARIO
   email:'';
   password:'';
+
+
   public provincias: Provincia[];
-public cantidadProvincias: number;
-public localidades: Localidad[];
-public cantidadLocalidades: number;
+  public cantidadProvincias: number;
+  public localidades: Localidad[];
+  public cantidadLocalidades: number;
+  public domicilio: Domicilio;
+
   constructor(public router: Router, public authService: AuthService, public apiService: DataApiService, private formBuilder: FormBuilder) {}
 
 
@@ -39,21 +45,24 @@ public cantidadLocalidades: number;
   private buildForm(){
 
     this.registroUsuario = this.formBuilder.group({
-      nombre:'',
       email:'',
-      password:'',
-      apellido:'',
       dni:'',
+      nombre:'',
+      apellido:'',
       telefono: null,
+      password:'',
+
+      domicilio:this.formBuilder.group({
+        calle:'',
+        numero:null,
+        piso:null,
+        departamento:null,
+        localidad:'',
+        codigopostal:null
+      }),
+
       fechaNacimiento:'',
-      sexo: '',
-      calle:'',
-      numero:null,
-      piso:null,
-      departamento:null,
-      provincia:'',
-      localidad:'',
-      codigopostal:null
+      sexo: ''
     });
   }
 
@@ -65,6 +74,8 @@ public cantidadLocalidades: number;
     }
     return error;
   }
+// METODO DE CAMBIO DE RADIO BUTTON
+
 
   // METODO PARA OBTENER LAS PROVINCIAS DEL SELECT PROVINCIAS
   obtenerTodasLasProvincias() {
@@ -75,31 +86,52 @@ public cantidadLocalidades: number;
   }
 
   //METODO PARA OBTENER LAS LOCALIDADES CORRESPONDIENTES A LA PROVINCIA ELEGIDA
- obtenerLocalidades(event : any){
+  obtenerLocalidades(event : any){
 
-this.fkProvinciaAuxiliar = event.target.value;
-console.log(this.fkProvinciaAuxiliar);
-   this.apiService.getAllLocalidades()
-     .subscribe(data => { this.localidades = data ;  this.cantidadLocalidades = data.length; }
+    this.fkProvinciaAuxiliar = event.target.value;
+    console.log(this.fkProvinciaAuxiliar);
+    this.apiService.getAllLocalidades()
+      .subscribe(data => { this.localidades = data ;  this.cantidadLocalidades = data.length; }
 
-     );
- }
-
- 
- // Metodo para registrar a los clientes
-  registrar() {
-const usuario = this.registroUsuario.value;
-console.log(usuario);
-this.authService.registerUser(this.email, this.password)
-
- .then((res) => {
-this.router.navigate(['/componentes/home']);
-this.isError = false;
- }).catch (err => {
-  this.msgError = err;
-  alert(err);
-  this.isError = true;
-
- } );
+      );
   }
+
+  // METODO PARA REGISTRAR EL FORM EN NUESTRA BASE DE DATOS
+  registrarUsuario(usuario: Usuario){
+
+    this.apiService.setUsuario(usuario).subscribe((res)=>{
+        console.log('SE INSERTO EL USUARIO CORRECTAMENTE');
+        console.log(res);
+      },
+      err=>{
+        console.log(" Error..");
+        console.log(err);
+      } )
+  }
+
+  // Metodo para registrar a los clientes
+  registrar(usuario: Usuario) {
+
+    console.log(usuario);
+    let auxPassword = usuario.password;
+    usuario.password = "*******";
+    usuario = this.registroUsuario.value;
+    console.log(this.registroUsuario.value);
+    this.registrarUsuario(usuario);
+    /*
+    this.authService.registerUser(this.email, auxPassword)
+     .then((res) => {
+    this.router.navigate(['/componentes/home']);
+    this.isError = false;
+     }).catch (err => {
+      this.msgError = err;
+      alert(err);
+      this.isError = true;
+     } );
+      }*/
+  }
+
+
+
+//FIN DE CLASE
 }
