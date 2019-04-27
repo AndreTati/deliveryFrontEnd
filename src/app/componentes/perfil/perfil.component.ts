@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {Usuario} from '../../Modelo/Usuario';
 import {UsuarioService} from '../../servicios/usuario/usuario.service';
-import {toDate} from '@angular/common/src/i18n/format_date';
 import {Provincia} from '../usuarios/register/listarLocalidades';
 import {DataApiService} from '../../servicios/data-api.service';
 import {AuthService} from '../../servicios/auth.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styles: []
+  styles: [],
+  providers: [MessageService]
 })
 export class PerfilComponent implements OnInit {
 
@@ -19,7 +20,7 @@ export class PerfilComponent implements OnInit {
   private localidades:Provincia[];
   private email:string;
 
-  constructor(private usuarioService:UsuarioService, private dataService:DataApiService, private att:AuthService) {
+  constructor(private usuarioService:UsuarioService, private dataService:DataApiService, private att:AuthService, private messageService:MessageService) {
     this.att.isAuth().subscribe((data)=>{
       this.email = data.email;
       this.getUsuario(this.email);
@@ -32,12 +33,24 @@ export class PerfilComponent implements OnInit {
   ngOnInit() {
   }
 
+  showConfirm() {
+    this.messageService.clear();
+    this.messageService.add({key: 'confirmacion', sticky: true, severity:'warn', summary:'Desea actualizar su perfil?', detail:'Confirme para proceder'});
+  }
+
+  closeAndUpdate(update:boolean) {
+    this.messageService.clear('confirmacion');
+    if(update==true){
+      this.putUsuario();
+    }
+  }
+
   getSexo(event?:any){
     if(event != undefined)
       this.cliente.sexo = event.target.value;
   }
 
-  putUsuario(usuario:Usuario){
+  putUsuario(){
     console.log("put");
     this.usuarioService.putUsuario(this.cliente).subscribe((data) => {
     });

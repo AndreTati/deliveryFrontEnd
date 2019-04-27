@@ -31,7 +31,24 @@
             <tr>
 
               <br>
-              <button type="button" class="btn btn-success btn-lg btn-block" (click)="putUsuario(cliente)" >EDITAR</button>
+              <button type="button" class="btn btn-success btn-lg btn-block" (click)="showConfirm()" >EDITAR</button>
+              <p-toast position="center" key="confirmacion" (onClose)="closeAndUpdate(false)" [modal]="true" [baseZIndex]="5000">
+                <ng-template let-message pTemplate="message">
+                  <div style="text-align: center">
+                    <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+                    <h3>{{message.summary}}</h3>
+                    <p>{{message.detail}}</p>
+                  </div>
+                  <div class="ui-g ui-fluid">
+                    <div class="ui-g-6">
+                      <button type="button" pButton (click)="closeAndUpdate(true)" label="Si" class="ui-button-success"></button>
+                    </div>
+                    <div class="ui-g-6">
+                      <button type="button" pButton (click)="closeAndUpdate(false)" label="No" class="ui-button-secondary"></button>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-toast>
               <br>
 
             </tr>
@@ -85,8 +102,8 @@
                 </div>
                 <select class="custom-select" id="inputGroupSelect01" pTooltip="Ingrese su sexo" tooltipPosition="top"
                         (change)="getSexo($event)">
-                  <option value="Masculino" [selected]="cliente.sexo==='Masculino'">Masculino</option>
-                  <option value="Femenino" [selected]="cliente.sexo==='Femenino'">Femenino</option>
+                  <option value="Masculino" [selected]="cliente.sexo=='Masculino'">Masculino</option>
+                  <option value="Femenino" [selected]="cliente.sexo=='Femenino'">Femenino</option>
                 </select>
               </div>
               <div class="input-group mb-3">
@@ -164,7 +181,7 @@
                     src="https://img.icons8.com/material/24/000000/city.png"></span>
                 </div>
                 <select class="custom-select" id="inputGroupSelect2" pTooltip="Ingrese su localidad"
-                        tooltipPosition="top">
+                        tooltipPosition="top" [(ngModel)]="cliente.domicilio.localidad.id">
                   <ng-container *ngFor="let localidad of localidades">
                     <option value="{{localidad.id}}" [selected]="localidad.id==cliente.domicilio.localidad.id"
                             *ngIf="localidad.provincia.id==provinciaSeleccionada">{{localidad.nombre}}</option>
