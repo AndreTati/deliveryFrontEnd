@@ -23,7 +23,15 @@ import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categor
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ButtonModule, CardModule, ChartModule, DialogModule, DropdownModule, MessageService, TooltipModule} from 'primeng/primeng';
+import {
+  ButtonModule,
+  CardModule,
+  ChartModule,
+  DialogModule,
+  DropdownModule,
+  SidebarModule,
+  TooltipModule
+} from 'primeng/primeng';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {TableModule} from 'primeng/table';
@@ -31,7 +39,8 @@ import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/art
 import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
 import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/articulo.component';
 import {PerfilComponent} from './componentes/perfil/perfil.component';
-import {ToastModule} from 'primeng/toast';
+import {CarritoComponent} from './componentes/carrito/carrito.component';
+import {ToastModule} from "primeng/toast";
 
 
 
@@ -50,7 +59,7 @@ import {ToastModule} from 'primeng/toast';
     CategoriasFiltroComponent,
     ArticulocategoriaComponent,
     PlatocategoriaComponent,
-    ArticuloComponent, PerfilComponent
+    ArticuloComponent, PerfilComponent, CarritoComponent
 
 
   ],
@@ -73,8 +82,8 @@ import {ToastModule} from 'primeng/toast';
     TooltipModule,
     ChartModule,
     CardModule,
-    ToastModule
-
+    ToastModule,
+    SidebarModule,
 
 
   ],

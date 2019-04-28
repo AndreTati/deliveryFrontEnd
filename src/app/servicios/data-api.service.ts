@@ -11,6 +11,7 @@ import {articuloInterface} from '../componentes/usuarioAdministrador/articulo/ar
 import {Localidad} from '../componentes/usuarios/register/listarLocalidades';
 import {Provincia} from '../componentes/usuarios/register/listarLocalidades';
 import {Usuario} from "../componentes/usuarios/register/usuarioInterface";
+import {articulosVentaInterface} from "../componentes/catalogo/lista-productos/item-productos/articulosVentaInterface";
 
 
 @Injectable({
@@ -30,6 +31,7 @@ export class DataApiService {
  private _urlAllArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo/';
  private _urlHTTPVerbArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo';
  private _urlUsuarios = 'http://apirestdelivery.herokuapp.com/api/v1/usuariocliente/';
+ private _urlAllArticulosVenta= 'http://apirestdelivery.herokuapp.com/api/v1/articulo/esInsumo/false';
  getAllPlatos(): Observable<productosInteface[]> {
     return this.httpClientApi.get<productosInteface[]>(this._urlAllPlatos);
   }
@@ -42,6 +44,10 @@ export class DataApiService {
   }
   getAllLocalidades(): Observable<Localidad[]> {
     return this.httpClientApi.get<Localidad[]>(this._urlAllLocalidades);
+  }
+  getAllArticulosVenta(): Observable<articulosVentaInterface[]> {
+
+   return this.httpClientApi.get<articulosVentaInterface[]>(this._urlAllArticulosVenta);
   }
 
   // METODO POST PARA REGISTRAR USUARIOS
