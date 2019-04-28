@@ -54,10 +54,7 @@ export class DataApiService {
 
   setUsuario(usuario: Usuario): Observable<any>{
 
-    //Establezco una cabecera
-    let headers = new HttpHeaders().set('Content-Type','application/json');
-
-    return this.httpClientApi.post<Usuario>(this._urlUsuarios, JSON.stringify(usuario),{headers: headers});
+    return this.httpClientApi.post<Usuario>(this._urlUsuarios, usuario);
   }
 
 

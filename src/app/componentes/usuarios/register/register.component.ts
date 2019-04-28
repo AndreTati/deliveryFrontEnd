@@ -4,34 +4,44 @@ import { Router } from '@angular/router';
 import { Provincia } from "./listarLocalidades";
 import { Localidad } from "./listarLocalidades";
 import { DataApiService} from '../../../servicios/data-api.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {Domicilio, Usuario} from "./usuarioInterface";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Usuario} from "./usuarioInterface";
+import {MessageService} from "primeng/api";
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-
+  providers:[MessageService],
 })
 export class RegisterComponent implements OnInit {
-  public registroUsuario: FormGroup;
+
   public isError = true;
   public msgError:string = '';
-  public fkProvinciaAuxiliar:number;
-  public sexos:string[] = ['Masculino', 'Femenino'];
 
+  // PARTE DEL FORMULARIO
+  public registroUsuario: FormGroup;
+  submitted: boolean;
+  // DECLARACIONES PARA EL CALENDARIO
+  es:any;
+  tr:any;
+  minDate: Date;
+  maxDate: Date;
+  invalidDates: Array<Date>
+  public mayorDe13:number;
   // DECLARACION DE LOS ATRIBUTOS DEL USUARIO
   email:'';
   password:'';
 
-
+// ARRAYS para CARGAR SELECT
   public provincias: Provincia[];
   public cantidadProvincias: number;
   public localidades: Localidad[];
   public cantidadLocalidades: number;
-  public domicilio: Domicilio;
+  public fkProvinciaAuxiliar:number;
 
-  constructor(public router: Router, public authService: AuthService, public apiService: DataApiService, private formBuilder: FormBuilder) {}
+  constructor(public router: Router, public authService: AuthService, public apiService: DataApiService, private formBuilder: FormBuilder, private messageService: MessageService) {}
 
 
   ngOnInit() {
@@ -40,31 +50,40 @@ export class RegisterComponent implements OnInit {
     this.buildForm();
 
   }
-  // Metodo que tiene las validaciones
 
+  // METODO QUE ARMA EL FORMULARIO CON ESTRUCTURA Y VALIDACIONES
   private buildForm(){
 
     this.registroUsuario = this.formBuilder.group({
-      email:'',
-      dni:'',
-      nombre:'',
-      apellido:'',
-      telefono: null,
-      password:'',
-
+      email: new FormControl('', Validators.required),
+      dni: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
+      nombre: new FormControl('', Validators.required),
+      apellido: new FormControl('', Validators.required),
+      telefono: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(7)])),
+      password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
       domicilio:this.formBuilder.group({
-        calle:'',
-        numero:null,
-        piso:null,
-        departamento:null,
-        localidad:'',
-        codigopostal:null
+        calle: new FormControl('', Validators.required),
+        numero: new FormControl(null, Validators.compose([Validators.maxLength(5)])),
+        piso: new FormControl('', Validators.compose([Validators.maxLength(2)])),
+        departamento:new FormControl(null, Validators.compose([Validators.maxLength(3)])),
+        localidad:this.formBuilder.group({
+         id:new FormControl('', Validators.required)
+        }),
+        cp:new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(5)]))
       }),
 
-      fechaNacimiento:'',
-      sexo: ''
+      fechaNacimiento: new FormControl('', Validators.required),
+      sexo: new FormControl('', Validators.required)
     });
+
   }
+  // METODO QUE SE EJECUTA CUANDO SE INTENTE REGISTRAR A LA PERSONA PARA VALIDAR EL FORM
+ngOnSubmit(usuario: Usuario){
+  this.submitted = true;
+  this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
+  this.registrar(usuario);
+}
+
 
   public getError(controlName: string): string {
     let error = '';
@@ -74,7 +93,7 @@ export class RegisterComponent implements OnInit {
     }
     return error;
   }
-// METODO DE CAMBIO DE RADIO BUTTON
+
 
 
   // METODO PARA OBTENER LAS PROVINCIAS DEL SELECT PROVINCIAS
@@ -102,33 +121,36 @@ export class RegisterComponent implements OnInit {
     this.apiService.setUsuario(usuario).subscribe((res)=>{
         console.log('SE INSERTO EL USUARIO CORRECTAMENTE');
         console.log(res);
+
       },
       err=>{
         console.log(" Error..");
         console.log(err);
+        return false;
       } )
   }
 
-  // Metodo para registrar a los clientes
+  // METODO PARA REGISTRAR TANTO EN BD COMO EN FIREBASE
   registrar(usuario: Usuario) {
-
-    console.log(usuario);
     let auxPassword = usuario.password;
     usuario.password = "*******";
     usuario = this.registroUsuario.value;
     console.log(this.registroUsuario.value);
     this.registrarUsuario(usuario);
-    /*
-    this.authService.registerUser(this.email, auxPassword)
+   /*this.authService.registerUser(usuario.email, auxPassword)
      .then((res) => {
-    this.router.navigate(['/componentes/home']);
+       this.registrarUsuario(usuario);
+       this.router.navigate(['/componentes/home']);
     this.isError = false;
      }).catch (err => {
       this.msgError = err;
       alert(err);
       this.isError = true;
-     } );
-      }*/
+     })*/
+
+
+
+
   }
 
 
