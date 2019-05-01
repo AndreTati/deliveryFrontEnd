@@ -6,7 +6,7 @@
 
 
     <div class="col-md-12">
-
+      <p-toast [style]="{marginTop: '80px'}" position="top-center" key="toastPlatoCategoria"></p-toast>
       <p-table [columns]="columnas" [value]="platoCategoria" selectionMode="single" [(selection)]="platoSeleccionado" (onRowSelect)="filaSeleccionada($event)" [paginator]="true" [rows]="5">
         <ng-template pTemplate="caption">
           Categoria de Platos

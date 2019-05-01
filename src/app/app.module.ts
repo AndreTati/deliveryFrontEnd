@@ -28,7 +28,7 @@ import {
   CardModule,
   ChartModule,
   DialogModule,
-  DropdownModule,
+  DropdownModule, MessageModule, MessageService,
   SidebarModule,
   TooltipModule
 } from 'primeng/primeng';
@@ -40,7 +40,7 @@ import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platoc
 import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/articulo.component';
 import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {CarritoComponent} from './componentes/carrito/carrito.component';
-import {ToastModule} from "primeng/toast";
+import {ToastModule} from 'primeng/toast';
 
 
 
@@ -84,10 +84,11 @@ import {ToastModule} from "primeng/toast";
     CardModule,
     ToastModule,
     SidebarModule,
+    MessageModule,
 
 
   ],
-  providers: [AngularFireAuth],
+  providers: [AngularFireAuth, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

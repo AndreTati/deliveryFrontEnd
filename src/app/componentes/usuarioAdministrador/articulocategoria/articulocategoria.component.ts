@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {articuloCategoriaInterface} from './articuloCategoriaInterface';
 import {DataApiService} from '../../../servicios/data-api.service';
+import {MessageService} from 'primeng/api';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ArticulocategoriaComponent implements OnInit {
   public articulo: articuloCategoriaInterface = {};
 
 
-  constructor( public  apiSerivce: DataApiService, private modalService: NgbModal) { }
+  constructor( public  apiSerivce: DataApiService, private modalService: NgbModal , private  toastMessages: MessageService) { }
 
   ngOnInit() {
     this.obtenerAllArticulos();
@@ -46,6 +47,7 @@ export class ArticulocategoriaComponent implements OnInit {
     this.nuevoArticulo = true;
     this.articulo = {} as articuloCategoriaInterface;
     this.mostrarDialogo = true;
+    this.articuloSeleccionado = null;
   }
   filaSeleccionada(event) {
     this.nuevoArticulo = false;
@@ -65,15 +67,22 @@ export class ArticulocategoriaComponent implements OnInit {
     const idEliminar = (this.articuloCategoria[idIndexado].id);
 
     if (confirm('Seguro de eliminar a : ' + this.articuloCategoria[idIndexado ].nombre + '' + this.articuloCategoria[idIndexado].id)) {
-    this.apiSerivce.deleteArticuloCategoria(idEliminar).subscribe( (res) => {
-      this.mostrarDialogo = false;
+    this.apiSerivce.deleteArticuloCategoria(idEliminar).subscribe(
+      data => {
+                this.mostrarToast('success' , 'Eliminado con exito ' , idEliminar.toString())
+                this.articuloCategoria = this.articuloCategoria.filter((val, i) => i !== idIndexado);
+                this.mostrarDialogo = false;
 
-    });
+                },
+      error => {
+                this.mostrarToast('error' , 'No se pudo eliminar , error : ', error.message);
+                this.mostrarDialogo = false; }
+       );
     } else {
-      alert('Entendido. No se eliminara nada');
+      this.mostrarToast('info' , 'Entendido' , 'no se eliminara nada');
     }
 
-    this.articuloCategoria = this.articuloCategoria.filter((val, i) => i !== idIndexado);
+
 
 
   }
@@ -83,24 +92,43 @@ export class ArticulocategoriaComponent implements OnInit {
     if (!this.nuevoArticulo) {
 
       articuloCategoria[this.articuloCategoria.indexOf(this.articuloSeleccionado)] = this.articulo;
-      if (confirm('Desde updatear a :' + articuloCategoria[this.articuloCategoria.indexOf(this.articuloSeleccionado)].nombre)) {
+      if (confirm('Desea actualizar a : ' + articuloCategoria[this.articuloCategoria.indexOf(this.articuloSeleccionado)].nombre)) {
         this.apiSerivce.updateArticuloCategoria(articuloCategoria[this.articuloCategoria.indexOf(this.articuloSeleccionado)]
-          , articuloCategoria[this.articuloCategoria.indexOf(this.articuloSeleccionado)].id).subscribe( (res) => {
-          this.articulo = null;
-          this.mostrarDialogo = false;
-        });
+          , articuloCategoria[this.articuloCategoria.indexOf(this.articuloSeleccionado)].id).subscribe(
+          data => {
+            this.mostrarToast( 'success' , 'Actualizado con exito' , data.nombre);
+            this.articulo = null;
+            this.mostrarDialogo = false;
+            this.obtenerAllArticulos(); },
+          error => {this.mostrarToast('error', 'Error al actualizar' , error.message);
+                    this.mostrarDialogo = false; }
+        );
+
+
+
+
+
+
 
       }
     } else {
 
-      if(confirm('Desea agregar esta nueva Categoria Articulo?' + this.articulo.nombre)) {
-       this.apiSerivce.postArticuloCategoria(this.articulo).subscribe( (res) => {
-         alert('Articulo Agregado');
-         this.articulo = null;
-         this.mostrarDialogo = false;
-       });
-      };
+      if (confirm('Desea agregar esta nueva Categoria Articulo?' + this.articulo.nombre)) {
+       this.apiSerivce.postArticuloCategoria(this.articulo).subscribe(
+         data => {
+           this.mostrarToast( 'success' , 'Agregado Correctamente' , data.nombre);
+           this.articulo = null;
+           this.mostrarDialogo = false;
+           this.obtenerAllArticulos(); },
+         error => {
+           this.mostrarToast( 'error' , 'Hubo un error' , error.message);
+               }
+       );
+         }
     }
+  }
+  mostrarToast( tipoToast: string , sumario: string, detalle: string ) {
+    this.toastMessages.add({key: 'toastArticulo', severity: tipoToast , summary: sumario, detail: detalle});
   }
 
 
