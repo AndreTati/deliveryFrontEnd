@@ -39,9 +39,11 @@ export class AuthService {
   logoutUser( ) {
     return this.afsAuth.auth.signOut();
   }
-  
-  isAuth () {
+
+  isAuth() {
     return this.afsAuth.authState.pipe(map(auth => auth));
   }
+
+
 
 }
