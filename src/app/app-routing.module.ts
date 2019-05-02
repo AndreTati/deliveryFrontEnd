@@ -8,8 +8,9 @@ import { ListaProductosComponent} from './componentes/catalogo/lista-productos/l
 import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/articulocategoria/articulocategoria.component';
 import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
 import {ArticuloComponent} from './componentes/usuarioAdministrador/articulo/articulo.component';
-import {PerfilComponent} from "./componentes/perfil/perfil.component";
+import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {PedidosComponent} from './componentes/perfil/pedidos/pedidos.component';
+import {AuthGuardPageGuard} from './guards/auth-guard-page.guard';
 
 
 const routes: Routes = [
@@ -17,14 +18,14 @@ const routes: Routes = [
   // CON LOS GUARDS
   
   {path: 'componentes/home', component : ListaProductosComponent },
-  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent},
+  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate: [AuthGuardPageGuard]},
   {path: '', component : ListaProductosComponent },
-  {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent},
-  {path: 'usuarioAdministrador/articulo', component : ArticuloComponent},
+  {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard]},
+  {path: 'usuarioAdministrador/articulo', component : ArticuloComponent , canActivate: [AuthGuardPageGuard]},
   {path : 'user/login', component : LoginComponent},
   {path: 'user/register', component: RegisterComponent},
-  {path : 'user/perfil', component: PerfilComponent},
-  {path : 'user/perfil/pedidos', component: PedidosComponent},
+  {path : 'user/perfil', component: PerfilComponent , canActivate: [AuthGuardPageGuard]},
+  {path : 'user/perfil/pedidos', component: PedidosComponent , canActivate: [AuthGuardPageGuard]},
   {path: 'catalogo/lista', component: ListaProductosComponent},
   {path: '**', component: Page404Component}
   
