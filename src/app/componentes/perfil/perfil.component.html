@@ -31,7 +31,7 @@
             <tr>
 
               <br>
-              <button type="button" class="btn btn-success btn-lg btn-block" (click)="showConfirm()" >EDITAR</button>
+              <button type="button" class="btn btn-success btn-lg btn-block" (click)="showConfirm()" >GUARDAR</button>
               <p-toast position="center" key="confirmacion" (onClose)="closeAndUpdate(false)" [modal]="true" [baseZIndex]="5000">
                 <ng-template let-message pTemplate="message">
                   <div style="text-align: center">
@@ -54,7 +54,7 @@
             </tr>
             <tr>
 
-              <button type="button" class="btn btn-danger btn-lg btn-block">PEDIDOS</button>
+              <button type="button" class="btn btn-danger btn-lg btn-block" routerLink="/user/perfil/pedidos">PEDIDOS</button>
 
             </tr>
             </tbody>
