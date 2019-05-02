@@ -41,6 +41,7 @@ import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/a
 import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {CarritoComponent} from './componentes/carrito/carrito.component';
 import {ToastModule} from 'primeng/toast';
+import { PedidosComponent } from './componentes/perfil/pedidos/pedidos.component';
 
 
 
@@ -59,7 +60,7 @@ import {ToastModule} from 'primeng/toast';
     CategoriasFiltroComponent,
     ArticulocategoriaComponent,
     PlatocategoriaComponent,
-    ArticuloComponent, PerfilComponent, CarritoComponent
+    ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent
 
 
   ],

@@ -9,6 +9,7 @@ import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/art
 import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
 import {ArticuloComponent} from './componentes/usuarioAdministrador/articulo/articulo.component';
 import {PerfilComponent} from "./componentes/perfil/perfil.component";
+import {PedidosComponent} from './componentes/perfil/pedidos/pedidos.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path : 'user/login', component : LoginComponent},
   {path: 'user/register', component: RegisterComponent},
   {path : 'user/perfil', component: PerfilComponent},
+  {path : 'user/perfil/pedidos', component: PedidosComponent},
   {path: 'catalogo/lista', component: ListaProductosComponent},
   {path: '**', component: Page404Component}
   
