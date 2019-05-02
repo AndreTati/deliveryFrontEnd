@@ -11,6 +11,7 @@ import {ArticuloComponent} from './componentes/usuarioAdministrador/articulo/art
 import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {PedidosComponent} from './componentes/perfil/pedidos/pedidos.component';
 import {AuthGuardPageGuard} from './guards/auth-guard-page.guard';
+import {RolAdminGuard} from './guards/rol-admin-guard.service';
 
 
 const routes: Routes = [
@@ -18,10 +19,10 @@ const routes: Routes = [
   // CON LOS GUARDS
   
   {path: 'componentes/home', component : ListaProductosComponent },
-  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate: [AuthGuardPageGuard]},
+  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},
   {path: '', component : ListaProductosComponent },
-  {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard]},
-  {path: 'usuarioAdministrador/articulo', component : ArticuloComponent , canActivate: [AuthGuardPageGuard]},
+  {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
+  {path: 'usuarioAdministrador/articulo', component : ArticuloComponent , canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
   {path : 'user/login', component : LoginComponent},
   {path: 'user/register', component: RegisterComponent},
   {path : 'user/perfil', component: PerfilComponent , canActivate: [AuthGuardPageGuard]},
