@@ -14,11 +14,11 @@ import {MessageService} from 'primeng/api';
 })
 export class PerfilComponent implements OnInit {
 
-  private cliente:Usuario;
+  private cliente:Usuario = {id:0, nombre: "", apellido: "", fechaNacimiento: "", sexo: "", telefono: 0, email: "", dni: "", password: "", domicilio: {id:0, calle: "", departamento: 0, cp: 0, numero: 0, piso: 0, localidad: {id: 0, provincia:{ id: 0 }}, latitud: 0, longitud: 0}};
   private provincias:Provincia[];
   private provinciaSeleccionada:number;
   private localidades:Provincia[];
-  private email:string;
+  private email:string = "";
 
   constructor(private usuarioService:UsuarioService, private dataService:DataApiService, private att:AuthService, private messageService:MessageService) {
     this.att.isAuth().subscribe((data)=>{
@@ -51,7 +51,7 @@ export class PerfilComponent implements OnInit {
   }
 
   putUsuario(){
-    console.log("put");
+    console.log(this.cliente.domicilio.localidad.id);
     this.usuarioService.putUsuario(this.cliente).subscribe((data) => {
     });
   }
@@ -77,6 +77,7 @@ export class PerfilComponent implements OnInit {
     }
     this.dataService.getAllLocalidades().subscribe((data)=>{
       this.localidades = data;
+      this.cliente.domicilio.localidad.id = data[0].id;
     })
   }
 

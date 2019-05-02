@@ -11,14 +11,14 @@ export interface Domicilio {
 }
 
 export interface Usuario {
-  id: number;
-  email: string;
-  dni: string;
-  nombre: string;
-  apellido: string;
-  telefono: number;
-  password: string;
-  domicilio: Domicilio;
-  fechaNacimiento: string;
-  sexo: string;
+  id?: number;
+  email?: string;
+  dni?: string;
+  nombre?: string;
+  apellido?: string;
+  telefono?: number;
+  password?: string;
+  domicilio?: Domicilio;
+  fechaNacimiento?: string;
+  sexo?: string;
 }
