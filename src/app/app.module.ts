@@ -23,7 +23,15 @@ import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categor
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ButtonModule, CardModule, ChartModule, DialogModule, DropdownModule, TooltipModule} from 'primeng/primeng';
+import {
+  ButtonModule,
+  CardModule,
+  ChartModule,
+  DialogModule,
+  DropdownModule, MessageModule, MessageService,
+  SidebarModule,
+  TooltipModule
+} from 'primeng/primeng';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {TableModule} from 'primeng/table';
@@ -31,6 +39,9 @@ import {ArticulocategoriaComponent} from './componentes/usuarioAdministrador/art
 import {PlatocategoriaComponent} from './componentes/usuarioAdministrador/platocategoria/platocategoria.component';
 import { ArticuloComponent } from './componentes/usuarioAdministrador/articulo/articulo.component';
 import {PerfilComponent} from './componentes/perfil/perfil.component';
+import {CarritoComponent} from './componentes/carrito/carrito.component';
+import {ToastModule} from 'primeng/toast';
+import { PedidosComponent } from './componentes/perfil/pedidos/pedidos.component';
 
 
 
@@ -49,7 +60,7 @@ import {PerfilComponent} from './componentes/perfil/perfil.component';
     CategoriasFiltroComponent,
     ArticulocategoriaComponent,
     PlatocategoriaComponent,
-    ArticuloComponent, PerfilComponent
+    ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent
 
 
   ],
@@ -72,10 +83,13 @@ import {PerfilComponent} from './componentes/perfil/perfil.component';
     TooltipModule,
     ChartModule,
     CardModule,
+    ToastModule,
+    SidebarModule,
+    MessageModule,
 
 
   ],
-  providers: [AngularFireAuth],
+  providers: [AngularFireAuth, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

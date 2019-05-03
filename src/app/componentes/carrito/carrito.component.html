@@ -1,0 +1,33 @@
+<p-sidebar [(visible)]="carritoMenu" position="right"  styleClass="ui-sidebar-md" [baseZIndex]="150000">
+
+
+
+  <h5 style="font-weight:normal ; align:center">Tu Carrito en A GOOD TASTE</h5>
+
+  <p-table [value]="" >
+    <ng-template pTemplate="header" >
+      <tr>
+        <th>Producto </th>
+        <th>Cantidad</th>
+        <th>P.Unitario</th>
+        <th>Total </th>
+        <th> </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-car>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </ng-template>
+  </p-table>
+   <br>
+  <button pButton type="button" (click)="carritoMenu = false" label="Save" class="ui-button-success"></button>
+  <button pButton type="button" (click)="carritoMenu = false" label="Cancel" class="ui-button-secondary"></button>
+</p-sidebar>
+
+
+<button pButton type="button" (click)="carritoMenu = true" label="Mi Carrito" ><i class="fa fa-shopping-cart"></i></button>
+

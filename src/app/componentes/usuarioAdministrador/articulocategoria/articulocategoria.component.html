@@ -11,6 +11,36 @@
 
     <div class="col-md-12">
 
+      <p-toast position="center" key="mensajeConfirmacion" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+        <ng-template let-message pTemplate="message">
+          <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+          </div>
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-6" *ngIf="!esEliminar">
+              <button type="button" pButton (click)="guardar()" label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6" *ngIf="esEliminar">
+              <button type="button" pButton (click)="eliminar()" label="Si ,Deseo eliminar" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+          </div>
+        </ng-template>
+      </p-toast>
+
+
+
+
+
+
+
+
+      <p-toast [style]="{marginTop: '80px'}" position="top-center" key="toastArticulo"></p-toast>
+
 
 
       <p-table  [columns]="columnas"  [value]="articuloCategoria" selectionMode="single" (onRowSelect)="filaSeleccionada($event)" [(selection)]="articuloSeleccionado"   [paginator]="true" [rows]="5">
@@ -56,7 +86,7 @@
               <label for="nombre">Nombre</label>
             </div>
             <div class="ui-g-8">
-              <input pInputText id="nombre" [(ngModel)]="articulo.nombre" />
+              <input pInputText id="nombre" [(ngModel)]="articulo.nombre" pTooltip="Nombre de la categoria" />
             </div>
           </div>
           <div class="ui-g-12">
@@ -65,14 +95,14 @@
             </div>
             <div class="ui-g-8">
 
-              <textarea pInputTextarea id="descripcion" autoResize="autoResize" [(ngModel)]="articulo.descripcion" ></textarea>
+              <textarea pInputTextarea id="descripcion" autoResize="autoResize" [(ngModel)]="articulo.descripcion" pTooltip="Una breve descripcion de la categoria" ></textarea>
             </div>
           </div>
         </div>
         <p-footer>
           <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button " class="ui-button-rounded ui-button-danger" pButton icon="fa fa-close" (click)="eliminar()" label="Eliminar"></button>
-            <button type="button"  class="ui-button-rounded ui-button-success" pButton icon="fa fa-check" (click)="guardar()" label="Guardar"></button>
+            <button type="button " class="ui-button-rounded ui-button-danger" pButton icon="fa fa-close" (click)="eliminarConfirm()" label="Eliminar"></button>
+            <button type="button"  class="ui-button-rounded ui-button-success" pButton icon="fa fa-check" (click)="guardarConfirm()" label="Guardar"></button>
           </div>
         </p-footer>
       </p-dialog>

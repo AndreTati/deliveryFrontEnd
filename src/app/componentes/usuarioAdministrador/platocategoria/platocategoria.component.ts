@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataApiService} from '../../../servicios/data-api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {platoCategoriaInterface} from './platoCategoriaInterface';
+import {MessageService} from "primeng/api";
 
 
 
@@ -12,7 +13,7 @@ import {platoCategoriaInterface} from './platoCategoriaInterface';
 })
 export class PlatocategoriaComponent implements OnInit {
 
-  constructor( public apiService: DataApiService , public  modalSerivce: NgbModal) { }
+  constructor( private apiService: DataApiService , private  modalSerivce: NgbModal , private  toastMessages: MessageService) { }
   public platoCategoria: platoCategoriaInterface [];
   public columnas: any;
   public cantidadCategorias: number;
@@ -22,6 +23,7 @@ export class PlatocategoriaComponent implements OnInit {
   public platoSeleccionado: platoCategoriaInterface;
   public nuevoPlato: boolean;
   public mostrarDialogo: boolean;
+  public esEliminar: boolean;
   // @ts-ignore
   public plato: platoCategoriaInterface = {};
 
@@ -47,6 +49,7 @@ export class PlatocategoriaComponent implements OnInit {
     this.nuevoPlato = true;
     this.plato = {} as platoCategoriaInterface;
     this.mostrarDialogo = true;
+    this.platoSeleccionado = null;
   }
   filaSeleccionada(event) {
 
@@ -62,24 +65,35 @@ export class PlatocategoriaComponent implements OnInit {
     }
     return plato as PlatocategoriaComponent;
   }
+  eliminarConfirm() {
+    this.esEliminar = true;
+    this.mostrarConfirmar('Esta usted seguro?' , '¿Desea eliminar el registro?');
+  }
+  guardarConfirm() {
+    this.esEliminar = false;
+    if (this.nuevoPlato) {
+      this.mostrarConfirmar('Desea Agregar este nuevo registro?' , 'Para proceder debe confirmar'); } else {
+      this.mostrarConfirmar('Desea Actualizar este registro?' , 'Para proceder debe confirmar'); }
+  }
 
 
   eliminar() {
     const idIndexado = this.platoCategoria.indexOf(this.platoSeleccionado);
     const idEliminar = (this.platoCategoria[idIndexado].id);
 
-    if (confirm('Seguro de eliminar a : ' + this.platoCategoria[idIndexado ].nombre + ' | ' + this.platoCategoria[idIndexado].id)) {
-      this.apiService.deletePlatoCategoria(idEliminar).subscribe( (res) => {
-        this.mostrarDialogo = false;
-        alert('Eliminado Correctamente');
-      });
-    } else {
-      alert('Entendido. No se eliminara nada');
-    }
+    this.apiService.deletePlatoCategoria(idEliminar).subscribe(
+           data => {
 
-    this.platoCategoria = this.platoCategoria.filter((val, i) => i !== idIndexado);
-
-
+           this.mostrarToast('success' , 'Eliminado el ID :' , idEliminar.toString());
+           this.mostrarDialogo = false;
+           this.platoCategoria = this.platoCategoria.filter((val, i) => i !== idIndexado);
+           this.clearMessage();
+           }  ,
+          error => {
+             this.mostrarToast('error' , 'Error al eliminar , motivo : ' , error.message);
+             this.mostrarDialogo = false;
+             this.clearMessage();
+           });
   }
 
   guardar() {
@@ -87,23 +101,53 @@ export class PlatocategoriaComponent implements OnInit {
     if (!this.nuevoPlato) {
 
      platoCategoria[this.platoCategoria.indexOf(this.platoSeleccionado)] = this.plato;
-     if (confirm('Desde updatear a : ' + platoCategoria[this.platoCategoria.indexOf(this.platoSeleccionado)].nombre)) {
-        this.apiService.updatePlatoCategoria(platoCategoria[this.platoCategoria.indexOf(this.platoSeleccionado)]
-          , platoCategoria[this.platoCategoria.indexOf(this.platoSeleccionado)].id).subscribe( (res) => {
-          this.plato = null;
-          this.mostrarDialogo = false;
-        });
 
-      }
+     this.apiService.updatePlatoCategoria(platoCategoria[this.platoCategoria.indexOf(this.platoSeleccionado)]
+          , platoCategoria[this.platoCategoria.indexOf(this.platoSeleccionado)].id).subscribe(
+          data => {
+            this.mostrarToast('success' , 'Actualizar ', 'Categoria actualizada correctamente');
+            this.plato = null;
+            this.mostrarDialogo = false;
+            this.clearMessage();
+          },
+          error => {
+            this.mostrarToast('error' , 'Error , No se pudo actualizar : ', error.message);
+            this.plato = null;
+            this.mostrarDialogo = false;
+            this.clearMessage();
+          }
+        );
+
     } else {
-
-      if (confirm('Desea agregar esta nueva categoria de Platos?' + this.plato.nombre)) {
-        this.apiService.postPlatoCategoria(this.plato).subscribe( (res) => {
-          alert('Plato Agregado');
-          this.plato = null;
-          this.mostrarDialogo = false;
-        });
-      }
+          this.apiService.postPlatoCategoria(this.plato).subscribe(
+          data => {
+            this.mostrarToast('success' , 'Categoria agregada' , 'Se agrego correctamente su nueva categoria');
+            this.plato = null;
+            this.mostrarDialogo = false;
+            this.clearMessage();
+          },
+          error => {
+            this.mostrarToast('error' , 'Error al agregar , motivo : ' , error.message);
+            this.plato = null;
+            this.mostrarDialogo = false;
+            this.clearMessage();
+          }
+        );
     }
+  }
+  mostrarToast( tipoToast: string , sumario: string, detalle: string ) {
+    this.toastMessages.add({key: 'toastPlatoCategoria', severity: tipoToast , summary: sumario, detail: detalle});
+  }
+  mostrarConfirmar(sumario: string , detalle: string) {
+    this.toastMessages.clear();
+    this.toastMessages.add({key: 'mensajeConfirmacion', sticky: true, severity: 'warn', summary: sumario,
+      detail: detalle});
+  }
+
+  onReject() {
+    this.toastMessages.clear('mensajeConfirmacion');
+  }
+  clearMessage() {
+    this.toastMessages.clear('mensajeConfirmacion');
   }
 }

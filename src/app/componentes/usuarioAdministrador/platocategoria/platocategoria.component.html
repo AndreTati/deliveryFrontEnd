@@ -6,7 +6,43 @@
 
 
     <div class="col-md-12">
+      <p-toast position="center" key="mensajeConfirmacion" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+        <ng-template let-message pTemplate="message">
+          <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+          </div>
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-6" *ngIf="!esEliminar">
+              <button type="button" pButton (click)="guardar()" label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6" *ngIf="esEliminar">
+              <button type="button" pButton (click)="eliminar()" label="Si ,Deseo eliminar" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+          </div>
+        </ng-template>
+      </p-toast>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <p-toast [style]="{marginTop: '80px'}" position="top-center" key="toastPlatoCategoria"></p-toast>
       <p-table [columns]="columnas" [value]="platoCategoria" selectionMode="single" [(selection)]="platoSeleccionado" (onRowSelect)="filaSeleccionada($event)" [paginator]="true" [rows]="5">
         <ng-template pTemplate="caption">
           Categoria de Platos
@@ -65,8 +101,8 @@
         </div>
         <p-footer>
           <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa fa-close" class="ui-button-rounded ui-button-danger" (click)="eliminar()" label="Eliminar"></button>
-            <button type="button" pButton icon="fa fa-check" class="ui-button-rounded ui-button-success" (click)="guardar()" label="Guardar"></button>
+            <button type="button" pButton icon="fa fa-close" class="ui-button-rounded ui-button-danger" (click)="eliminarConfirm()" label="Eliminar"></button>
+            <button type="button" pButton icon="fa fa-check" class="ui-button-rounded ui-button-success" (click)="guardarConfirm()" label="Guardar"></button>
           </div>
         </p-footer>
       </p-dialog>

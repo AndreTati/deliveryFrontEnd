@@ -6,6 +6,7 @@
             layout="grid">
 
   <p-header>
+    <h2 align="center">Catalogo de Platos</h2>
     <div class="ui-helper-clearfix">
       <div class="ui-g">
 
@@ -27,16 +28,17 @@
 
   <ng-template let-platos pTemplate="gridItem">
     <div style="padding:.5em" class="ui-g-12 ui-md-3">
-      <p-card [header]="platos.nombre"  [subheader]="platos.categoria.nombre" [style]="{width: '200px' , height: '400px'}" styleClass="ui-card-shadow">
+      <p-card [header]="platos.nombre"  [subheader]="platos.categoria.nombre" [style]="{width: '200px' , height: '400px'}" >
         <p-header>
           <img src={{platos.imagen.url}} style="height: 150px" >
+
         </p-header>
 
 
         <div class="plato-detalle">Tiempo estimado:{{platos.tiempoPreparacion}} minutos</div>
         <div class="plato-detalle">Precio : $ {{platos.categoria.porcentajeGanancia}}</div>
         <hr class="ui-widget-content" style="border-top:0">
-
+        <p-footer>
         <div class="btn-group ">
 
           <button type="button" id={{platos.nombre}} class="btn-info" placement="top"
@@ -45,9 +47,58 @@
           </button>
           <button type="button"  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
         </div>
+        </p-footer>
       </p-card>
     </div>
   </ng-template>
 
 
 </p-dataView>
+
+<br>
+
+<p-dataView  layout="grid" #dataViewBebidas  [value]="articulosVenta"  [totalRecords]="cantidadArticulos" [paginator]="true" [rows]="8"  filterBy="nombre,categoria.nombre" >
+  <p-header>
+    <h2 align="center">Bebidas</h2>
+    <div class="ui-helper-clearfix">
+      <div class="ui-g">
+
+
+        <div class="ui-g-6 ui-md-5 filter-container">
+
+          <div style="position:relative">
+            <input type="search" class="form-control form-control-lg form-control-borderless" pInputText
+                   placeholder="Busca por nombre o categoria.. " (keyup)="dataViewBebidas.filter($event.target.value)">
+
+          </div>
+        </div>
+        <div class="ui-g-6 ui-md-4" style="text-align:right">
+
+        </div>
+      </div>
+    </div>
+  </p-header>
+
+  <ng-template let-articulo pTemplate="gridItem">
+
+    <p-card *ngIf="articulo.stock > 0" [header]="articulo.nombre" [subheader]="articulo.categoria.nombre" [style]="{width: '155px'}"  >
+      <p-header>
+        <img src="{{articulo.imagen.url}}">
+      </p-header>
+      <div><h6>{{articulo.precioVenta}} $ </h6> </div>
+      <p-footer>
+        <div class="btn-group ">
+
+          <button type="button" id={{articulo.nombre}} class="btn-info" placement="top"
+                  ngbPopover="{{articulo.descripcion}}" popoverTitle="{{articulo.nombre}}">
+           Descripcion
+          </button>
+          <button type="button"  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
+        </div>
+      </p-footer>
+    </p-card>
+
+  </ng-template>
+</p-dataView>
+
+
