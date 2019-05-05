@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {DataApiService} from '../../../servicios/data-api.service';
 import {articuloInterface, Categoria, Imagen, UnidadMedida} from './articuloInterface';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ArticuloService} from '../../../servicios/articulo/articulo.service';
 
 @Component({
   selector: 'app-articulo',
@@ -24,7 +24,7 @@ export class ArticuloComponent implements OnInit {
   public fk_categoria: number;
   public fk_unidadMedida:number;
   public fk_imagen : number;
-  constructor(public apiService: DataApiService, private modalService: NgbModal) { }
+  constructor(public apiService: ArticuloService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.obtenerAllArticulos();

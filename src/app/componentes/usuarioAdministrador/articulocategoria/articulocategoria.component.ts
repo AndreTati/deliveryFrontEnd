@@ -3,6 +3,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {articuloCategoriaInterface} from './articuloCategoriaInterface';
 import {DataApiService} from '../../../servicios/data-api.service';
 import {MessageService} from 'primeng/api';
+import {ArticuloCategoriaService} from "../../../servicios/articuloCategoria/articulo-categoria.service";
 
 
 
@@ -28,7 +29,7 @@ export class ArticulocategoriaComponent implements OnInit {
   public articulo: articuloCategoriaInterface = {};
 
 
-  constructor( public  apiSerivce: DataApiService, private modalService: NgbModal , private  toastMessages: MessageService) { }
+  constructor( public  apiSerivce: ArticuloCategoriaService, private modalService: NgbModal , private  toastMessages: MessageService) { }
 
   ngOnInit() {
     this.obtenerAllArticulos();

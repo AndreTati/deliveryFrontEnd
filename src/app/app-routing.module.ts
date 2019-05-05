@@ -12,6 +12,7 @@ import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {PedidosComponent} from './componentes/perfil/pedidos/pedidos.component';
 import {AuthGuardPageGuard} from './guards/auth-guard-page.guard';
 import {RolAdminGuard} from './guards/rol-admin-guard.service';
+import {CocineroComponent} from "./componentes/cocinero/cocinero.component";
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   
   {path: 'componentes/home', component : ListaProductosComponent },
   {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},
+  {path : 'cocina' , component : CocineroComponent , canActivate : [AuthGuardPageGuard]},
   {path: '', component : ListaProductosComponent },
   {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
   {path: 'usuarioAdministrador/articulo', component : ArticuloComponent , canActivate: [AuthGuardPageGuard,  RolAdminGuard]},

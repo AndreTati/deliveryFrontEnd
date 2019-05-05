@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-import {HttpClient} from '@angular/common/http';
-
-import {DataApiService} from '../../../../servicios/data-api.service';
 import { productosInteface } from './productosInterface';
-import {SelectItem} from 'primeng/api';
 import {articulosVentaInterface} from './articulosVentaInterface';
+import {PlatoService} from '../../../../servicios/plato/plato.service';
+import {ArticuloService} from '../../../../servicios/articulo/articulo.service';
 
 
 
@@ -25,7 +22,7 @@ export class ItemProductosComponent implements OnInit {
   public articulosVenta: articulosVentaInterface[];
   public cantidadArticulos: number;
 
-  constructor( public apiService: DataApiService ) {  }
+  constructor( public apiService: PlatoService , public apiArticuloVenta: ArticuloService) {  }
 
 
   ngOnInit() {
@@ -35,13 +32,13 @@ export class ItemProductosComponent implements OnInit {
 
   obtenerTodosLosPlatos() {
     this.apiService.getAllPlatos()
-      .subscribe(data => { this.platos = data ;  this.cantidadPlatos = data.length;}
+      .subscribe(data => { this.platos = data ;  this.cantidadPlatos = data.length; }
 
       );
   }
   obtenerTodosLosArticulosVenta() {
-    this.apiService.getAllArticulosVenta()
-      .subscribe(data => { this.articulosVenta = data  ; this.cantidadArticulos = data.length;}
+    this.apiArticuloVenta.getAllArticulosVenta()
+      .subscribe(data => { this.articulosVenta = data  ; this.cantidadArticulos = data.length; }
 
       );
   }

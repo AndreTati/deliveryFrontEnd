@@ -15,11 +15,11 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth} from '@angular/fire/auth';
-import { FiltroComponent } from './componentes/catalogo/filtro/filtro.component';
+
 import { ListaProductosComponent } from './componentes/catalogo/lista-productos/lista-productos.component';
 import { ItemProductosComponent } from './componentes/catalogo/lista-productos/item-productos/item-productos.component';
 import {HttpClientModule} from '@angular/common/http';
-import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categorias-filtro/categorias-filtro.component';
+
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -42,6 +42,7 @@ import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {CarritoComponent} from './componentes/carrito/carrito.component';
 import {ToastModule} from 'primeng/toast';
 import { PedidosComponent } from './componentes/perfil/pedidos/pedidos.component';
+import { CocineroComponent } from './componentes/cocinero/cocinero.component';
 
 
 
@@ -54,13 +55,11 @@ import { PedidosComponent } from './componentes/perfil/pedidos/pedidos.component
     LoginComponent,
     RegisterComponent,
     Page404Component,
-    FiltroComponent,
     ListaProductosComponent,
     ItemProductosComponent,
-    CategoriasFiltroComponent,
     ArticulocategoriaComponent,
     PlatocategoriaComponent,
-    ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent
+    ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent, CocineroComponent
 
 
   ],
