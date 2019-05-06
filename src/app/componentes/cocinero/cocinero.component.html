@@ -3,7 +3,72 @@
 
   <div class="col-md-12">
 
+    <p-table [columns]="columnas" [value]="pedidos" selectionMode="single" [(selection)]="pedidoSeleccionado" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
+      <ng-template pTemplate="caption">
+        Lista de Pedidos
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let columna of columnas" [pSortableColumn]="columna.field">
+            {{columna.header}}
+            <p-sortIcon [field]="columna.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td>{{rowData.id}} </td>
+          <td>{{rowData.fecha}} </td>
+          <td>{{rowData.horaEstimadaFin}} </td>
+          <td>
+            <button type="button" pButton icon="fa fa-plus" (click)="mostrarDetalle()" label="Ver Detalle"></button>
 
+          </td>
+          <td *ngIf="rowData.estado.nombre == 'En cocina' " style="background: cyan" > {{rowData.estado.nombre}} <i class="fa fa-spinner"></i> </td>
+          <td *ngIf="rowData.estado.nombre == 'Demorado' "  style="background: red" > {{rowData.estado.nombre}} <i class="fa fa-clock"></i>  </td>
+          <td *ngIf="rowData.estado.nombre == 'En Facturacion' "  style="background: chartreuse" > {{rowData.estado.nombre}} <i class="fas fa-paste"></i>  </td>
+          <td *ngIf="rowData.estado.nombre == 'Finalizado' " style="background: lawngreen" > {{rowData.estado.nombre}} <i class="fa fa-check"></i>  </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary" let-rowData>
+
+      </ng-template>
+    </p-table>
+
+
+
+    <p-dialog header="Modificar Estado Pedido" [(visible)]="mostrarDialogo" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '500px' , height: '500px'}">
+      <div class="ui-g ui-fluid" *ngIf="pedido">
+        <div class="ui-g-12">
+          <div class="ui-g-4">
+            <label for="id">Numero Comanda</label>
+          </div>
+          <div class="ui-g-8">
+            <input pInputText id="id" [(ngModel)]="pedido.id" />
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Estado Pedido</span>
+            </div>
+            <select class="form-control form-control-lg" [(ngModel)]="pedido.estado.id"   >
+
+              <option   *ngFor=" let estado of estados "  [selected]="estado.id == pedido.estado.id"
+                        value={{estado.id}}> {{estado.nombre}}  </option>
+
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+
+          <button type="button" pButton icon="fa fa-check" (click)="guardar()" label="Guardar"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
 
 
 
