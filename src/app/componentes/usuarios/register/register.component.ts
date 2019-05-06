@@ -77,12 +77,21 @@ export class RegisterComponent implements OnInit {
     });
 
   }
+
   // METODO QUE SE EJECUTA CUANDO SE INTENTE REGISTRAR A LA PERSONA PARA VALIDAR EL FORM
 ngOnSubmit(usuario: Usuario){
   this.submitted = true;
   this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
   this.registrar(usuario);
 }
+
+
+// MUESTRO CON UN TOAST EL ERROR DE INPUT
+muestraError(summary?: string, detail?: string){
+  this.messageService.add({sticky: true, key: 'toast1', severity:'error', summary: summary, detail: detail});
+
+
+  }
 
 
   public getError(controlName: string): string {
@@ -136,7 +145,7 @@ ngOnSubmit(usuario: Usuario){
     usuario.password = "*******";
     usuario = this.registroUsuario.value;
     console.log(this.registroUsuario.value);
-    this.registrarUsuario(usuario);
+    //this.registrarUsuario(usuario);
    /*this.authService.registerUser(usuario.email, auxPassword)
      .then((res) => {
        this.registrarUsuario(usuario);

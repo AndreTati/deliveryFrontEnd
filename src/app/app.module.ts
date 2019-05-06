@@ -15,11 +15,11 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth} from '@angular/fire/auth';
-
+//import { FiltroComponent } from './componentes/catalogo/filtro/filtro.component';
 import { ListaProductosComponent } from './componentes/catalogo/lista-productos/lista-productos.component';
 import { ItemProductosComponent } from './componentes/catalogo/lista-productos/item-productos/item-productos.component';
 import {HttpClientModule} from '@angular/common/http';
-
+//import { CategoriasFiltroComponent } from './componentes/catalogo/filtro/categorias-filtro/categorias-filtro.component';
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -45,7 +45,6 @@ import { PedidosComponent } from './componentes/perfil/pedidos/pedidos.component
 import { CocineroComponent } from './componentes/cocinero/cocinero.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,8 +58,8 @@ import { CocineroComponent } from './componentes/cocinero/cocinero.component';
     ItemProductosComponent,
     ArticulocategoriaComponent,
     PlatocategoriaComponent,
-    ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent, CocineroComponent
-
+    ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent,
+    CocineroComponent
 
   ],
   imports: [
