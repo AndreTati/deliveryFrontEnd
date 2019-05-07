@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {pedidoInterface} from './pedidoInterface';
 import {PedidoService} from '../../servicios/pedido/pedido.service';
 import {estadoInterface} from './estadoInterface';
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-cocinero',
@@ -20,13 +21,13 @@ export class CocineroComponent implements OnInit {
   columnas: any[];
   estados: estadoInterface[];
   cantidadEstados: number;
-  constructor(public pedidoApiService: PedidoService) {
+  constructor(public pedidoApiService: PedidoService, private  toastMessages: MessageService) {
     this.columnas = [
       { field: 'id', header: 'Numero Comanda' },
       { field: 'fecha', header: 'Fecha' },
       { field: 'horaEstimadaFin', header: 'Hora Estimada Fin' },
       { field: 'detalle', header: 'Detalle' },
-      { field: 'estado' , header: 'Estado'}
+      { field: 'estado.nombre' , header: 'Estado'}
     ];
   }
 
@@ -35,6 +36,12 @@ export class CocineroComponent implements OnInit {
     this.pedido = {};
     // @ts-ignore
     this.pedido.estado = {};
+    this.getAllPedidos();
+
+    this.getAllEstados();
+
+  }
+  getAllPedidos() {
     this.pedidoApiService.getAllPedidos().subscribe(data => {
       this.pedidos = data;
       this.cantidadPedidos = data.length;
@@ -42,14 +49,13 @@ export class CocineroComponent implements OnInit {
     } , error => {
       alert('Error al cargar pedidos');
     });
-    this.getAllEstados();
 
   }
   getAllEstados() {
     this.pedidoApiService.getAllEstados().subscribe(data => {
       this.estados = data;
       this.cantidadEstados = data.length;
-      alert(this.cantidadEstados);
+
     } , error => {});
   }
   onRowSelect(event) {
@@ -68,8 +74,40 @@ export class CocineroComponent implements OnInit {
   guardar() {
     const pedidos = [...this.pedidos];
     pedidos[this.pedidos.indexOf(this.pedidoSeleccionado)] = this.pedido;
-    // SEGUIR AQUI HACER UPDATE
 
+    this.pedidoApiService.updatePedido(pedidos[this.pedidos.indexOf(this.pedidoSeleccionado)]
+      , pedidos[this.pedidos.indexOf(this.pedidoSeleccionado)].id).subscribe(
+      data => {
+        this.mostrarToast( 'success' , 'Actualizado con exito' , data.id.toString());
+        this.pedido = null;
+        this.mostrarDialogo = false;
+        this.clearMessage();
+        this.getAllPedidos();  },
+      error => {
+        this.mostrarToast('error', 'Error al actualizar' , error.message);
+        this.mostrarDialogo = false;
+        this.clearMessage();
+      }
+    );
+
+  }
+  guardarConfirm() {
+    this.mostrarConfirmar('Desea Actualizar este registro?' , 'Para proceder debe confirmar');
+  }
+  mostrarToast( tipoToast: string , sumario: string, detalle: string ) {
+    this.toastMessages.add({key: 'toastArticulo', severity: tipoToast , summary: sumario, detail: detalle});
+  }
+
+  mostrarConfirmar(sumario: string , detalle: string) {
+    this.toastMessages.clear();
+    this.toastMessages.add({key: 'mensajeConfirmacion', sticky: true, severity: 'warn', summary: sumario,
+      detail: detalle});
+  }
+  onReject() {
+    this.toastMessages.clear('mensajeConfirmacion');
+  }
+  clearMessage() {
+    this.toastMessages.clear('mensajeConfirmacion');
   }
 
 

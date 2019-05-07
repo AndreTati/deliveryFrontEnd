@@ -5,6 +5,8 @@ import {ArticuloCategoriaService} from '../../../servicios/articuloCategoria/art
 import {articuloCategoriaInterface} from '../articulocategoria/articuloCategoriaInterface';
 import {unidadMedidaInterface} from './unidadMedidaInterface';
 
+import {MessageService} from 'primeng/api';
+
 @Component({
   selector: 'app-articulo',
   templateUrl: './articulo.component.html',
@@ -24,7 +26,8 @@ export class ArticuloComponent implements OnInit {
   public cantidadMedidas: number;
 
   columnas: any[];
-  constructor(public apiService: ArticuloService , public articuloCategoriaApi: ArticuloCategoriaService) {
+  private esEliminar: boolean;
+  constructor(public apiService: ArticuloService , public articuloCategoriaApi: ArticuloCategoriaService , public toastMessages: MessageService) {
     this.columnas = [
       { field: 'id', header: 'ID' },
       { field: 'nombre', header: 'Nombre' },
@@ -44,7 +47,7 @@ export class ArticuloComponent implements OnInit {
   ngOnInit() {
     this.obtenerAllArticulos();
     this.obtenerAllCategorias();
-    this.obtenerAllUnidadMedidas()
+    this.obtenerAllUnidadMedidas();
 
   }
   obtenerAllArticulos() {
@@ -96,6 +99,88 @@ export class ArticuloComponent implements OnInit {
     }
     return articulo as  articuloInterface;
   }
+  eliminarConfirm() {
+    this.esEliminar = true;
+    this.mostrarConfirmar('Esta usted seguro?' , '¿Desea eliminar el registro?');
+  }
+  guardarConfirm() {
+    this.esEliminar = false;
+    if (this.articuloNuevo) {
+      this.mostrarConfirmar('Desa Agregar este nuevo registro?' , 'Para proceder debe confirmar'); } else {
+      this.mostrarConfirmar('Desea Actualizar este registro?' , 'Para proceder debe confirmar'); }
+  }
+  eliminar() {
+    const idIndexado = this.articulos.indexOf(this.articuloSeleccionado);
+    const idEliminar = (this.articulos[idIndexado].id);
 
+
+    this.apiService.deleteArticulo(idEliminar).subscribe(
+      data => {
+        this.mostrarToast('success' , 'Eliminado con exito ' , idEliminar.toString());
+        this.articulos = this.articulos.filter((val, i) => i !== idIndexado);
+        this.mostrarDialogo = false;
+        this.clearMessage();
+      },
+      error => {
+        this.mostrarToast('error' , 'No se pudo eliminar , error : ', error.message);
+        this.mostrarDialogo = false;
+        this.clearMessage(); }
+    );
+
+  }
+
+  guardar() {
+    const articulos = [...this.articulos];
+    if (!this.articuloNuevo) {
+
+
+      articulos[this.articulos.indexOf(this.articuloSeleccionado)] = this.articulo;
+
+      this.apiService.updateArticulo(articulos[this.articulos.indexOf(this.articuloSeleccionado)]
+        , articulos[this.articulos.indexOf(this.articuloSeleccionado)].id).subscribe(
+        data => {
+          this.mostrarToast( 'success' , 'Actualizado con exito' , data.nombre);
+          this.articulo = null;
+          this.mostrarDialogo = false;
+          this.clearMessage();
+          this.obtenerAllArticulos();  },
+        error => {this.mostrarToast('error', 'Error al actualizar' , error.message);
+                  this.mostrarDialogo = false;
+                  this.clearMessage();
+        }
+      );
+
+    } else {
+
+      this.apiService.postArticulo(this.articulo).subscribe(
+        data => {
+          this.mostrarToast( 'success' , 'Agregado Correctamente' , data.nombre);
+          this.articulo = null;
+          this.mostrarDialogo = false;
+          this.clearMessage();
+          this.obtenerAllArticulos(); },
+        error => {
+          this.clearMessage();
+          this.mostrarToast( 'error' , 'Hubo un error' , error.message);
+        }
+      );
+
+    }
+  }
+  mostrarToast( tipoToast: string , sumario: string, detalle: string ) {
+    this.toastMessages.add({key: 'toastArticulo', severity: tipoToast , summary: sumario, detail: detalle});
+  }
+
+  mostrarConfirmar(sumario: string , detalle: string) {
+    this.toastMessages.clear();
+    this.toastMessages.add({key: 'mensajeConfirmacion', sticky: true, severity: 'warn', summary: sumario,
+      detail: detalle});
+  }
+  onReject() {
+    this.toastMessages.clear('mensajeConfirmacion');
+  }
+  clearMessage() {
+    this.toastMessages.clear('mensajeConfirmacion');
+  }
 
 }

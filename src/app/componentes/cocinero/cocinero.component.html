@@ -3,6 +3,55 @@
 
   <div class="col-md-12">
 
+    <p-toast position="center" key="mensajeConfirmacion" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+      <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+          <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+          <h3>{{message.summary}}</h3>
+          <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-6" >
+            <button type="button" pButton (click)="guardar()" label="Si" class="ui-button-success"></button>
+          </div>
+
+          <div class="ui-g-6">
+            <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+          </div>
+        </div>
+      </ng-template>
+    </p-toast>
+
+
+
+
+
+
+
+
+    <p-toast [style]="{marginTop: '80px'}" position="top-center" key="toastArticulo"></p-toast>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <p-table [columns]="columnas" [value]="pedidos" selectionMode="single" [(selection)]="pedidoSeleccionado" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
       <ng-template pTemplate="caption">
         Lista de Pedidos
@@ -25,9 +74,10 @@
 
           </td>
           <td *ngIf="rowData.estado.nombre == 'En cocina' " style="background: cyan" > {{rowData.estado.nombre}} <i class="fa fa-spinner"></i> </td>
-          <td *ngIf="rowData.estado.nombre == 'Demorado' "  style="background: red" > {{rowData.estado.nombre}} <i class="fa fa-clock"></i>  </td>
-          <td *ngIf="rowData.estado.nombre == 'En Facturacion' "  style="background: chartreuse" > {{rowData.estado.nombre}} <i class="fas fa-paste"></i>  </td>
-          <td *ngIf="rowData.estado.nombre == 'Finalizado' " style="background: lawngreen" > {{rowData.estado.nombre}} <i class="fa fa-check"></i>  </td>
+          <td *ngIf="rowData.estado.nombre == 'Demorado' "  style="background: red" > {{rowData.estado.nombre}} <i class="fa fa-user-clock"></i>  </td>
+          <td *ngIf="rowData.estado.nombre == 'En facturación' "  style="background: orange" > {{rowData.estado.nombre}} <i class="fa fa-paste"></i>  </td>
+          <td *ngIf="rowData.estado.nombre == 'En delivery' "  style="background: springgreen" > {{rowData.estado.nombre}} <i class="fa fa-truck"></i>  </td>
+            <td *ngIf="rowData.estado.nombre == 'Finalizado' " style="background: lawngreen" > {{rowData.estado.nombre}} <i class="fa fa-check"></i>  </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary" let-rowData>
@@ -40,11 +90,13 @@
     <p-dialog header="Modificar Estado Pedido" [(visible)]="mostrarDialogo" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '500px' , height: '500px'}">
       <div class="ui-g ui-fluid" *ngIf="pedido">
         <div class="ui-g-12">
-          <div class="ui-g-4">
-            <label for="id">Numero Comanda</label>
-          </div>
-          <div class="ui-g-8">
-            <input pInputText id="id" [(ngModel)]="pedido.id" />
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Numero Comanda</span>
+            </div>
+
+            <input pInputText id="id" [(ngModel)]="pedido.id" class="form-control" type="text"  readonly>
+
           </div>
         </div>
         <div class="ui-g-12">
@@ -65,7 +117,7 @@
       <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
 
-          <button type="button" pButton icon="fa fa-check" (click)="guardar()" label="Guardar"></button>
+          <button type="button" pButton icon="fa fa-check" class="ui-button-success" (click)="guardarConfirm()" label="Guardar"></button>
         </div>
       </p-footer>
     </p-dialog>
