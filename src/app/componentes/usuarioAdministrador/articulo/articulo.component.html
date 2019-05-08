@@ -3,256 +3,213 @@
   <br>
   <div class="row">
 
+    <div class="col-md-14">
 
-    <ng-template #content let-modalArticulo>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Agregar Articulo</h4>
-        <button type="button" class="close" aria-label="Cerrar" (click)="modalArticulo.close()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formArticulo">
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" type="hidden" id="id" name="id">
+      <p-toast position="center" key="mensajeConfirmacion" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+        <ng-template let-message pTemplate="message">
+          <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+          </div>
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-6" *ngIf="!esEliminar">
+              <button type="button" pButton (click)="guardar()" label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6" *ngIf="esEliminar">
+              <button type="button" pButton (click)="eliminar()" label="Si ,Deseo eliminar" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
             </div>
           </div>
-          <div class="form-group">
-            <label for="nombre">Nombre Articulo</label>
-            <div class="input-group">
-              <input id="nombre" name="nombre" [(ngModel)]="nombre" class="form-control" placeholder="Ejemplo : Pimienta Blanca" >
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="descripcion">Descripcion</label>
-            <div class="input-group">
-
-              <input id="descripcion"  name="descripcion" [(ngModel)]="descripcion" class="form-control" placeholder="Una descripcion sobre la categoria">
-            </div>
-          </div>
-          <!-- PRECIO COMPRA -->
-          <div class="form-group">
-            <label for="precioCompra">Precio Compra</label>
-            <div class="input-group">
-
-              <input  type="number" id="precioCompra"  name="precioCompra" [(ngModel)]="precioCompra" class="form-control" placeholder="15">
-            </div>
-          </div>
-          <!-- STOCK -->
-          <div class="form-group">
-            <label for="stock">Stock</label>
-            <div class="input-group">
-
-              <input id="stock" type="text" name="stock" [(ngModel)]="stock" class="form-control" placeholder="Stock actual">
-            </div>
-          </div>
-          <!-- STOCK MINIMO -->
-          <div class="form-group">
-            <label for="stockMinimo">Stock Minimo</label>
-            <div class="input-group">
-
-              <input id="stockMinimo"  type="number" name="stockMinimo" [(ngModel)]="stockMinimo" class="form-control" placeholder="Cantidad minima de stock">
-            </div>
-          </div>
-          <!-- STOCK MAXIMO -->
-          <div class="form-group">
-            <label for="stockMaximo">Stock Maximo</label>
-            <div class="input-group">
-
-              <input id="stockMaximo"  type="number" name="stockMaximo" [(ngModel)]="stockMaximo" class="form-control" placeholder="Cantidad de stock maximo">
-            </div>
-          </div>
-          <!-- Es Insumo -->
-          <div class="form-group">
-            <label >Es Insumo?</label>
-            <div class="input-group">
-              <div>
-                <label for="SI"> SI </label>
-                <input  [(ngModel)]="esInsumo" type="radio" id="SI" name="esInsumo" value="1">
-
-              </div>
-
-              <div>
-                <label for="NO"> NO </label>
-                <input   [(ngModel)]="esInsumo" type="radio" id="NO" name="esInsumo" value="0">
-
-              </div>
-
-
-            </div>
-          </div>
-          <!-- PRECIO VENTA -->
-          <div class="form-group">
-            <label for="precioVenta">Precio Venta</label>
-            <div class="input-group">
-
-              <input id="precioVenta"  type="number" name="precioVenta" [(ngModel)]="precioVenta" class="form-control" placeholder="Precio venta solo si no es insumo">
-            </div>
-          </div>
-          <!-- CATEGORIA -->
-          <div class="form-group">
-            <label for="comboCategoria">Categoria</label>
-            <div class="input-group">
-              <select class="form-control" id="comboCategoria" name="comboCategoria" [(ngModel)]="fk_categoria">
-                <option value="value1">Value 1</option>
-                <option value="value2" selected>Value 2</option>
-                <option value="value3">Value 3</option>
-              </select>
-            </div>
-          </div>
-          <!-- UNIDAD MEDIDA -->
-          <div class="form-group">
-            <label for="comboMedida">Unidad de medida</label>
-            <div class="input-group">
-              <select class="form-control" id="comboMedida" name="comboMedida" [(ngModel)]="fk_unidadMedida">
-                <option value="value1">Value 1</option>
-                <option value="value2" selected>Value 2</option>
-                <option value="value3">Value 3</option>
-              </select>
-            </div>
-          </div>
-          <!-- IMAGEN  POR AHORA UNA URL-->
-          <div class="form-group">
-            <label for="imagen">URL Imagen</label>
-            <div class="input-group">
-
-              <input id="fk_imagen"    type="text" name="fk_imagen" [(ngModel)]="fk_imagen" class="form-control" placeholder="URL PROVISORIO PARA CARGAR IMAGENES">
-            </div>
-          </div>
-
-
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-dark" (click)="modalArticulo.close()">Enviar</button>
-      </div>
-    </ng-template>
-
-
-
-    <div class="col-md-12">
-
-      <button class="btn btn-lg  btn-info" (click)="abrirModal(content)">Agregar Categoria de articulos</button>
-      <br>
-
-      <!--  <p-dataView #dv [value]="articulos"
-                    filterBy="nombre,categoria.nombre"
-                    [paginator]="true"
-                    [rows]="8"
-                    [totalRecords]="cantidadArticulos"
-                    layout="grid">
-
-          <p-header>
-            <div class="ui-helper-clearfix">
-              <div class="ui-g">
-
-                <div class="ui-g-6 ui-md-5 filter-container">
-
-                  <div style="position:relative">
-                    <input type="search" class="form-control form-control-lg form-control-borderless" pInputText
-                           placeholder="Busca por nombre o categoria " (keyup)="dv.filter($event.target.value)">
-
-                  </div>
-                </div>
-                <div class="ui-g-6 ui-md-4" style="text-align:right">
-
-                </div>
-              </div>
-            </div>
-          </p-header>
-
-
-         <ng-template let-articulos pTemplate="gridItem">
-                    <div style="padding:.5em" class="ui-g-12 ui-md-3">
-                      <p-panel [header]="articulos.nombre" [style]="{'text-align':'center'}">
-                        <div id="imagen"> <img src={{articulos.imagen.url}} style='height: 125px; width: 125px; '></div>
-
-
-                        <div class="articulo-detalle">Precio Compra : $ {{articulos.precioCompra}}</div>
-                        <div class="articulo-detalle" *ngIf="!articulos.esInsumo">Precio Venta : $ {{articulos.precioVenta}}</div>
-                        <div class="articulo-detalle">Stock Actual  :  {{articulos.stock}}</div>
-                        <button type="button" class="btn btn-outline-secondary mr-2" placement="top"
-                                ngbPopover=" {{articulos.descripcion}}
-                                            |Stock Maximo:  {{articulos.stockMaximo}}
-                                            |Stock Minimo:  {{articulos.stockMinimo}}
-
-                                            |Categoria:  {{articulos.categoria.nombre}}
-                                            |Unidad de medida:  {{articulos.unidadMedida.nombre}} : {{articulos.unidadMedida.abreviatura}}
-                                                " popoverTitle={{articulos.nombre}}>
-                          Mas Info <i class="fa fa-info"></i>
-                        </button>
-
-                        <hr class="ui-widget-content" style="border-top:0">
-
-                        <div class="btn-group ">
-
-                          <button type="button" id={{articulos.id}} class="btn-info" >
-                                 Modificar
-                          </button>
-                          <button type="button" value={{articulos.id}} class="btn-danger" >
-                            Eliminar
-                          </button>
-                        </div>
-                      </p-panel>
-                    </div>
-                  </ng-template>
-
-
-        </p-dataView>   -->
-
-      <p-table [value]="articulos" [responsive]="true" [paginator]="true"
-               [rows]="5" [totalRecords]="articulos.length">
-        <ng-template pTemplate="header">
-          <tr>
-            <th >Nombre Articulo</th>
-            <th>Descripcion </th>
-            <th>Precio Compra</th>
-            <th>Precio Venta</th>
-            <th>Stock Minimo </th>
-            <th>Stock Maximo</th>
-            <th>Stock Actual</th>
-            <th>Estado Insumo</th>
-            <th>Categoria</th>
-            <th>Unidad Medida </th>
-            <th>Accion </th>
-
-          </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-articulos>
-          <tr>
-            <td >  <div id="imagen" align="center"> <img src={{articulos.imagen.url}} style='height: 50px; width: 50px; '></div> {{articulos.nombre}}</td>
-            <td>{{articulos.descripcion}}</td>
-            <td>{{articulos.precioCompra}}</td>
-            <td>{{articulos.precioVenta}}</td>
-            <td>{{articulos.stockMinimo}}</td>
-            <td>{{articulos.stockMaximo}}</td>
-            <td>{{articulos.stock}}</td>
-            <td *ngIf="articulos.esInsumo">Si</td>
-            <td *ngIf="!articulos.esInsumo">No</td>
-
-            <td>{{articulos.categoria.nombre}}</td>
-            <td>{{articulos.unidadMedida.nombre}}</td>
-            <td>
-
-              <button type="button" value={{articulos.id}} class="btn-info btn-sm" >Modificar</button>
-              <button type="button" value={{articulos.id}} class="btn-danger btn-sm" >Eliminar</button>
-
-
-
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+      </p-toast>
 
 
 
 
 
 
+
+
+      <p-toast [style]="{marginTop: '80px'}" position="top-center" key="toastArticulo"></p-toast>
+    <p-table align="center" [columns]="columnas" [value]="articulos" selectionMode="single" [(selection)]="articuloSeleccionado" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="15">
+      <ng-template pTemplate="caption">
+        Articulos
+      </ng-template>
+      <ng-template pTemplate="header" let-columns align="center">
+        <tr>
+          <th *ngFor="let columna of columns" [pSortableColumn]="columna.field">
+            {{columna.header}}
+            <p-sortIcon [field]="columna.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData" align="center">
+          <td> {{rowData.id}}</td>
+          <td> {{rowData.nombre}}</td>
+          <td> {{rowData.descripcion}}</td>
+          <td> {{rowData.precioCompra}}</td>
+          <td> {{rowData.precioVenta}}</td>
+          <td> {{rowData.stock}}</td>
+          <td> {{rowData.stockMinimo}}</td>
+          <td> {{rowData.stockMaximo}}</td>
+          <td> {{rowData.esInsumo}} </td>
+          <td> {{rowData.categoria.nombre}}</td>
+          <td> {{rowData.unidadMedida.nombre}}</td>
+          <td> <img src={{rowData.imagen.url}} style=" width: 40px; height: 40px"> </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary" let-rowData>
+        <div style="text-align:left">
+          <button type="button" pButton icon="fa fa-plus" (click)="mostrarAgregar()" label="Agregar"></button>
+        </div>
+      </ng-template>
+    </p-table>
+
+
+    <p-dialog header="Detalle Articulo"   [(visible)]="mostrarDialogo" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '800px' , height : '450px' , overflow: 'auto' }">
+      <div class="ui-lg ui-fluid" *ngIf="articulo">
+        <div class="ui-g-12">
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >ID</span>
+            </div>
+            <input type="text" class="form-control" id="id" placeholder="Id registrado" [(ngModel)]="articulo.id" readonly>
+          </div>
+
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Nombre</span>
+            </div>
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="articulo.nombre" required>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Descripcion</span>
+            </div>
+            <input type="text" class="form-control" id="descripcion" placeholder="Descripcion articulo" [(ngModel)]="articulo.descripcion" required>
+          </div>
+        </div>
+
+          <div class="ui-g-12 ">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Precio Compra</span>
+              </div>
+              <input type="number" class="form-control" id="precioCompra" placeholder="Precio compra " [(ngModel)]="articulo.precioCompra" required>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Precio Venta</span>
+              </div>
+              <input type="number" class="form-control" id="precioVenta" placeholder="Precio Venta" [(ngModel)]="articulo.precioVenta" required>
+            </div>
+          </div>
+
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Stock Actual</span>
+            </div>
+            <input type="number" class="form-control" id="stock" placeholder="Stock Actual" [(ngModel)]="articulo.stock" required>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Stock Minimo</span>
+            </div>
+            <input type="number" class="form-control" id="stockMinimo" placeholder="StockMinimo" [(ngModel)]="articulo.stockMinimo" required>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Stock Maximo</span>
+            </div>
+            <input type="number" class="form-control" id="stockMaximo" placeholder="Stock Maximo" [(ngModel)]="articulo.stockMaximo" required>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Es Insumo</span>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="esInsumo" id="si" value="true" [checked]="articulo.esInsumo == true">
+              <label class="form-check-label" for="si">
+               SI
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="esInsumo" id="no" value="false" [checked]="articulo.esInsumo == false">
+              <label class="form-check-label" for="no">
+                NO
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Unidad Medida</span>
+            </div>
+            <select class="form-control form-control-lg" [(ngModel)]="articulo.unidadMedida.id" >
+
+              <option   *ngFor=" let unidadMedida of unidadMedidas "  [selected]="unidadMedida.id == articulo.unidadMedida.id"
+                        value={{unidadMedida.id}}>{{unidadMedida.nombre}}  </option>
+
+
+            </select>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text" >Categoria</span>
+            </div>
+            <select class="form-control form-control-lg" [(ngModel)]="articulo.categoria.id" >
+
+                <option   *ngFor=" let categoria of categorias "  [selected]="categoria.id == articulo.categoria.id"
+                          value={{categoria.id}}>{{categoria.nombre}}  </option>
+
+
+            </select>
+          </div>
+        </div>
+        <div class="ui-g-12">
+          <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" >Imagen</span>
+          </div>
+          <input  type="text" class="form-control" id="imagen" placeholder="Imagen URL" [(ngModel)]="articulo.imagen.url" required>
+
+        </div>
+        </div>
+      </div>
+      <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+          <button type="button " class="ui-button-rounded ui-button-danger" pButton icon="fa fa-close" (click)="eliminarConfirm()" label="Eliminar"></button>
+          <button type="button"  class="ui-button-rounded ui-button-success" pButton icon="fa fa-check" (click)="guardarConfirm()" label="Guardar"></button>
+        </div>
+      </p-footer>
+    </p-dialog>
+
+
+<br>
+</div>
 
       <br>
     </div>
   </div>
-</div>
+

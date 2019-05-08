@@ -3,6 +3,8 @@ import { productosInteface } from './productosInterface';
 import {articulosVentaInterface} from './articulosVentaInterface';
 import {PlatoService} from '../../../../servicios/plato/plato.service';
 import {ArticuloService} from '../../../../servicios/articulo/articulo.service';
+import {Plato} from "../../../cocinero/pedidoInterface";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 
@@ -22,12 +24,14 @@ export class ItemProductosComponent implements OnInit {
   public articulosVenta: articulosVentaInterface[];
   public cantidadArticulos: number;
 
-  constructor( public apiService: PlatoService , public apiArticuloVenta: ArticuloService) {  }
+  constructor( private router:Router,public apiService: PlatoService , public apiArticuloVenta: ArticuloService) {  }
 
 
   ngOnInit() {
+
     this.obtenerTodosLosPlatos();
     this.obtenerTodosLosArticulosVenta();
+
   }
 
   obtenerTodosLosPlatos() {
@@ -42,6 +46,10 @@ export class ItemProductosComponent implements OnInit {
 
       );
   }
+
+mandarPlato(id: number){
+    this.router.navigate(['/carrito', id]);
+}
 
 
 

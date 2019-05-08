@@ -5,24 +5,26 @@
 <br>
 
 <div class="row">
-  <div class="container">
-    <div class="col-md-8">
+  <div class="container" align="center">
+    <div class="col-md-6">
       <br>
       <div class="card">
         <h5 class="card-header">REGISTRAR</h5>
         <div class="card-body">
           <form [formGroup]="registroUsuario" (ngSubmit)="ngOnSubmit(registroUsuario.value)">
 <div class="col-md-8">
-            <div class="input-group mb-3">
+            <div class="input-group ">
               <div class="input-group-prepend">
                   <span class="input-group-text"><img
                     src="https://img.icons8.com/material/24/000000/name.png"></span>
+
+
               </div>
               <!-- NOMBRE -->
 
 
 
-                <input type="text"
+                <input  class="form-control" type="text"
                        name="nombre" pInputText
                        formControlName="nombre"
                        placeholder="Nombre*"
@@ -34,15 +36,16 @@
               <!-- APELLIDO -->
 
 
-                <input type="text"
+                <input class="form-control" type="text"
                        name="apellido" pInputText
                        formControlName="apellido"
                        placeholder="Apellido*"
                        pTooltip="Ingrese apellido"
                        tooltipPosition="top">
+
               </div>
 
-
+            <br>
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -52,7 +55,8 @@
               <!-- EMAIL -->
 
 
-                  <input type="email"
+                  <input class="form-control"
+                         type="email"
                          name="email"
                          formControlName="email"
                          placeholder="Correo Electronico*"
@@ -72,7 +76,8 @@
               <!-- PASSWORD -->
 
 
-                  <input type="password"
+                  <input class="form-control"
+                         type="password"
                          name="password"
                          formControlName="password"
                          placeholder="Contraseña*"
@@ -98,6 +103,7 @@
 
 
                   <input
+                    class="form-control"
                     type="number"
                     name="telefono"
                     formControlName="telefono"
@@ -123,7 +129,9 @@
               <!-- DNI -->
 
 
-                  <input type="text"
+                  <input
+                         class="form-control"
+                         type="text"
                          name="dni"
                          formControlName="dni"
                          placeholder="DNI*"
@@ -147,7 +155,8 @@
               <!-- FECHA DE NACIMIENTO -->
 
 
-                  <input type="date"
+                  <input class="form-control"
+                         type="date"
                          name="fechaNacimiento"
                          formControlName="fechaNacimiento"
                          placeholder="Fecha Nacimiento*"
@@ -171,12 +180,14 @@
                   <label>SEXO</label><br>
 
 
-                  <input type="radio"
+                  <input
+                         type="radio"
                          name="sexo"
                          value="Masculino"
-                         formControlName="sexo"><i>Masculino</i>
+                         formControlName="sexo"> <i>Masculino</i>
 
-                  <input type="radio"
+                  <input
+                         type="radio"
                          name="sexo"
                          value="Femenino"
                          formControlName="sexo"><i>Femenino</i>
@@ -189,7 +200,7 @@
               <!-- PROVINCIA -->
 
                 <div ng-app="myApp" ng-controller="provinciaCtrl">
-                  <select name="provincia"
+                  <select class="form-control" name="provincia"
                           (change)="obtenerLocalidades($event)"
                           pTooltip="Seleccione Provincia"
                           tooltipPosition="top">
@@ -205,7 +216,7 @@
 
                 <div formGroupName="localidad">
                   <div ng-app="selectLocalidad" ng-controller="localidadCtrl">
-                    <select name="localidad"
+                    <select class="form-control" name="localidad"
                             formControlName="id"
                             pTooltip="Seleccione Localidad"
                             tooltipPosition="top">
@@ -225,7 +236,8 @@
 
                 <!-- NOMBRE CALLE-->
 
-                <input type="text"
+                <input class="form-control"
+                       type="text"
                        name="calle"
                        formControlName="calle"
                        placeholder="Calle*"
@@ -238,7 +250,8 @@
 
               <!-- NUMERO CALLE -->
 
-                <input type="number"
+                <input class="form-control"
+                       type="number"
                        name="numero"
                        formControlName="numero"
                        placeholder="Numero Calle*"
@@ -250,7 +263,8 @@
 
               <!-- NUMERO PISO -->
 
-                <input type="number"
+                <input class="form-control"
+                       type="number"
                        name="piso"
                        formControlName="piso"
                        placeholder="N° PISO"
@@ -260,7 +274,8 @@
 
               <!-- Departamento -->
 
-                <input type="number"
+                <input class="form-control"
+                       type="number"
                        name="departamento"
                        formControlName="departamento"
                        placeholder="N° Depto"
@@ -270,7 +285,8 @@
 
               <!-- CP -->
 
-                <input type="number"
+                <input class="form-control"
+                       type="number"
                        name="cp"
                        formControlName="cp"
                        placeholder="Codigo Postal*"
@@ -283,8 +299,8 @@
 </div>
           </form>
 
-          <button pButton type="submit" (click)="ngOnSubmit(registroUsuario.value)"
-                  [disabled]="!registroUsuario.valid">Registrarse
+          <button pButton type="submit" label="Registrarse" (click)="ngOnSubmit(registroUsuario.value)"
+                  [disabled]="!registroUsuario.valid">
           </button>
 
         </div>
