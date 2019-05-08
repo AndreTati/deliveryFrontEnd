@@ -14,9 +14,9 @@
         <th> </th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-car>
+    <ng-template pTemplate="body" let-car *ngFor="let plato of platosEnCarrito; let i = index">
       <tr>
-        <td></td>
+        <td>{{plato.nombre}}</td>
         <td></td>
         <td></td>
         <td></td>

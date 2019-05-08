@@ -10,6 +10,8 @@ import {RolInterface} from './rolInterface';
 })
 export class RolAdminGuard implements CanActivate  {
   private usuario: RolInterface;
+
+
   constructor(private afsAuth: AngularFireAuth , private router: Router , private apiService: DataApiService) {
 
     this.apiService.getPermisos(this.afsAuth.auth.currentUser.email).subscribe( res => {

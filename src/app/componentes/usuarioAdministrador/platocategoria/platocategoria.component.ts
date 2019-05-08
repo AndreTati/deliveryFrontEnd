@@ -3,6 +3,7 @@ import {DataApiService} from '../../../servicios/data-api.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {platoCategoriaInterface} from './platoCategoriaInterface';
 import {MessageService} from "primeng/api";
+import {PlatoCategoriaService} from "../../../servicios/platoCategoria/plato-categoria.service";
 
 
 
@@ -13,7 +14,7 @@ import {MessageService} from "primeng/api";
 })
 export class PlatocategoriaComponent implements OnInit {
 
-  constructor( private apiService: DataApiService , private  modalSerivce: NgbModal , private  toastMessages: MessageService) { }
+  constructor( private apiService: PlatoCategoriaService , private  modalSerivce: NgbModal , private  toastMessages: MessageService) { }
   public platoCategoria: platoCategoriaInterface [];
   public columnas: any;
   public cantidadCategorias: number;

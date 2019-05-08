@@ -1,10 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 body{
-    background: url('http://s1.1zoom.me/b7168/698/Fast_food_Pizza_Wine_Stemware_512862_1280x720.jpg') no-repeat center center;
-    background-size:100% 100%;
-    background-size: cover;
-    background-attachment: fixed;
+    background: url('https://static.vecteezy.com/system/resources/svgs/000/127/967/original/835dab72-352e-4a1e-811b-9c76556deb6c.svg?1479334287') ;
+
+
 
 }
+.container{
+  border-radius:15px;
+}
+.card{
+  border-radius:15px;
+}
+.gridItemDataView{
+  border-radius:15px;
+}
+
 
 

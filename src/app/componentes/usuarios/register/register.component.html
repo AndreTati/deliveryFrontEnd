@@ -5,44 +5,47 @@
 <br>
 
 <div class="row">
-  <div class="container">
-    <div class="col-md-8">
+  <div class="container" align="center">
+    <div class="col-md-6">
       <br>
       <div class="card">
         <h5 class="card-header">REGISTRAR</h5>
         <div class="card-body">
-          <form [formGroup]="registroUsuario" (ngSubmit)="registrar(registroUsuario.value)">
-
-            <div class="input-group mb-3">
+          <form [formGroup]="registroUsuario" (ngSubmit)="ngOnSubmit(registroUsuario.value)">
+<div class="col-md-8">
+            <div class="input-group ">
               <div class="input-group-prepend">
                   <span class="input-group-text"><img
                     src="https://img.icons8.com/material/24/000000/name.png"></span>
+
+
               </div>
               <!-- NOMBRE -->
 
-              <div class="form-group">
 
-                <input type="text"
+
+                <input  class="form-control" type="text"
                        name="nombre" pInputText
                        formControlName="nombre"
                        placeholder="Nombre*"
                        pTooltip="Ingrese nombre"
                        tooltipPosition="top">
-              </div>
+
 
 
               <!-- APELLIDO -->
-              <div class="form-group">
 
-                <input type="text"
+
+                <input class="form-control" type="text"
                        name="apellido" pInputText
                        formControlName="apellido"
                        placeholder="Apellido*"
                        pTooltip="Ingrese apellido"
                        tooltipPosition="top">
-              </div>
-            </div>
 
+              </div>
+
+            <br>
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -50,20 +53,19 @@
                     src="https://img.icons8.com/ios/24/000000/secured-letter-filled.png"></span>
               </div>
               <!-- EMAIL -->
-              <div class="form-group">
-                <div>
-                  <input type="email"
+
+
+                  <input class="form-control"
+                         type="email"
                          name="email"
                          formControlName="email"
                          placeholder="Correo Electronico*"
                          pTooltip="Ingrese Email"
                          tooltipPosition="top">
                 </div>
-                <p-message severity="error" text="Campo requerido"
-                           [text]="registroUsuario.controls['email'].errors['required'] ? 'Campo requerido' :''"
-                           *ngIf="!registroUsuario.controls['email'].valid&&registroUsuario.controls['email'].dirty"></p-message>
-              </div>
-            </div>
+
+
+
 
 
             <div class="input-group mb-3">
@@ -72,19 +74,21 @@
                     src="https://img.icons8.com/material-rounded/24/000000/password.png"></span>
               </div>
               <!-- PASSWORD -->
-              <div class="form-group">
-                <div>
-                  <input type="password"
+
+
+                  <input class="form-control"
+                         type="password"
                          name="password"
                          formControlName="password"
                          placeholder="Contraseña*"
                          pTooltip="Ingrese contraseña"
                          tooltipPosition="top">
-                  <p-message severity="error"
-                             [text]="registroUsuario.controls['password'].errors['required'] ? 'Contraseña requerida' : registroUsuario.controls['password'].errors['minlength'] ? 'Debe tener mas de 6 caracteres' : ''"
-                             *ngIf="!registroUsuario.controls['password'].valid&&registroUsuario.controls['password'].dirty"></p-message>
-                </div>
-              </div>
+              <p-message severity="error"
+                         [text]="registroUsuario.controls['password'].errors['required'] ? 'Campo requerido' : registroUsuario.controls['password'].errors['minlength'] ? 'Mas de 6 caracteres' : ''"
+                         *ngIf="!registroUsuario.controls['password'].valid&&registroUsuario.controls['password'].dirty"></p-message>
+
+
+
 
             </div>
 
@@ -96,14 +100,15 @@
               </div>
 
               <!-- TELEFONO -->
-              <div class="form-group">
-                <div>
+
+
                   <input
+                    class="form-control"
                     type="number"
                     name="telefono"
                     formControlName="telefono"
+                    min="1111111" max="9999999999"
                     placeholder="Telefono*"
-                    max="9999999999"
                     pTooltip="Ingrese telefono"
                     tooltipPosition="top">
 
@@ -112,8 +117,8 @@
                              *ngIf="!registroUsuario.controls['telefono'].valid&&registroUsuario.controls['telefono'].dirty"></p-message>
 
                 </div>
-              </div>
-            </div>
+
+
 
 
             <div class="input-group mb-3">
@@ -122,9 +127,11 @@
                     src="https://img.icons8.com/ios/24/000000/identity-theft-filled.png"></span>
               </div>
               <!-- DNI -->
-              <div class="form-group">
-                <div>
-                  <input type="text"
+
+
+                  <input
+                         class="form-control"
+                         type="text"
                          name="dni"
                          formControlName="dni"
                          placeholder="DNI*"
@@ -133,11 +140,11 @@
                          tooltipPosition="top">
                 </div>
                 <p-message severity="error"
-                           [text]="registroUsuario.controls['dni'].errors['required'] ? 'Campo requerido' : registroUsuario.controls['dni'].errors['minlength'] ? 'Debe tener mas de 6 numeros' : ''"
+                           [text]="registroUsuario.controls['dni'].errors['required'] ? 'Campo requerido' : registroUsuario.controls['dni'].errors['minlength'] ? 'Minimo 6 caracteres' : ''"
                            *ngIf="!registroUsuario.controls['dni'].valid&&registroUsuario.controls['dni'].dirty"></p-message>
 
-              </div>
-            </div>
+
+
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -146,76 +153,70 @@
               </div>
 
               <!-- FECHA DE NACIMIENTO -->
-              <div class="form-group">
-                <div>
-                  <input type="date"
+
+
+                  <input class="form-control"
+                         type="date"
                          name="fechaNacimiento"
                          formControlName="fechaNacimiento"
                          placeholder="Fecha Nacimiento*"
                          pTooltip="Ingrese Fecha de Nacimiento"
                          tooltipPosition="top"
+                         min="1930-12-31"
                          max="2010-12-31">
 
                   <p-message severity="error"
                              [text]="registroUsuario.controls['fechaNacimiento'].errors['required'] ? 'Campo requerido' : ''"
                              *ngIf="!registroUsuario.controls['fechaNacimiento'].valid&&registroUsuario.controls['fechaNacimiento'].dirty"></p-message>
-                </div>
-              </div>
-            </div>
 
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                  <span class="input-group-text"><img
-                    src="https://img.icons8.com/color/24/000000/gender.png"></span>
               </div>
 
-              <div class="card text-center">
 
-                <!-- SEXO -->
-                <div class="form-group">
+
+
+
+  <!-- SEXO -->
+
                   <label>SEXO</label><br>
 
 
-                  <input type="radio"
+                  <input
+                         type="radio"
                          name="sexo"
                          value="Masculino"
-                         formControlName="sexo"><i>Masculino</i>
+                         formControlName="sexo"> <i>Masculino</i>
 
-                  <input type="radio"
+                  <input
+                         type="radio"
                          name="sexo"
                          value="Femenino"
                          formControlName="sexo"><i>Femenino</i>
-                </div>
-                <p-message severity="error" text="Campo requerido"
-                           *ngIf="!registroUsuario.controls['sexo'].valid&&registroUsuario.controls['sexo'].dirty"></p-message>
-
-              </div>
-            </div>
 
 
 
-
+<br>
+  <br>
 
               <!-- PROVINCIA -->
-              <div class="form-group">
+
                 <div ng-app="myApp" ng-controller="provinciaCtrl">
-                  <select name="provincia"
+                  <select class="form-control" name="provincia"
                           (change)="obtenerLocalidades($event)"
                           pTooltip="Seleccione Provincia"
                           tooltipPosition="top">
-                    <option value="">Selecciona Provincia*</option>
+                    <option>Selecciona Provincia*</option>
                     <option [value]="provincia.id" *ngFor="let provincia of provincias">
                       {{provincia.nombre}}
                     </option>
                   </select>
                 </div>
-              </div>
-
+<br>
+  <div formGroupName="domicilio">
               <!-- LOCALIDAD -->
-              <div class="form-group" formGroupName="domicilio">
-                <div class="form-group" formGroupName="localidad">
+
+                <div formGroupName="localidad">
                   <div ng-app="selectLocalidad" ng-controller="localidadCtrl">
-                    <select name="localidad"
+                    <select class="form-control" name="localidad"
                             formControlName="id"
                             pTooltip="Seleccione Localidad"
                             tooltipPosition="top">
@@ -230,64 +231,76 @@
                   </div>
                 </div>
 
+<br>
 
 
                 <!-- NOMBRE CALLE-->
-                <input type="text"
+
+                <input class="form-control"
+                       type="text"
                        name="calle"
                        formControlName="calle"
                        placeholder="Calle*"
                        pTooltip="Ingrese Calle"
                        tooltipPosition="top">
-              </div>
+
+
+
+
 
               <!-- NUMERO CALLE -->
-              <div class="form-group" formGroupName="domicilio">
-                <input type="number"
+
+                <input class="form-control"
+                       type="number"
                        name="numero"
                        formControlName="numero"
                        placeholder="Numero Calle*"
                        pTooltip="Ingrese numero de calle"
                        tooltipPosition="top">
 
-              </div>
+
+
 
               <!-- NUMERO PISO -->
-              <div class="form-group" formGroupName="domicilio">
-                <input type="number"
+
+                <input class="form-control"
+                       type="number"
                        name="piso"
                        formControlName="piso"
                        placeholder="N° PISO"
                        pTooltip="N° Piso"
                        tooltipPosition="top">
-              </div>
+
+
               <!-- Departamento -->
-              <div class="form-group" formGroupName="domicilio">
-                <input type="number"
+
+                <input class="form-control"
+                       type="number"
                        name="departamento"
                        formControlName="departamento"
                        placeholder="N° Depto"
                        pTooltip="N° Departamento"
                        tooltipPosition="top">
-              </div>
+
 
               <!-- CP -->
-              <div class="form-group" formGroupName="domicilio">
-                <input type="number"
+
+                <input class="form-control"
+                       type="number"
                        name="cp"
                        formControlName="cp"
                        placeholder="Codigo Postal*"
                        pTooltip="Ingrese Codigo Postal"
                        tooltipPosition="top">
-              </div>
 
 
 
-
+</div>
+</div>
           </form>
 
-          <button pButton type="submit" (click)="ngOnSubmit(registroUsuario.value)"
-                  [disabled]="!registroUsuario.valid">Registrarse
+          <button pButton type="submit" label="Registrarse" (click)="ngOnSubmit(registroUsuario.value)"
+                  [disabled]="!registroUsuario.valid">
           </button>
 
         </div>
