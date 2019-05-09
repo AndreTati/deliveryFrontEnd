@@ -5,6 +5,7 @@ import {Provincia} from '../usuarios/register/listarLocalidades';
 import {DataApiService} from '../../servicios/data-api.service';
 import {AuthService} from '../../servicios/auth.service';
 import {MessageService} from 'primeng/api';
+import {keyframes} from "@angular/animations";
 
 @Component({
   selector: 'app-perfil',
@@ -45,22 +46,27 @@ export class PerfilComponent implements OnInit {
     }
   }
 
+  showMessage(message:string, type:string) {
+    this.messageService.add({key: "update", severity:type, summary: message, detail:'Se ha finalizado la consulta.'});
+  }
+
   getSexo(event?:any){
     if(event != undefined)
       this.cliente.sexo = event.target.value;
   }
 
   putUsuario(){
-    console.log(this.cliente.domicilio.localidad.id);
     this.usuarioService.putUsuario(this.cliente).subscribe((data) => {
-    });
+      this.showMessage("Actualización exitosa.", "success")
+    },(error => {
+      this.showMessage("Actualización fallida.", "error")
+    }));
   }
 
   getUsuario(email:string){
     this.usuarioService.getUsuario(email).subscribe((data) => {
       this.cliente = data;
       this.provinciaSeleccionada = data.domicilio.localidad.provincia.id;
-      console.log(data.domicilio.localidad.provincia.id);
     })
   }
 

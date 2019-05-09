@@ -16,7 +16,6 @@
             <tbody>
             <tr>
               <td>
-
                 <img
                   src="https://img.freepik.com/vector-gratis/lado-soleado-arriba-huevo-frito-grafico-ilustracion_53876-9119.jpg?size=338&ext=jpg"
                   class="card-img-top rounded-circle img-thumbnail" alt="...">
@@ -49,6 +48,7 @@
                   </div>
                 </ng-template>
               </p-toast>
+              <p-toast [style]="{marginTop: '80px'}" key="update"></p-toast>
               <br>
 
             </tr>
@@ -199,5 +199,22 @@
     </div>
 
   </div>
+
+  <p-table [columns]="cols" [value]="cars1" [scrollable]="true" scrollHeight="200px">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
 </div>

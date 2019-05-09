@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './componentes/home/home.component';
 import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegisterComponent } from './componentes/usuarios/register/register.component';
 import { Page404Component } from './componentes/usuarios/page404/page404.component';
@@ -11,8 +12,7 @@ import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {PedidosComponent} from './componentes/perfil/pedidos/pedidos.component';
 import {AuthGuardPageGuard} from './guards/auth-guard-page.guard';
 import {RolAdminGuard} from './guards/rol-admin-guard.service';
-import {CocineroComponent} from './componentes/cocinero/cocinero.component';
-import {PlatoComponent} from './componentes/usuarioAdministrador/plato/plato.component';
+import {CocineroComponent} from "./componentes/cocinero/cocinero.component";
 
 
 const routes: Routes = [
@@ -21,7 +21,6 @@ const routes: Routes = [
   
   {path: 'componentes/home', component : ListaProductosComponent },
   {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},
-  {path : 'usuarioAdministrador/plato' , component : PlatoComponent , canActivate: [AuthGuardPageGuard]},
   {path : 'cocina' , component : CocineroComponent , canActivate : [AuthGuardPageGuard]},
   {path: '', component : ListaProductosComponent },
   {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
