@@ -146,13 +146,13 @@
               <span class="input-group-text" >Es Insumo</span>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="esInsumo" id="si" value="true" [checked]="articulo.esInsumo == true">
+              <input class="form-check-input" [(ngModel)]="articulo.esInsumo"  type="radio" name="esInsumo" id="si" value="true" [checked]="articulo.esInsumo == true">
               <label class="form-check-label" for="si">
                SI
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="esInsumo" id="no" value="false" [checked]="articulo.esInsumo == false">
+              <input class="form-check-input" type="radio" [(ngModel)]="articulo.esInsumo" name="esInsumo" id="no" value="false" [checked]="articulo.esInsumo == false">
               <label class="form-check-label" for="no">
                 NO
               </label>

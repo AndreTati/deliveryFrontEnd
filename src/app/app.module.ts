@@ -60,7 +60,8 @@ import { PlatoComponent } from './componentes/usuarioAdministrador/plato/plato.c
     PlatocategoriaComponent,
     ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent,
     CocineroComponent,
-    PlatoComponent
+    PlatoComponent,
+    PedidosComponent
 
   ],
   imports: [

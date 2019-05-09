@@ -1,3 +1,5 @@
+import {UnidadMedida} from "./UnidadMedida";
+
 export interface Articulo {
   id: number;
   nombre: string;

@@ -13,6 +13,7 @@ import {PedidosComponent} from './componentes/perfil/pedidos/pedidos.component';
 import {AuthGuardPageGuard} from './guards/auth-guard-page.guard';
 import {RolAdminGuard} from './guards/rol-admin-guard.service';
 import {CocineroComponent} from "./componentes/cocinero/cocinero.component";
+import {PlatoComponent} from "./componentes/usuarioAdministrador/plato/plato.component";
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path : 'cocina' , component : CocineroComponent , canActivate : [AuthGuardPageGuard]},
   {path: '', component : ListaProductosComponent },
   {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
+  {path: 'usuarioAdministrador/plato', component: PlatoComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
   {path: 'usuarioAdministrador/articulo', component : ArticuloComponent , canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
   {path : 'user/login', component : LoginComponent},
   {path: 'user/register', component: RegisterComponent},
