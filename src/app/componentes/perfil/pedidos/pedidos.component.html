@@ -46,7 +46,42 @@
           </div>
           <div class="col-md-8">
 
+            <p-table [columns]="cols" [value]="pedidos" [responsive]="true" [paginator]="true" [rows]="6">
+              <ng-template pTemplate="caption">
+                Pedidos
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns">
+                    {{col.header}}
+                  </th>
+                  <th>Detalles</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns">
+                    <div *ngIf="col.subfield;then nested_object_content else normal_content"></div>
+                    <ng-template #normal_content>
 
+                      <span class="ui-column-title">{{col.header}}</span>
+                      {{rowData[col.field]}}
+
+                    </ng-template>
+                    <ng-template #nested_object_content>
+
+                      <span class="ui-column-title">{{col.header}}</span>
+                      {{rowData[col.field][col.subfield]}}
+
+                    </ng-template>
+                  </td>
+                  <td><button>HOLA</button></td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                Hay {{pedidos?.length}} pedidos
+              </ng-template>
+            </p-table>
 
           </div>
 
