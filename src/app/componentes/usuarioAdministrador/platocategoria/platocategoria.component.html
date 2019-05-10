@@ -43,7 +43,7 @@
 
 
       <p-toast [style]="{marginTop: '80px'}" position="top-center" key="toastPlatoCategoria"></p-toast>
-      <p-table [columns]="columnas" [value]="platoCategoria" selectionMode="single" [(selection)]="platoSeleccionado" (onRowSelect)="filaSeleccionada($event)" [paginator]="true" [rows]="5">
+      <p-table [autoLayout]="true"  [columns]="columnas" [value]="platoCategoria" selectionMode="single" [(selection)]="platoSeleccionado" (onRowSelect)="filaSeleccionada($event)" [paginator]="true" [rows]="5">
         <ng-template pTemplate="caption">
           Categoria de Platos
 
@@ -101,7 +101,7 @@
         </div>
         <p-footer>
           <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa fa-close" class="ui-button-rounded ui-button-danger" (click)="eliminarConfirm()" label="Eliminar"></button>
+            <button type="button" *ngIf="!nuevoPlato" pButton icon="fa fa-close" class="ui-button-rounded ui-button-danger" (click)="eliminarConfirm()" label="Eliminar"></button>
             <button type="button" pButton icon="fa fa-check" class="ui-button-rounded ui-button-success" (click)="guardarConfirm()" label="Guardar"></button>
           </div>
         </p-footer>
