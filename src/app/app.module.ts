@@ -44,7 +44,6 @@ import {ToastModule} from 'primeng/toast';
 import { PedidosComponent } from './componentes/perfil/pedidos/pedidos.component';
 import { CocineroComponent } from './componentes/cocinero/cocinero.component';
 import { PlatoComponent } from './componentes/usuarioAdministrador/plato/plato.component';
-import { UsuariosPaginaComponent } from './componentes/usuarioAdministrador/usuarios-pagina/usuarios-pagina.component';
 
 
 @NgModule({
@@ -62,8 +61,7 @@ import { UsuariosPaginaComponent } from './componentes/usuarioAdministrador/usua
     ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent,
     CocineroComponent,
     PlatoComponent,
-    PedidosComponent,
-    UsuariosPaginaComponent
+    PedidosComponent
 
   ],
   imports: [
