@@ -75,13 +75,43 @@
 
                     </ng-template>
                   </td>
-                  <td><button class="btn btn-block btn-primary" [value]="rowData['id']">Ver Más</button></td>
+                  <td><button (click)="abrirModal(rowData['id'])" class="btn btn-block btn-primary" [value]="rowData['id']" label="Show">Ver Más</button></td>
                 </tr>
               </ng-template>
               <ng-template pTemplate="summary">
                 Hay {{pedidos?.length}} pedidos
               </ng-template>
             </p-table>
+
+            <p-dialog header="Detalles" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70"
+                      [baseZIndex]="10000">
+
+              <p-table [columns]="cols2" [value]="pedido.detalle" [responsive]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td> {{"x"+rowData['cantidad']}} </td>
+                    <td *ngIf="rowData['plato'] != null"> {{rowData['plato']['nombre']}} </td>
+                    <td *ngIf="rowData['articulo'] != null"> {{rowData['articulo']['nombre']}} </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                  Hay {{pedido.detalle?.length}} detalles
+                </ng-template>
+              </p-table>
+
+              <p-footer>
+                <div align="rigth">
+                  <button class="btn btn-danger btn-sm" (click)="display=false" label="Cerrar">Cerrar</button>
+                </div>
+              </p-footer>
+            </p-dialog>
 
           </div>
 
@@ -92,3 +122,5 @@
     </div>
 
 </div>
+
+

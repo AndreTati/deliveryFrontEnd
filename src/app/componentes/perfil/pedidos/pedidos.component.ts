@@ -16,7 +16,10 @@ export class PedidosComponent implements OnInit {
   private email:string = "";
   private cliente:Usuario = {id:0, nombre: "", apellido: "", fechaNacimiento: "", sexo: "", telefono: 0, email: "", dni: "", password: "", domicilio: {id:0, calle: "", departamento: 0, cp: 0, numero: 0, piso: 0, localidad: {id: 0, provincia:{ id: 0 }}, latitud: 0, longitud: 0}};
   private pedidos:Pedido[];
+  private pedido:Pedido = {detalle: null, estado:null, fecha: null, horaEstimadaFin: null, id: null, montoDescuento: null, tipoEnvio: null, total: null};
   cols:any[];
+  cols2:any[];
+  display: boolean = false;
 
   constructor(private usuarioService:UsuarioService, private pedidoService:PedidoService, private att:AuthService) {
     this.att.isAuth().subscribe((data)=>{
@@ -32,7 +35,10 @@ export class PedidosComponent implements OnInit {
       { field: 'total', header: 'Total' },
       { field: 'montoDescuento', header: 'Descuento' },
       { field: 'estado', subfield: 'nombre', header: 'Estado' }
-
+    ];
+    this.cols2 = [
+      { field: 'cantidad', header: 'Cantidad' },
+      { header: 'Nombre' }
     ];
   }
 
@@ -49,6 +55,12 @@ export class PedidosComponent implements OnInit {
       console.log(this.pedidos);
       console.log(this.pedidos.length);
     })
+  }
+
+  abrirModal(id:number) {
+    this.display = true;
+    this.pedido = this.pedidos.find(x => x.id == id);
+    console.log(this.pedido)
   }
 
 }
