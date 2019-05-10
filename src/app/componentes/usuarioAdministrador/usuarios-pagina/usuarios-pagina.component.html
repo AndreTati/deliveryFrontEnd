@@ -1,0 +1,45 @@
+<br><br><br>
+
+<div class="container">
+  <br>
+  <div class="row">
+
+
+    <div class="col-md-12">
+
+<p-table  [autoLayout]="true" [columns]="columnas" [value]="usuarios" selectionMode="single"  [paginator]="true" [rows]="15">
+  <ng-template pTemplate="caption">
+    Usuarios Registrados en la web
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+        {{col.header}}
+        <p-sortIcon [field]="col.field"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td *ngFor="let col of columns" >
+        <div *ngIf="col.subfield;then nested_object_content else normal_content"></div>
+
+         <ng-template #normal_content>
+        {{rowData[col.field]}}
+        </ng-template>
+        <ng-template #nested_object_content>
+          {{rowData[col.field][col.subfield]}}
+          {{rowData[col.field][col.thirdfield]}}
+        </ng-template>
+
+      </td>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+
+  </ng-template>
+</p-table>
+    </div>
+  </div>
+</div>

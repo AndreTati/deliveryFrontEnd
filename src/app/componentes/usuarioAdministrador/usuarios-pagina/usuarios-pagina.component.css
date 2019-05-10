@@ -1,0 +1,10 @@
+.container {
+  background: rgba(44, 44, 44, 0.562)
+}
+p-table {
+  border: 2px solid;
+  padding: 10px 40px;
+  width: 300px;
+  resize: both;
+  overflow: auto;
+}
