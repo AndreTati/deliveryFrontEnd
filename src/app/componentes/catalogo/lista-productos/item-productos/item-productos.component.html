@@ -45,7 +45,7 @@
                   ngbPopover="*Ejemplo :   Huevos,Azucar,Choclo Etc" popoverTitle="{{platos.nombre}} contiene">
             Descripcion
           </button>
-          <button type="button" (click)=mandarPlato(platos.id)  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
+          <button type="button" (click)=mandarPlato(platos)  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
         </div>
         </p-footer>
       </p-card>
@@ -93,7 +93,7 @@
                   ngbPopover="{{articulo.descripcion}}" popoverTitle="{{articulo.nombre}}">
            Descripcion
           </button>
-          <button type="button" class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
+          <button type="button" class="btn btn-success" (click)=mandarPlato(articulo)><i class="fa fa-cart-plus"></i></button>
         </div>
       </p-footer>
     </p-card>
@@ -101,4 +101,6 @@
   </ng-template>
 </p-dataView>
 
+<!-- TOAST QUE INDICARA A UN USUARIO QUE DEBE REGISTRARSE PARA AGREGAR COSAS AL CARRITO-->
 
+<p-toast [style]="{marginTop: '80px'}" key="avisoRegistro" position="top-center"></p-toast>

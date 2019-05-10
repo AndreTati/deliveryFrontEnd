@@ -1,38 +1,33 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {productosInteface} from '../../componentes/catalogo/lista-productos/item-productos/productosInterface';
 import {HttpClient} from '@angular/common/http';
-import {platoInterface} from "../../componentes/usuarioAdministrador/plato/platoInterface";
+import {Plato} from "../../Modelo/Plato";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlatoService {
-  private platos: productosInteface [];
+  private platos: Plato[];
+  private cantidadPlatos: number;
 
-  constructor(public httpClientApi: HttpClient) { }
+  constructor(public httpClientApi: HttpClient) {
+
+  }
   private _urlAllPlatos = 'http://apirestdelivery.herokuapp.com/api/v1/plato/';
 
-  getAllPlatos(): Observable<platoInterface[]> {
-    return this.httpClientApi.get<platoInterface[]>(this._urlAllPlatos);
+  getAllPlatos(): Observable<Plato[]> {
+    return this.httpClientApi.get<Plato[]>(this._urlAllPlatos);
   }
-  postPlato( plato: platoInterface): Observable<platoInterface> {
-    return this.httpClientApi.post<platoInterface>(this._urlAllPlatos , plato);
+  postPlato( plato: Plato): Observable<Plato> {
+    return this.httpClientApi.post<Plato>(this._urlAllPlatos , plato);
   }
-  updatePlato(plato: platoInterface , id: number) {
-    return this.httpClientApi.put<platoInterface>(this._urlAllPlatos + '' + id, plato);
+  updatePlato(plato: Plato , id: number) {
+    return this.httpClientApi.put<Plato>(this._urlAllPlatos + '' + id, plato);
   }
-  deletePlato(id: number): Observable <platoInterface> {
-    return this.httpClientApi.delete<platoInterface>(this._urlAllPlatos + '' + id)
+  deletePlato(id: number): Observable <Plato> {
+    return this.httpClientApi.delete<Plato>(this._urlAllPlatos + '' + id)
   }
-  platoXId(id: number): productosInteface {
-    for(let plato of this.platos) {
 
-      if (id == plato.id) {
-        console.log(plato.id);
-        return plato;
-      }
-    }
-  }
+
 
 }
