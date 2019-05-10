@@ -87,9 +87,8 @@ import { PlatoComponent } from './componentes/usuarioAdministrador/plato/plato.c
     SidebarModule,
     MessageModule,
 
-
   ],
-  providers: [AngularFireAuth, MessageService],
+  providers: [AngularFireAuth, MessageService, CarritoComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
