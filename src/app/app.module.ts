@@ -48,6 +48,8 @@ import {UsuariosPaginaComponent} from './componentes/usuarioAdministrador/usuari
 import { ComidasMasPedidasComponent } from './componentes/usuarioAdministrador/comidas-mas-pedidas/comidas-mas-pedidas.component';
 import { GraficoStockComponent } from './componentes/usuarioAdministrador/grafico-stock/grafico-stock.component';
 import { ClientesRegistradosComponent } from './componentes/usuarioAdministrador/clientes-registrados/clientes-registrados.component';
+import { PedidosPorClienteComponent } from './componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component';
+import { PedidosPorPeriodoComponent } from './componentes/usuarioAdministrador/pedidos-por-periodo/pedidos-por-periodo.component';
 
 
 @NgModule({
@@ -65,7 +67,7 @@ import { ClientesRegistradosComponent } from './componentes/usuarioAdministrador
     ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent,
     CocineroComponent,
     PlatoComponent,
-    PedidosComponent, UsuariosPaginaComponent, ComidasMasPedidasComponent, GraficoStockComponent, ClientesRegistradosComponent
+    PedidosComponent, UsuariosPaginaComponent, ComidasMasPedidasComponent, GraficoStockComponent, ClientesRegistradosComponent, PedidosPorClienteComponent, PedidosPorPeriodoComponent
 
   ],
   imports: [

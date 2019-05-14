@@ -17,6 +17,8 @@ import {UsuariosPaginaComponent} from './componentes/usuarioAdministrador/usuari
 import {ComidasMasPedidasComponent} from './componentes/usuarioAdministrador/comidas-mas-pedidas/comidas-mas-pedidas.component';
 import {GraficoStockComponent} from "./componentes/usuarioAdministrador/grafico-stock/grafico-stock.component";
 import {ClientesRegistradosComponent} from "./componentes/usuarioAdministrador/clientes-registrados/clientes-registrados.component";
+import {PedidosPorPeriodoComponent} from "./componentes/usuarioAdministrador/pedidos-por-periodo/pedidos-por-periodo.component";
+import {PedidosPorClienteComponent} from "./componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component";
 
 
 const routes: Routes = [
@@ -27,7 +29,9 @@ const routes: Routes = [
   {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate : [AuthGuardPageGuard, RolAdminGuard]},
   {path : 'usuarioAdministrador/estadisticasComidas' , component : ComidasMasPedidasComponent, canActivate : [AuthGuardPageGuard, RolAdminGuard] },
   {path : 'usuarioAdministrador/estadisticasStock' , component : GraficoStockComponent , canActivate : [AuthGuardPageGuard, RolAdminGuard]},
-  {path : 'usuarioAdministrador/estadisticasUsuarios' , component : ClientesRegistradosComponent },
+  {path : 'usuarioAdministrador/estadisticasUsuarios' , component : ClientesRegistradosComponent, canActivate: [AuthGuardPageGuard, RolAdminGuard] },
+  {path : 'usuarioAdministrador/estadisticasPedidosPeriodo' , component : PedidosPorPeriodoComponent, canActivate: [AuthGuardPageGuard, RolAdminGuard] },
+  {path : 'usuarioAdministrador/estadisticasPedidosUsuario' , component : PedidosPorClienteComponent },
   {path : 'usuarioAdministrador/usuarioCliente' , component : UsuariosPaginaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},
   {path : 'cocina' , component : CocineroComponent , canActivate : [AuthGuardPageGuard]},
   {path: '', component : ListaProductosComponent },

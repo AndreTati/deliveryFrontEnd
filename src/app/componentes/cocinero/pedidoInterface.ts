@@ -44,7 +44,7 @@ export interface Plato {
 export interface Detalle {
   id: number;
   cantidad: number;
-  plato: Plato[];
+  plato: Plato;
   articulo: Articulo[];
 }
 export interface DetallePlato {
