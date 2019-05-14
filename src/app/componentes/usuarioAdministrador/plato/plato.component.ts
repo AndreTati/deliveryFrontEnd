@@ -175,7 +175,6 @@ export class PlatoComponent implements OnInit {
     const platos = [...this.platos];
     if (!this.platoNuevo) {
 
-
       platos[this.platos.indexOf(this.platoSeleccionado)] = this.plato;
 
 
@@ -195,6 +194,7 @@ export class PlatoComponent implements OnInit {
       );
 
     } else {
+      this.plato.detalles = [];
 
       this.platoApiSerice.postPlato(this.plato).subscribe(
         data => {

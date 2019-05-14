@@ -94,29 +94,7 @@
             </div>
           </div>
 
-          <div class="ui-g-12">
-            <div class="input-group">
-
-                <span class="input-group-text" >Detalle del Plato</span>
-            </div>
-                <ng-template [ngIf]="!platoNuevo"  >
-
-                  <div class="input-group" *ngFor="let detalle of plato.detalles ; index as i">
-                  <input type="text" class="form-control" placeholder="Cantidad del articulo" [ngModel]="plato.detalles[i].cantidad">
-                  <select class="form-control form-control-md" [(ngModel)]="plato.detalles[i].articulo.id" >
-                       <option   *ngFor=" let articulo of articulos "
-                              value={{articulo.id}} [selected]="articulo.id == detalle.articulo.id">{{articulo.nombre}}  </option>
-                     </select>
-                  </div>
-               </ng-template>
-
-
-
-          </div>
-
-
-
-          <div class="ui-g-12">
+           <div class="ui-g-12">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text" >Categoria</span>
@@ -147,6 +125,9 @@
           </div>
         </p-footer>
       </p-dialog>
+
+
+
 
 
 

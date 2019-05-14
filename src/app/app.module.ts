@@ -44,6 +44,10 @@ import {ToastModule} from 'primeng/toast';
 import { PedidosComponent } from './componentes/perfil/pedidos/pedidos.component';
 import { CocineroComponent } from './componentes/cocinero/cocinero.component';
 import { PlatoComponent } from './componentes/usuarioAdministrador/plato/plato.component';
+import {UsuariosPaginaComponent} from './componentes/usuarioAdministrador/usuarios-pagina/usuarios-pagina.component';
+import { ComidasMasPedidasComponent } from './componentes/usuarioAdministrador/comidas-mas-pedidas/comidas-mas-pedidas.component';
+import { GraficoStockComponent } from './componentes/usuarioAdministrador/grafico-stock/grafico-stock.component';
+import { ClientesRegistradosComponent } from './componentes/usuarioAdministrador/clientes-registrados/clientes-registrados.component';
 
 
 @NgModule({
@@ -61,7 +65,7 @@ import { PlatoComponent } from './componentes/usuarioAdministrador/plato/plato.c
     ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent,
     CocineroComponent,
     PlatoComponent,
-    PedidosComponent
+    PedidosComponent, UsuariosPaginaComponent, ComidasMasPedidasComponent, GraficoStockComponent, ClientesRegistradosComponent
 
   ],
   imports: [
@@ -81,11 +85,12 @@ import { PlatoComponent } from './componentes/usuarioAdministrador/plato/plato.c
     DialogModule,
     ButtonModule,
     TooltipModule,
-    ChartModule,
+
     CardModule,
     ToastModule,
     SidebarModule,
     MessageModule,
+    ChartModule,
 
   ],
   providers: [AngularFireAuth, MessageService, CarritoComponent],

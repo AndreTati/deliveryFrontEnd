@@ -11,16 +11,24 @@ import {PerfilComponent} from './componentes/perfil/perfil.component';
 import {PedidosComponent} from './componentes/perfil/pedidos/pedidos.component';
 import {AuthGuardPageGuard} from './guards/auth-guard-page.guard';
 import {RolAdminGuard} from './guards/rol-admin-guard.service';
-import {CocineroComponent} from "./componentes/cocinero/cocinero.component";
-import {PlatoComponent} from "./componentes/usuarioAdministrador/plato/plato.component";
+import {CocineroComponent} from './componentes/cocinero/cocinero.component';
+import {PlatoComponent} from './componentes/usuarioAdministrador/plato/plato.component';
+import {UsuariosPaginaComponent} from './componentes/usuarioAdministrador/usuarios-pagina/usuarios-pagina.component';
+import {ComidasMasPedidasComponent} from './componentes/usuarioAdministrador/comidas-mas-pedidas/comidas-mas-pedidas.component';
+import {GraficoStockComponent} from "./componentes/usuarioAdministrador/grafico-stock/grafico-stock.component";
+import {ClientesRegistradosComponent} from "./componentes/usuarioAdministrador/clientes-registrados/clientes-registrados.component";
 
 
 const routes: Routes = [
   // '' es home vacio SON DIRECCIONES DEL CLIENTE,Hay que HACER SEGURAS LAS RUTAS QUE SON SOLO PARA AUTENTIFICADOS
   // CON LOS GUARDS
-  
+
   {path: 'componentes/home', component : ListaProductosComponent },
-  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},
+  {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate : [AuthGuardPageGuard, RolAdminGuard]},
+  {path : 'usuarioAdministrador/estadisticasComidas' , component : ComidasMasPedidasComponent, canActivate : [AuthGuardPageGuard, RolAdminGuard] },
+  {path : 'usuarioAdministrador/estadisticasStock' , component : GraficoStockComponent , canActivate : [AuthGuardPageGuard, RolAdminGuard]},
+  {path : 'usuarioAdministrador/estadisticasUsuarios' , component : ClientesRegistradosComponent },
+  {path : 'usuarioAdministrador/usuarioCliente' , component : UsuariosPaginaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},
   {path : 'cocina' , component : CocineroComponent , canActivate : [AuthGuardPageGuard]},
   {path: '', component : ListaProductosComponent },
   {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
@@ -32,7 +40,7 @@ const routes: Routes = [
   {path : 'user/perfil/pedidos', component: PedidosComponent , canActivate: [AuthGuardPageGuard]},
   {path: 'catalogo/lista', component: ListaProductosComponent},
   {path: '**', component: Page404Component}
-  
+
 
 
 ];

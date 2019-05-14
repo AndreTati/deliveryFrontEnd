@@ -13,7 +13,8 @@ export class RolAdminGuard implements CanActivate  {
 
 
   constructor(private afsAuth: AngularFireAuth , private router: Router , private apiService: DataApiService) {
-
+    // @ts-ignore
+    this.usuario = {};
     this.apiService.getPermisos(this.afsAuth.auth.currentUser.email).subscribe( res => {
       this.usuario = res;
       console.log(this.usuario.rol);

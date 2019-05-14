@@ -1,0 +1,32 @@
+<br><br><br>
+
+<div class="container">
+  <br>
+  <div class="row" align="center">
+
+
+    <div class="col-md-12">
+      <div class="card">
+
+          <form class="example col-md-4" >
+            <div class="form-group">
+            <h6>Usuarios Despues de  la fecha</h6>
+            <input type="date" class="form-control" placeholder="Buscar por fecha" name="search" [(ngModel)]="fecha">
+
+              <button class="btn btn-outline-primary" type="submit"(click)="impedanciaEstadisticas(fecha)"><i class="fa fa-search"></i>Buscar</button>
+            </div>
+
+          </form>
+        <div class="card-body">
+          <h5 class="card-title">Clientes registrados por periodo de tiempo</h5>
+          <h6>Registros totales : {{totalUsuarios}}</h6>
+          <div style="background: white">
+            <p-chart *ngIf="cargo" type="bar" [data]="datosEstadisticos"></p-chart>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <br>
+</div>
