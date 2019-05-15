@@ -12,9 +12,9 @@ export class PedidoService {
 
   constructor(public httpApiSerivce: HttpClient) { }
 
-  private _urlAllPedidos= 'http://apirestdelivery.herokuapp.com/api/v1/pedido/';
-  private _urlAllEstados= 'http://apirestdelivery.herokuapp.com/api/v1/estado/';
-  private _urlAllPedidoXId = 'http://apirestdelivery.herokuapp.com/api/v1/pedido/byUser/';
+  private _urlAllPedidos= 'https://apirestdelivery.herokuapp.com/api/v1/pedido/';
+  private _urlAllEstados= 'https://apirestdelivery.herokuapp.com/api/v1/estado/';
+  private _urlAllPedidoXId = 'https://apirestdelivery.herokuapp.com/api/v1/pedido/byUser/';
 
   getAllPedidos(): Observable<pedidoInterface[]> {
     return this.httpApiSerivce.get<pedidoInterface[]>(this._urlAllPedidos);

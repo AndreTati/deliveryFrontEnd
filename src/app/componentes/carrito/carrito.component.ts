@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Plato } from "../../Modelo/Plato";
-import {Categoria} from "../../Modelo/Categoria";
-import {Imagen} from "../../Modelo/Imagen";
 import {PlatoCarrito} from "../../Modelo/PlatoCarrito";
+import {Pedido} from "../../Modelo/Pedido";
+import {AuthService} from "../../servicios/auth.service";
+import {UsuarioService} from "../../servicios/usuario/usuario.service";
+import {Usuario} from "../../Modelo/Usuario";
+
 
 
 @Component({
@@ -12,29 +15,24 @@ import {PlatoCarrito} from "../../Modelo/PlatoCarrito";
 })
 export class CarritoComponent implements OnInit {
 
-
+  public email: string;
+  public tipoEnvio: string;
   public platosEnCarrito: PlatoCarrito[];
   public total: number;
   public carritoMenu: boolean;
-public platosEnCarritoAux: Plato[];
+  public date: Date;
   private columnas: any[];
-
-  constructor() {
+  public cliente: Usuario;
+  constructor(private att: AuthService,private usuarioService: UsuarioService) {
     this.total = 0;
-    this.platosEnCarrito = [
-      {
-        cantidad:1,
-      plato :{
-        id: 77,
-        nombre: 'PEPE',
-        tiempoPreparacion: null,
-        detalles: null,
-        categoria: null,
-        imagen: null
-      }
-      }
+    this.platosEnCarrito = [];
+    this.att.isAuth().subscribe((data)=>{
+      this.email = data.email;
+      this.usuarioService.getUsuario(this.email).subscribe((data) => {
+        this.cliente = data;
 
-    ];
+    });
+  });
   }
 
   ngOnInit() {
@@ -42,6 +40,7 @@ public platosEnCarritoAux: Plato[];
       {field: 'nombre', header: 'Nombre'},
 
     ];
+
   }
 
   // AGREGA EL PLATO ELEGIDO AL ARRAY DE CARRITO Y SI YA ESTA SUMA 1 EN CANTIDAD
@@ -53,14 +52,20 @@ let platoCarro: PlatoCarrito = {
 if(this.existePlato(platoSelec.id)){
 
     console.log("SE SUMO UN PLATO IGUAL");
+  this.total = this.total + 20;
   }else{
-    this.platosEnCarrito = [...this.platosEnCarrito, platoCarro];
+    this.platosEnCarrito = [...this.platosEnCarrito,platoCarro];
     this.total = this.total + 20;
+
+    console.log(this.platosEnCarrito);
   }
     console.log(platoSelec);
     console.log(this.platosEnCarrito);
 
+
 }
+
+
 
 // BUSCO SI ESE PLATO YA EXISTE EN EL CARRITO
 existePlato(id: number): boolean {
@@ -76,7 +81,7 @@ existePlato(id: number): boolean {
 // SUMAR CANTIDAD DEL PLATO
   sumarCantidad(plato: PlatoCarrito){
     console.log('SUMO');
-   plato.cantidad++;
+
    this.total = this.total + 20;
    console.log(this.platosEnCarrito);
   }
@@ -84,14 +89,30 @@ existePlato(id: number): boolean {
 // RESTAR CANTIDAD DEL PLATO
   restarCantidad(plato: PlatoCarrito) {
     console.log('RESTO');
-    this.total = this.total - 20;
     plato.cantidad--;
+    if(plato.cantidad == 0){
+  let idx = this.platosEnCarrito.indexOf(plato);
+  this.platosEnCarrito.splice(idx,1);
+  this.total = this.total - 20;
+    }else{
+  this.total = this.total - 20;
+    }
     console.log(this.platosEnCarrito);
-
-
   }
-
-
+// METODO QUE ENVIA EL PEDIDO DEL CLIENTE (CONFIRMA)
+mandarPedido(){
+    let pedido: Pedido = {
+      id: 0,
+  fecha: this.date.toLocaleString(),
+  montoDescuento: null,
+  total: this.total,
+  usuarioCliente: this.cliente,
+  horaEstimadaFin: '',
+  tipoEnvio: '',
+  estado: {id:2, nombre:'En cocina'},
+  detalle: []
+    };
+}
 // FIN DE CLASE
 }
 

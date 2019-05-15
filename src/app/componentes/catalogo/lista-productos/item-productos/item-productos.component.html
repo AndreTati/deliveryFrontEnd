@@ -1,3 +1,4 @@
+<button pButton type="button" (click)="this.carritoComponent.carritoMenu = true" label="Mi Carrito" ><i class="fa fa-shopping-cart"></i></button>
 <p-dataView #dv [value]="platos"
             filterBy="categoria.nombre,nombre"
             [paginator]="true"
@@ -23,6 +24,7 @@
         </div>
       </div>
     </div>
+
   </p-header>
 
 
@@ -104,3 +106,39 @@
 <!-- TOAST QUE INDICARA A UN USUARIO QUE DEBE REGISTRARSE PARA AGREGAR COSAS AL CARRITO-->
 
 <p-toast [style]="{marginTop: '80px'}" key="avisoRegistro" position="top-center"></p-toast>
+
+
+
+<!---->
+<p-sidebar [(visible)]="this.carritoComponent.carritoMenu" position="right"  styleClass="ui-sidebar-md" [baseZIndex]="150000">
+
+
+
+  <h5 style="font-weight:normal ; align:center">Tu Carrito en A GOOD TASTE</h5>
+
+  <p-table [value]="this.carritoComponent.platosEnCarrito" [responsive]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Precio Plato</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-plato>
+      <tr>
+        <td>{{plato.plato.nombre}}</td>
+        <td><button type="button" class="btn btn-danger" label="-" (click)=this.carritoComponent.restarCantidad(plato)>-</button>{{plato.cantidad}}<button type="button" class="btn btn-success" label="+" (click)=this.carritoComponent.sumarCantidad(plato)>+</button></td>
+        <td>{{this.carritoComponent.total}}</td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+  <br>
+  <button pButton type="button" (click)="this.carritoComponent.carritoMenu = false" label="Save" class="ui-button-success"></button>
+  <button pButton type="button" (click)="this.carritoComponent.carritoMenu = false" label="Cancel" class="ui-button-secondary"></button>
+</p-sidebar>
+
+
+
+

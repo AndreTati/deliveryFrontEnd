@@ -10,7 +10,7 @@ import {usuarioClienteInterface} from '../../componentes/usuarioAdministrador/us
 })
 export class UsuarioClienteABMService {
 
-  private _urlUsuarios =  'http://apirestdelivery.herokuapp.com/api/v1/usuariocliente/';
+  private _urlUsuarios =  'https://apirestdelivery.herokuapp.com/api/v1/usuariocliente/';
 
   constructor(public httpClientApi: HttpClient) { }
 

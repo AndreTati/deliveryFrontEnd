@@ -50,10 +50,9 @@ export class ItemProductosComponent implements OnInit {
   }
 
 mandarPlato(plato: Plato){
-  this.authService.isAuth().subscribe(auth => {
+    this.authService.isAuth().subscribe(auth => {
     if (auth) {
-      this.carritoComponent.agregarPlatoaCarrito(plato);
-
+     this.carritoComponent.agregarPlatoaCarrito(plato);
     } else {
 
       this.messageService.add({key:'avisoRegistro', severity:'warn',life:4000, summary:'NO ESTAS LOGUEADO/REGISTRADO', detail:'Debes iniciar sesion o registrarte para agregar platos al carrito'});

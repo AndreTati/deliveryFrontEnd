@@ -13,7 +13,7 @@ export class PlatoService {
   constructor(public httpClientApi: HttpClient) {
 
   }
-  private _urlAllPlatos = 'http://apirestdelivery.herokuapp.com/api/v1/plato/';
+  private _urlAllPlatos = 'https://apirestdelivery.herokuapp.com/api/v1/plato/';
 
   getAllPlatos(): Observable<Plato[]> {
     return this.httpClientApi.get<Plato[]>(this._urlAllPlatos);
