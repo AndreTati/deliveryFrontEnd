@@ -24,12 +24,31 @@
           Administrar
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+          <a class="dropdown-item" routerLink="/usuarioAdministrador/usuarioCliente">Seccion Usuarios </a>
+          <a class="dropdown-item" routerLink="/usuarioAdministrador/plato">Seccion Plato </a>
           <a class="dropdown-item" routerLink="/usuarioAdministrador/articulo">Seccion Articulo </a>
           <a class="dropdown-item" routerLink="/usuarioAdministrador/articuloCategoria">Seccion Articulo Categoria  </a>
-          <a class="dropdown-item" routerLink="/usuarioAdministrador/platoCategoria">Plato Categoria </a>
+          <a class="dropdown-item" routerLink="/usuarioAdministrador/platoCategoria">Seccion Plato Categoria </a>
 
         </div>
       </div>
+      </li>
+
+      <li class="nav-item" *ngIf="isLogged  && esAdmin ">
+        <div class="dropdown show">
+          <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuEstadisticas" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Reportes estadisticos
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuAdmin">
+            <a class="dropdown-item" routerLink="/usuarioAdministrador/estadisticasComidas">Comidas Mas Pedidas </a>
+            <a class="dropdown-item" routerLink="/usuarioAdministrador/estadisticasStock">Stock </a>
+            <a class="dropdown-item" routerLink="/usuarioAdministrador/estadisticasUsuarios">Usuarios registrados en Web </a>
+            <a class="dropdown-item" routerLink="/usuarioAdministrador/estadisticasPedidosPeriodo">Pedidos por Periodo </a>
+            <a class="dropdown-item" routerLink="/usuarioAdministrador/estadisticasPedidosUsuario">Pedidos Usuarios </a>
+
+
+          </div>
+        </div>
       </li>
 
       <li class="nav-item" *ngIf="esCocinero">

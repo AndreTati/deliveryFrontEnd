@@ -1,0 +1,140 @@
+<br><br><br>
+<div class="container">
+  <br>
+  <div class="row">
+
+    <div class="col-md-14">
+
+      <p-toast position="center" key="mensajeConfirmacion" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+        <ng-template let-message pTemplate="message">
+          <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+          </div>
+          <div class="ui-g ui-fluid">
+            <div class="ui-g-6" *ngIf="!esEliminar">
+              <button type="button" pButton (click)="guardar()" label="Si" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6" *ngIf="esEliminar">
+              <button type="button" pButton (click)="eliminar()" label="Si ,Deseo eliminar" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+              <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+          </div>
+        </ng-template>
+      </p-toast>
+
+
+
+      <p-toast [style]="{marginTop: '80px'}" position="top-center" key="toastArticulo"></p-toast>
+
+
+      <p-table    align="center" [columns]="columnas" [value]="platos" selectionMode="single" [(selection)]="platoSeleccionado" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="caption">
+          Platos
+        </ng-template>
+        <ng-template pTemplate="header" let-columns align="center">
+          <tr>
+            <th *ngFor="let columna of columns" [pSortableColumn]="columna.field">
+              {{columna.header}}
+              <p-sortIcon [field]="columna.field"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData" align="center">
+            <td> {{rowData.id}}</td>
+            <td> {{rowData.nombre}}</td>
+            <td> {{rowData.tiempoPreparacion}}</td>
+            <td id="DetallePlato" >
+               <li *ngFor="let detalle of rowData.detalles"> {{detalle.articulo.nombre}}: {{detalle.cantidad}} {{detalle.articulo.unidadMedida.abreviatura}}  </li>
+
+            </td>
+          <td> {{rowData.categoria.nombre}}</td>
+            <td> <img src={{rowData.imagen.url}} style=" width: 40px; height: 40px"> </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary" let-rowData>
+          <div style="text-align:left">
+            <button type="button" pButton icon="fa fa-plus" (click)="mostrarAgregar()" label="Agregar"></button>
+          </div>
+        </ng-template>
+      </p-table>
+
+
+
+      <p-dialog header="Detalle Plato"   [(visible)]="mostrarDialogo" [responsive]="true" showEffect="fade" [modal]="true"  [style]="{width: '800px' , height : '450px' , overflow: 'auto' }">
+        <div class="ui-lg ui-fluid" *ngIf="plato">
+          <div class="ui-g-12">
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >ID</span>
+              </div>
+              <input type="text" class="form-control" id="id" placeholder="Id registrado" [(ngModel)]="plato.id" readonly>
+            </div>
+
+          </div>
+          <div class="ui-g-12">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Nombre</span>
+              </div>
+              <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="plato.nombre" required>
+            </div>
+          </div>
+          <div class="ui-g-12">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Tiempo Preparacion</span>
+              </div>
+              <input type="text" class="form-control" id="tiempoPreparacion" placeholder="Tiempo Preparacion en minutos" [(ngModel)]="plato.tiempoPreparacion" required>
+            </div>
+          </div>
+
+           <div class="ui-g-12">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Categoria</span>
+              </div>
+              <select class="form-control form-control-lg" [(ngModel)]="plato.categoria.id" >
+
+
+                <option   *ngFor=" let categoria of categoriasPlato "  [selected]="categoria.id == plato.categoria.id"
+                          value={{categoria.id}}>{{categoria.nombre}}  </option>
+               </select>
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" >Imagen</span>
+              </div>
+              <input  type="text" class="form-control" id="imagen" placeholder="Imagen URL" [(ngModel)]="plato.imagen.url" required>
+
+            </div>
+          </div>
+        </div>
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button " *ngIf="!platoNuevo" class="ui-button-rounded ui-button-danger" pButton icon="fa fa-close" (click)="eliminarConfirm()" label="Eliminar"></button>
+            <button type="button"  class="ui-button-rounded ui-button-success" pButton icon="fa fa-check" (click)="guardarConfirm()" label="Guardar"></button>
+          </div>
+        </p-footer>
+      </p-dialog>
+
+
+
+
+
+
+      <br>
+    </div>
+
+    <br>
+  </div>
+</div>
+

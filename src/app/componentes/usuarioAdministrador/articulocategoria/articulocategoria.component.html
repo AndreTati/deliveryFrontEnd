@@ -43,7 +43,7 @@
 
 
 
-      <p-table  [columns]="columnas"  [value]="articuloCategoria" selectionMode="single" (onRowSelect)="filaSeleccionada($event)" [(selection)]="articuloSeleccionado"   [paginator]="true" [rows]="5">
+      <p-table [autoLayout]="true"   [columns]="columnas"  [value]="articuloCategoria" selectionMode="single" (onRowSelect)="filaSeleccionada($event)" [(selection)]="articuloSeleccionado"   [paginator]="true" [rows]="5">
         <ng-template pTemplate="caption">
           Categoria de Articulos
         </ng-template>
@@ -101,7 +101,7 @@
         </div>
         <p-footer>
           <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button " class="ui-button-rounded ui-button-danger" pButton icon="fa fa-close" (click)="eliminarConfirm()" label="Eliminar"></button>
+            <button type="button " *ngIf="!nuevoArticulo" class="ui-button-rounded ui-button-danger" pButton icon="fa fa-close" (click)="eliminarConfirm()" label="Eliminar"></button>
             <button type="button"  class="ui-button-rounded ui-button-success" pButton icon="fa fa-check" (click)="guardarConfirm()" label="Guardar"></button>
           </div>
         </p-footer>

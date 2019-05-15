@@ -110,6 +110,7 @@ export class PlatocategoriaComponent implements OnInit {
             this.plato = null;
             this.mostrarDialogo = false;
             this.clearMessage();
+            this.obtenerAllPlatoCategoria();
           },
           error => {
             this.mostrarToast('error' , 'Error , No se pudo actualizar : ', error.message);

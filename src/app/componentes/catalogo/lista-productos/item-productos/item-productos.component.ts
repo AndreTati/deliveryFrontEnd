@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { productosInteface } from './productosInterface';
 import {articulosVentaInterface} from './articulosVentaInterface';
 import {PlatoService} from '../../../../servicios/plato/plato.service';
 import {ArticuloService} from '../../../../servicios/articulo/articulo.service';
-import {Plato} from "../../../cocinero/pedidoInterface";
 import {ActivatedRoute, Router} from "@angular/router";
-
+import { Plato } from "../../../../Modelo/Plato";
+import {CarritoComponent} from "../../../carrito/carrito.component";
+import {AuthService} from "../../../../servicios/auth.service";
+import {MessageService} from "primeng/api";
 
 
 @Component({
@@ -19,27 +20,28 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class ItemProductosComponent implements OnInit {
 
 
-  public platos: productosInteface [] ;
+  public platos: Plato[];
   public cantidadPlatos: number;
   public articulosVenta: articulosVentaInterface[];
   public cantidadArticulos: number;
 
-  constructor( private router:Router,public apiService: PlatoService , public apiArticuloVenta: ArticuloService) {  }
+  constructor( private router:Router,public platoService: PlatoService , public apiArticuloVenta: ArticuloService, private carritoComponent: CarritoComponent,private authService: AuthService, private messageService: MessageService) {
+
+  }
 
 
   ngOnInit() {
-
     this.obtenerTodosLosPlatos();
     this.obtenerTodosLosArticulosVenta();
-
   }
 
   obtenerTodosLosPlatos() {
-    this.apiService.getAllPlatos()
-      .subscribe(data => { this.platos = data ;  this.cantidadPlatos = data.length; }
-
+    this.platoService.getAllPlatos()
+      .subscribe(data => { this.platos = data;this.cantidadPlatos = data.length}
       );
+
   }
+
   obtenerTodosLosArticulosVenta() {
     this.apiArticuloVenta.getAllArticulosVenta()
       .subscribe(data => { this.articulosVenta = data  ; this.cantidadArticulos = data.length; }
@@ -47,10 +49,34 @@ export class ItemProductosComponent implements OnInit {
       );
   }
 
-mandarPlato(id: number){
-    this.router.navigate(['/carrito', id]);
+mandarPlato(plato: Plato){
+  this.authService.isAuth().subscribe(auth => {
+    if (auth) {
+      this.carritoComponent.agregarPlatoaCarrito(plato);
+
+    } else {
+
+      this.messageService.add({key:'avisoRegistro', severity:'warn',life:4000, summary:'NO ESTAS LOGUEADO/REGISTRADO', detail:'Debes iniciar sesion o registrarte para agregar platos al carrito'});
+      this.delay(5000).then(any=>{
+        //your task after delay.
+        this.router.navigate(['user/login']);
+
+      });
+
+
+
+
+
+
+    }
+  });
+
+
+
 }
-
-
+// funcion que provoca un delay en la ejecucion
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+  }
 
 }
