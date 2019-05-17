@@ -34,9 +34,7 @@ export class DataApiService {
 
 
   // METODO POST PARA REGISTRAR USUARIOS
-
   setUsuario(usuario: Usuario): Observable<any>{
-
     return this.httpClientApi.post<Usuario>(this._urlUsuarios, usuario);
   }
 

@@ -1,4 +1,5 @@
-<button pButton type="button" (click)="this.carritoComponent.carritoMenu = true" label="Mi Carrito" ><i class="fa fa-shopping-cart"></i></button>
+<!-- BOTON PARA ABRIR EL CARRITO -->
+<button pButton type="button" style=margin-right:inherit  (click)="this.carritoComponent.carritoMenu = true" label="Mi Carrito" ><i class="fa fa-shopping-cart"></i></button>
 <p-dataView #dv [value]="platos"
             filterBy="categoria.nombre,nombre"
             [paginator]="true"
@@ -107,9 +108,9 @@
 
 <p-toast [style]="{marginTop: '80px'}" key="avisoRegistro" position="top-center"></p-toast>
 
+<p-toast [style]="{marginTop: '80px'}" key="platoAgregado" position="top-right"></p-toast>
 
-
-<!---->
+<!-- CARRITO (HTML PUESTO EN CATALOGO, TS EN CARRITO.COMPONENT)-->
 <p-sidebar [(visible)]="this.carritoComponent.carritoMenu" position="right"  styleClass="ui-sidebar-md" [baseZIndex]="150000">
 
 
@@ -127,16 +128,26 @@
     <ng-template pTemplate="body" let-plato>
       <tr>
         <td>{{plato.plato.nombre}}</td>
-        <td><button type="button" class="btn btn-danger" label="-" (click)=this.carritoComponent.restarCantidad(plato)>-</button>{{plato.cantidad}}<button type="button" class="btn btn-success" label="+" (click)=this.carritoComponent.sumarCantidad(plato)>+</button></td>
+        <td><button type="button" class="btn btn-danger" style='width:25px; height:25px' (click)=this.carritoComponent.restarCantidad(plato)>-</button>{{plato.cantidad}}<button type="button" class="btn btn-success" style='width:25px; height:25px' (click)=this.carritoComponent.sumarCantidad(plato)>+</button></td>
         <td>{{this.carritoComponent.total}}</td>
       </tr>
     </ng-template>
-
   </p-table>
-
+  <!-- TOTAL -->
+  <h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'local'">TOTAL: ${{this.carritoComponent.total * 0.95}}</label></h5><h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'delivery'" >TOTAL: ${{this.carritoComponent.total}}</label></h5>
+  <!-- RADIO DE TIPO ENVIO -->
+  <div class="ui-g" style="width:250px;margin-bottom:5px">
+    <div class="ui-g-8"><p-radioButton name="tipoEnvio" value="local" label="Retiro Local - 5%" [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt1"></p-radioButton></div>
+    <div class="ui-g-8"><p-radioButton name="tipoEnvio" value="delivery" label="Delivery " [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt2"></p-radioButton></div>
+  </div>
   <br>
-  <button pButton type="button" (click)="this.carritoComponent.carritoMenu = false" label="Save" class="ui-button-success"></button>
-  <button pButton type="button" (click)="this.carritoComponent.carritoMenu = false" label="Cancel" class="ui-button-secondary"></button>
+  <!-- BOTONES DEL CARRITO-->
+  <button pButton type="button" (click)="mandarPedido()" label="Confirmar pedido" class="ui-button-success"></button>
+  <button pButton type="button" (click)="limpiarCarrito()" label="Limpiar Carrito" class="ui-button-danger"></button>
+  <button pButton type="button" (click)="this.carritoComponent.carritoMenu = false" label="Cerrar" class="ui-button-secondary"></button>
+
+  <!-- DIALOGO PARA CONFIRMAR QUE SE QUIERE REALIZAR EL PEDIDO-->
+  <p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </p-sidebar>
 
 

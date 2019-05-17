@@ -1,6 +1,7 @@
 import {Estado} from "./Estado";
 import {Detalle} from "./Detalle";
 import {Usuario} from "./Usuario";
+import {PlatoCarrito} from "./PlatoCarrito";
 
 export interface Pedido {
   id: number;
@@ -11,5 +12,5 @@ export interface Pedido {
   horaEstimadaFin: string;
   tipoEnvio: string;
   estado: Estado;
-  detalle: Detalle[];
+  detalle: PlatoCarrito[];
 }

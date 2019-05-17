@@ -20,6 +20,8 @@ import { ListaProductosComponent } from './componentes/catalogo/lista-productos/
 import { ItemProductosComponent } from './componentes/catalogo/lista-productos/item-productos/item-productos.component';
 import {HttpClientModule} from '@angular/common/http';
 
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -28,7 +30,7 @@ import {
   CardModule,
   ChartModule,
   DialogModule,
-  DropdownModule, MessageModule, MessageService,
+  DropdownModule, MessageModule, MessageService, RadioButtonModule,
   SidebarModule,
   TooltipModule
 } from 'primeng/primeng';
@@ -87,15 +89,16 @@ import { PedidosPorPeriodoComponent } from './componentes/usuarioAdministrador/p
     DialogModule,
     ButtonModule,
     TooltipModule,
-
+    ConfirmDialogModule,
     CardModule,
     ToastModule,
     SidebarModule,
     MessageModule,
     ChartModule,
+    RadioButtonModule,
 
   ],
-  providers: [AngularFireAuth, MessageService, CarritoComponent],
+  providers: [AngularFireAuth, MessageService, CarritoComponent, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

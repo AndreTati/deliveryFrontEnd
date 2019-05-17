@@ -5,6 +5,8 @@ import {Pedido} from "../../Modelo/Pedido";
 import {AuthService} from "../../servicios/auth.service";
 import {UsuarioService} from "../../servicios/usuario/usuario.service";
 import {Usuario} from "../../Modelo/Usuario";
+import {PedidoService} from "../../servicios/pedido/pedido.service";
+import {ConfirmationService} from "primeng/api";
 
 
 
@@ -16,14 +18,14 @@ import {Usuario} from "../../Modelo/Usuario";
 export class CarritoComponent implements OnInit {
 
   public email: string;
-  public tipoEnvio: string;
+  public tipoEnvio: string = 'local';
   public platosEnCarrito: PlatoCarrito[];
   public total: number;
+  public montoDescuento: number;
   public carritoMenu: boolean;
-  public date: Date;
   private columnas: any[];
   public cliente: Usuario;
-  constructor(private att: AuthService,private usuarioService: UsuarioService) {
+  constructor(private att: AuthService,private usuarioService: UsuarioService, private pedidoService: PedidoService,private confirmationService: ConfirmationService) {
     this.total = 0;
     this.platosEnCarrito = [];
     this.att.isAuth().subscribe((data)=>{
@@ -46,6 +48,7 @@ export class CarritoComponent implements OnInit {
   // AGREGA EL PLATO ELEGIDO AL ARRAY DE CARRITO Y SI YA ESTA SUMA 1 EN CANTIDAD
 agregarPlatoaCarrito(platoSelec: Plato){
 let platoCarro: PlatoCarrito = {
+  id: 0,
   cantidad: 1,
   plato: platoSelec
 }
@@ -59,6 +62,7 @@ if(this.existePlato(platoSelec.id)){
 
     console.log(this.platosEnCarrito);
   }
+
     console.log(platoSelec);
     console.log(this.platosEnCarrito);
 
@@ -81,8 +85,9 @@ existePlato(id: number): boolean {
 // SUMAR CANTIDAD DEL PLATO
   sumarCantidad(plato: PlatoCarrito){
     console.log('SUMO');
-
+    plato.cantidad++;
    this.total = this.total + 20;
+
    console.log(this.platosEnCarrito);
   }
 
@@ -99,19 +104,51 @@ existePlato(id: number): boolean {
     }
     console.log(this.platosEnCarrito);
   }
+
+  // METODO QUE LIMPIA EL CARRITO (BORRA EL ARRAY platosEnCarrito)
+  limpiarCarrito(){
+    this.platosEnCarrito = [];
+    this.total = 0;
+  }
+
+  confirmarPedido() {
+    if(this.tipoEnvio == 'local'){
+      this.montoDescuento = this.total - (this.total * 0.95);
+      this.total = this.total * 0.95;
+    }
+
+    this.confirmationService.confirm({
+      message: '¿DESEA REALIZAR EL PEDIDO? '+'TOTAL: $'+this.total,
+      accept: () => {
+        this.mandarPedido();
+      }
+    });
+  }
+
 // METODO QUE ENVIA EL PEDIDO DEL CLIENTE (CONFIRMA)
 mandarPedido(){
     let pedido: Pedido = {
       id: 0,
-  fecha: this.date.toLocaleString(),
-  montoDescuento: null,
+  fecha: '',
+  montoDescuento: this.montoDescuento,
   total: this.total,
   usuarioCliente: this.cliente,
   horaEstimadaFin: '',
   tipoEnvio: '',
   estado: {id:2, nombre:'En cocina'},
-  detalle: []
+  detalle: this.platosEnCarrito
     };
+    this.pedidoService.postPedido(pedido).subscribe((res)=>{
+        console.log('PEDIDO REALIZADO');
+        console.log(res);
+        this.limpiarCarrito();
+        },
+      err=>{
+        console.log(" Error al enviar el pedido");
+        console.log(err);
+        return false;
+      } );
+
 }
 // FIN DE CLASE
 }

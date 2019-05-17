@@ -1,6 +1,9 @@
 import {Plato} from "./Plato";
+import {Articulo} from "./Articulo";
 
 export interface PlatoCarrito{
-  plato: Plato;
+  id: number;
+  plato?: Plato;
+  articulo?: Articulo;
   cantidad: number;
 }
