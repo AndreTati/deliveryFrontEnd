@@ -8,7 +8,9 @@ import {MessageService} from 'primeng/api';
 import {ArticuloCategoriaService} from '../../../servicios/articuloCategoria/articulo-categoria.service';
 import {PlatoCategoriaService} from '../../../servicios/platoCategoria/plato-categoria.service';
 import {platoCategoriaInterface} from '../platocategoria/platoCategoriaInterface';
-import {platoInterface} from './platoInterface';
+import {Detalle, platoInterface} from './platoInterface';
+import {Alert} from "selenium-webdriver";
+
 
 @Component({
   selector: 'app-plato',
@@ -32,20 +34,35 @@ export class PlatoComponent implements OnInit {
   private esEliminar: boolean;
   private cantidadCategoriaPlatos: number;
   public categoriasPlato: platoCategoriaInterface[];
+  public idPlatoDetalle: number;
+  public columnasDetalle: any ;
+  detalleSeleccionado: Detalle;
+  mostrarDialogoDetalle: boolean;
+  public detalle: Detalle;
+  detalleNuevo: boolean;
+  categoriasArticulos: articuloCategoriaInterface [];
+  mostrarDialogoDetalles: boolean;
+  platoDetalles: Detalle [];
 
 
   constructor(public platoApiSerice: PlatoService ,
               public articuloApiSerice: ArticuloService ,
               public articuloCategoriaApi: ArticuloCategoriaService ,
               public platoCategoriaApi: PlatoCategoriaService,
-              public toastMessages: MessageService) {
+              public toastMessages: MessageService ) {
     this.columnas = [
       { field: 'id', header: 'ID' },
       { field: 'nombre', header: 'Nombre' },
-      { field: 'tiempoPreparacion', header: 'tiempoPreparacion' },
+      { field: 'tiempoPreparacion', header: 'Tiempo Preparacion' },
+      { field: 'precio', header: 'Precio' },
       { field: 'detalle', header: 'Detalle' },
       { field: 'categoria.nombre' , header : 'Categoria'},
       { field: 'imagen' , header : 'Imagen'},
+    ];
+    this.columnasDetalle = [
+      { field: 'id', header: 'ID' },
+      { field: 'cantidad', header: 'Cantidad' },
+      { field: 'articulo' , subfield : 'nombre', header: 'Articulo' }
     ];
   }
 
@@ -53,10 +70,15 @@ export class PlatoComponent implements OnInit {
     this.obtenerAllPlatos();
     this.obtenerAllCategoriaPlatos();
     this.obtenerAllArticulos();
+    this.obtenerAllArticuloCategoria();
     this.obtenerAllCategorias();
     this.obtenerAllUnidadMedidas();
   }
-
+  obtenerAllArticuloCategoria() {
+    this.articuloCategoriaApi.getAllArticuloCategoria().subscribe(
+      data => {this.categoriasArticulos = data; },
+        error => {console.log('Error', error); });
+  }
   obtenerAllPlatos() {
     this.platoApiSerice.getAllPlatos().subscribe(data => {
       this.platos = data;
@@ -169,6 +191,53 @@ export class PlatoComponent implements OnInit {
         this.clearMessage(); }
     );
 
+  }
+  abmDetalle( id: number) {
+    this.platoDetalles = this.platos[id - 1].detalles;
+    this.mostrarDialogoDetalles = true;
+  }
+  mostrarAgregarDetalle() {
+    // @ts-ignore
+    this.detalle = {};
+    // @ts-ignore
+    this.detalle.articulo = {};
+    this.detalleNuevo = true;
+    this.mostrarDialogoDetalle = true;
+  }
+  guardarDetalle() {
+    const plato = this.plato;
+    if (!this.detalleNuevo) {
+       // @ts-ignore
+      this.plato.detalles[this.plato.detalles.indexOf(this.detalleSeleccionado)] = this.detalle;
+
+      this.abmDetalle(this.plato.id);
+      this.mostrarDialogoDetalle = false;
+    } else {
+      // @ts-ignore
+      this.detalle.articulo = this.articulos[this.detalle.articulo.id - 1];
+      this.plato.detalles.push(this.detalle);
+      this.mostrarDialogoDetalle = false;
+    }
+  }
+  eliminarDetalle() {
+    this.plato.detalles.splice((this.plato.detalles.indexOf(this.detalleSeleccionado)  ), 1 );
+    this.mostrarDialogoDetalle = false;
+  }
+
+  onRowSelectDetalle(event) {
+    this.detalleNuevo = false;
+    // @ts-ignore
+    this.detalle = this.clonarDetalle(event.data);
+    this.mostrarDialogoDetalle = true;
+  }
+
+  clonarDetalle(evento: Detalle): Detalle {
+    const Detalle = {};
+
+    for (const prop in evento) {
+      Detalle[prop] = evento[prop];
+    }
+    return Detalle as  Detalle;
   }
 
   guardar() {

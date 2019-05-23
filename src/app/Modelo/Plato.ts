@@ -8,4 +8,5 @@ export interface Plato {
   detalles: any[];
   categoria: Categoria;
   imagen: Imagen;
+  precio: number;
 }

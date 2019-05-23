@@ -3,6 +3,7 @@ import {pedidoInterface} from './pedidoInterface';
 import {PedidoService} from '../../servicios/pedido/pedido.service';
 import {estadoInterface} from './estadoInterface';
 import {MessageService} from "primeng/api";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-cocinero',
@@ -37,9 +38,19 @@ export class CocineroComponent implements OnInit {
     // @ts-ignore
     this.pedido.estado = {};
     this.getAllPedidos();
-
+    this.peticion();
     this.getAllEstados();
 
+  }
+  delay(milisegundos: number) {
+    return new Promise( resolve => setTimeout(resolve, milisegundos) );
+  }
+  async peticion() {
+     console.log('Por Realizar peticion')
+     await this.delay(30000);
+     this.getAllPedidos();
+     console.log('Peticion Realizada');
+     this.peticion();
   }
   getAllPedidos() {
     this.pedidoApiService.getAllPedidos().subscribe(data => {
