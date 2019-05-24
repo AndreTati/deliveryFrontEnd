@@ -49,10 +49,10 @@ export class ItemProductosComponent implements OnInit {
       );
   }
 // FUNCION QUE ENVIA UN OBJETO PLATO AL CARRITO
-mandarPlato(plato: Plato){
+mandarPlato(plato: any, esArticulo:boolean){
     this.authService.isAuth().subscribe(auth => {
     if (auth) {
-     this.carritoComponent.agregarPlatoaCarrito(plato);
+     this.carritoComponent.agregarPlatoaCarrito(plato,esArticulo);
       this.messageService.add({key:'platoAgregado', severity:'info', summary:plato.nombre, detail:'Agregado al carrito'});
     } else {
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Plato } from "../../Modelo/Plato";
 import {PlatoCarrito} from "../../Modelo/PlatoCarrito";
 import {Pedido} from "../../Modelo/Pedido";
 import {AuthService} from "../../servicios/auth.service";
@@ -7,6 +6,7 @@ import {UsuarioService} from "../../servicios/usuario/usuario.service";
 import {Usuario} from "../../Modelo/Usuario";
 import {PedidoService} from "../../servicios/pedido/pedido.service";
 import {ConfirmationService} from "primeng/api";
+
 
 
 
@@ -24,7 +24,9 @@ export class CarritoComponent implements OnInit {
   public montoDescuento: number;
   public carritoMenu: boolean;
   private columnas: any[];
+  public fecha: Date = new Date();
   public cliente: Usuario;
+
   constructor(private att: AuthService,private usuarioService: UsuarioService, private pedidoService: PedidoService,private confirmationService: ConfirmationService) {
     this.total = 0;
     this.platosEnCarrito = [];
@@ -46,19 +48,40 @@ export class CarritoComponent implements OnInit {
   }
 
   // AGREGA EL PLATO ELEGIDO AL ARRAY DE CARRITO Y SI YA ESTA SUMA 1 EN CANTIDAD
-agregarPlatoaCarrito(platoSelec: Plato){
-let platoCarro: PlatoCarrito = {
-  id: 0,
-  cantidad: 1,
-  plato: platoSelec
-}
-if(this.existePlato(platoSelec.id)){
+agregarPlatoaCarrito(platoSelec: any, esArticulo: boolean){
+    let platoCarro: PlatoCarrito;
+    if(esArticulo){
+      platoCarro = {
+        id: 0,
+        cantidad: 1,
+        plato: platoSelec,
+        esArticulo: true
+      }
+    }else{
+      platoCarro = {
+        id: 0,
+        cantidad: 1,
+        plato: platoSelec,
+        esArticulo: false
+      }
+    }
 
-    console.log("SE SUMO UN PLATO IGUAL");
-  this.total = this.total + 20;
+if(this.existePlato(platoSelec.id, platoSelec.esArticulo)){
+  console.log("SE SUMO UNO IGUAL");
+  if(!platoCarro.esArticulo){
+    this.total = this.total + platoSelec.precio;
   }else{
+    this.total = this.total + platoSelec.precioVenta;
+  }
+
+}else{
     this.platosEnCarrito = [...this.platosEnCarrito,platoCarro];
-    this.total = this.total + 20;
+    if(!platoCarro.esArticulo){
+      this.total = this.total + platoSelec.precio;
+    }else{
+      this.total = this.total + platoSelec.precioVenta;
+    }
+
 
     console.log(this.platosEnCarrito);
   }
@@ -66,13 +89,13 @@ if(this.existePlato(platoSelec.id)){
     console.log(platoSelec);
     console.log(this.platosEnCarrito);
 
-
+console.log(this.total);
 }
 
 
 
 // BUSCO SI ESE PLATO YA EXISTE EN EL CARRITO
-existePlato(id: number): boolean {
+existePlato(id: number, esArticulo: boolean): boolean {
   for (let plato of this.platosEnCarrito) {
     if (plato.plato.id == id) {
       plato.cantidad = plato.cantidad + 1;
@@ -86,7 +109,12 @@ existePlato(id: number): boolean {
   sumarCantidad(plato: PlatoCarrito){
     console.log('SUMO');
     plato.cantidad++;
-   this.total = this.total + 20;
+    if(!plato.esArticulo){
+      this.total = this.total + plato.plato.precio;
+    }else{
+      this.total = this.total + plato.plato.precioVenta;
+    }
+
 
    console.log(this.platosEnCarrito);
   }
@@ -95,14 +123,20 @@ existePlato(id: number): boolean {
   restarCantidad(plato: PlatoCarrito) {
     console.log('RESTO');
     plato.cantidad--;
-    if(plato.cantidad == 0){
-  let idx = this.platosEnCarrito.indexOf(plato);
-  this.platosEnCarrito.splice(idx,1);
-  this.total = this.total - 20;
+    if(!plato.esArticulo){
+      if(plato.cantidad == 0){
+        let idx = this.platosEnCarrito.indexOf(plato);
+        this.platosEnCarrito.splice(idx,1);}
+      this.total = this.total - plato.plato.precio;
     }else{
-  this.total = this.total - 20;
+      if(plato.cantidad == 0){
+        let idx = this.platosEnCarrito.indexOf(plato);
+        this.platosEnCarrito.splice(idx,1);}
+      this.total = this.total - plato.plato.precioVenta;
     }
+
     console.log(this.platosEnCarrito);
+    console.log(this.total);
   }
 
   // METODO QUE LIMPIA EL CARRITO (BORRA EL ARRAY platosEnCarrito)
@@ -110,31 +144,37 @@ existePlato(id: number): boolean {
     this.platosEnCarrito = [];
     this.total = 0;
   }
-
+// METODO QUE SE EJECUTA CUANDO SE CONFIRMA EL PEDIDO EN EL DIALOG
   confirmarPedido() {
+let totalfinal: number;
     if(this.tipoEnvio == 'local'){
-      this.montoDescuento = this.total - (this.total * 0.95);
-      this.total = this.total * 0.95;
+      this.montoDescuento = this.total * 0.10;
+      totalfinal = this.total * 0.90;
+    }else{
+      totalfinal = this.total;
     }
 
     this.confirmationService.confirm({
-      message: '¿DESEA REALIZAR EL PEDIDO? '+'TOTAL: $'+this.total,
+      message: '¿DESEA REALIZAR EL PEDIDO? '+'TOTAL: $'+totalfinal.toFixed(2),
       accept: () => {
-        this.mandarPedido();
+        this.mandarPedido(totalfinal);
+      },
+      reject: () =>{
+        console.log("Todavia no confirmo");
       }
     });
   }
 
 // METODO QUE ENVIA EL PEDIDO DEL CLIENTE (CONFIRMA)
-mandarPedido(){
+mandarPedido(totalfinal: number){
     let pedido: Pedido = {
       id: 0,
-  fecha: '',
+  fecha: this.fecha.toLocaleString(),
   montoDescuento: this.montoDescuento,
-  total: this.total,
+  total: totalfinal,
   usuarioCliente: this.cliente,
-  horaEstimadaFin: '',
-  tipoEnvio: '',
+  horaEstimadaFin: this.fecha.toLocaleTimeString(),
+  tipoEnvio: this.tipoEnvio,
   estado: {id:2, nombre:'En cocina'},
   detalle: this.platosEnCarrito
     };
@@ -146,6 +186,7 @@ mandarPedido(){
       err=>{
         console.log(" Error al enviar el pedido");
         console.log(err);
+        alert(err.toString());
         return false;
       } );
 

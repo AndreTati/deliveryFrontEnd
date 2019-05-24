@@ -39,7 +39,7 @@
 
 
         <div class="plato-detalle">Tiempo estimado:{{platos.tiempoPreparacion}} minutos</div>
-        <div class="plato-detalle">Precio : $ {{platos.precio}}</div>
+        <div class="plato-detalle"><b>Precio : $ {{platos.precio}}</b></div>
         <hr class="ui-widget-content" style="border-top:0">
         <p-footer>
         <div class="btn-group ">
@@ -48,7 +48,7 @@
                   ngbPopover="*Ejemplo :   Huevos,Azucar,Choclo Etc" popoverTitle="{{platos.nombre}} contiene">
             Descripcion
           </button>
-          <button type="button" (click)=mandarPlato(platos)  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
+          <button type="button" (click)="mandarPlato(platos,false)"  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
         </div>
         </p-footer>
       </p-card>
@@ -88,7 +88,7 @@
       <p-header>
         <img src="{{articulo.imagen.url}}">
       </p-header>
-      <div><h6>{{articulo.precioVenta}} $ </h6> </div>
+      <div><h6><b>Precio: ${{articulo.precioVenta}}</b></h6> </div>
       <p-footer>
         <div class="btn-group ">
 
@@ -96,7 +96,7 @@
                   ngbPopover="{{articulo.descripcion}}" popoverTitle="{{articulo.nombre}}">
            Descripcion
           </button>
-          <button type="button" class="btn btn-success" (click)=mandarPlato(articulo)><i class="fa fa-cart-plus"></i></button>
+          <button type="button" class="btn btn-success" (click)="mandarPlato(articulo,true)"><i class="fa fa-cart-plus"></i></button>
         </div>
       </p-footer>
     </p-card>
@@ -117,7 +117,7 @@
 
   <h5 style="font-weight:normal ; align:center">Tu Carrito en A GOOD TASTE</h5>
 
-  <p-table [value]="this.carritoComponent.platosEnCarrito" [responsive]="true">
+  <p-table [value]="this.carritoComponent.platosEnCarrito" [responsive]="true" [scrollable]="true">
     <ng-template pTemplate="header">
       <tr>
         <th>Nombre</th>
@@ -129,15 +129,16 @@
       <tr>
         <td>{{plato.plato.nombre}}</td>
         <td><button type="button" class="btn btn-danger" style='width:25px; height:25px' (click)=this.carritoComponent.restarCantidad(plato)>-</button>{{plato.cantidad}}<button type="button" class="btn btn-success" style='width:25px; height:25px' (click)=this.carritoComponent.sumarCantidad(plato)>+</button></td>
-        <td>{{this.carritoComponent.total}}</td>
+        <td *ngIf="!plato.esArticulo">{{plato.plato.precio * plato.cantidad | number:'1.2-2'}}</td>
+        <td *ngIf="plato.esArticulo">{{plato.plato.precioVenta * plato.cantidad | number:'1.2-2'}}</td>
       </tr>
     </ng-template>
   </p-table>
   <!-- TOTAL -->
-  <h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'local'">TOTAL: ${{this.carritoComponent.total * 0.95}}</label></h5><h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'delivery'" >TOTAL: ${{this.carritoComponent.total}}</label></h5>
+  <h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'local'">TOTAL: ${{this.carritoComponent.total * 0.90 | number:'1.2-2'}}</label></h5><h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'delivery'" >TOTAL: ${{this.carritoComponent.total | number:'1.2-2'}}</label></h5>
   <!-- RADIO DE TIPO ENVIO -->
   <div class="ui-g" style="width:250px;margin-bottom:5px">
-    <div class="ui-g-8"><p-radioButton name="tipoEnvio" value="local" label="Retiro Local - 5%" [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt1"></p-radioButton></div>
+    <div class="ui-g-8"><p-radioButton name="tipoEnvio" value="local" label="Retiro Local - 10%" [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt1"></p-radioButton></div>
     <div class="ui-g-8"><p-radioButton name="tipoEnvio" value="delivery" label="Delivery " [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt2"></p-radioButton></div>
   </div>
   <br>

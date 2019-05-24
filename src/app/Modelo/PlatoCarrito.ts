@@ -3,7 +3,7 @@ import {Articulo} from "./Articulo";
 
 export interface PlatoCarrito{
   id: number;
-  plato?: Plato;
-  articulo?: Articulo;
+  plato: any;
   cantidad: number;
+  esArticulo: boolean;
 }
