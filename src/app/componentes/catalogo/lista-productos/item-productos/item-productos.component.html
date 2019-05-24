@@ -48,7 +48,7 @@
                   ngbPopover="*Ejemplo :   Huevos,Azucar,Choclo Etc" popoverTitle="{{platos.nombre}} contiene">
             Descripcion
           </button>
-          <button type="button" (click)="mandarPlato(platos,false)"  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
+          <button type="button" (click)="mandarPlato(platos,'F')"  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
         </div>
         </p-footer>
       </p-card>
@@ -96,7 +96,7 @@
                   ngbPopover="{{articulo.descripcion}}" popoverTitle="{{articulo.nombre}}">
            Descripcion
           </button>
-          <button type="button" class="btn btn-success" (click)="mandarPlato(articulo,true)"><i class="fa fa-cart-plus"></i></button>
+          <button type="button" class="btn btn-success" (click)="mandarPlato(articulo,'T')"><i class="fa fa-cart-plus"></i></button>
         </div>
       </p-footer>
     </p-card>

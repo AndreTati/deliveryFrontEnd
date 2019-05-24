@@ -49,13 +49,12 @@ export class ItemProductosComponent implements OnInit {
       );
   }
 // FUNCION QUE ENVIA UN OBJETO PLATO AL CARRITO
-mandarPlato(plato: any, esArticulo:boolean){
+mandarPlato(plato: any, esArticulo: string){
     this.authService.isAuth().subscribe(auth => {
     if (auth) {
-     this.carritoComponent.agregarPlatoaCarrito(plato,esArticulo);
+      this.carritoComponent.agregarPlatoaCarrito(plato,esArticulo);
       this.messageService.add({key:'platoAgregado', severity:'info', summary:plato.nombre, detail:'Agregado al carrito'});
     } else {
-
       this.messageService.add({key:'avisoRegistro', severity:'warn',life:4000, summary:'NO ESTAS LOGUEADO/REGISTRADO', detail:'Debes iniciar sesion o registrarte para agregar platos al carrito'});
       this.delay(5000).then(any=>{
         //your task after delay.
@@ -64,6 +63,7 @@ mandarPlato(plato: any, esArticulo:boolean){
     }
   });
   }
+
 // funcion que provoca un delay en la ejecucion
   async delay(ms: number) {
     await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));

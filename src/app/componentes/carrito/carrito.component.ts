@@ -48,25 +48,25 @@ export class CarritoComponent implements OnInit {
   }
 
   // AGREGA EL PLATO ELEGIDO AL ARRAY DE CARRITO Y SI YA ESTA SUMA 1 EN CANTIDAD
-agregarPlatoaCarrito(platoSelec: any, esArticulo: boolean){
+agregarPlatoaCarrito(platoSelec: any, esArticulo: string){
     let platoCarro: PlatoCarrito;
-    if(esArticulo){
-      platoCarro = {
-        id: 0,
-        cantidad: 1,
-        plato: platoSelec,
-        esArticulo: true
-      }
-    }else{
+    if(esArticulo == 'F'){
       platoCarro = {
         id: 0,
         cantidad: 1,
         plato: platoSelec,
         esArticulo: false
       }
+    }else{
+      platoCarro = {
+        id: 0,
+        cantidad: 1,
+        plato: platoSelec,
+        esArticulo: true
+      }
     }
-
-if(this.existePlato(platoSelec.id, platoSelec.esArticulo)){
+console.log(platoCarro);
+if(this.existePlato(platoSelec.id, platoCarro.esArticulo)){
   console.log("SE SUMO UNO IGUAL");
   if(!platoCarro.esArticulo){
     this.total = this.total + platoSelec.precio;
@@ -97,13 +97,15 @@ console.log(this.total);
 // BUSCO SI ESE PLATO YA EXISTE EN EL CARRITO
 existePlato(id: number, esArticulo: boolean): boolean {
   for (let plato of this.platosEnCarrito) {
-    if (plato.plato.id == id) {
+    if (plato.plato.id == id && esArticulo ) {
       plato.cantidad = plato.cantidad + 1;
       return true;
     }
+
+
   }
   return false;
-}
+  }
 
 // SUMAR CANTIDAD DEL PLATO
   sumarCantidad(plato: PlatoCarrito){
