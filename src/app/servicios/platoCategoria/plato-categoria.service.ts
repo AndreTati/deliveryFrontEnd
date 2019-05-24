@@ -11,8 +11,8 @@ export class PlatoCategoriaService {
 
   constructor(public httpClientApi: HttpClient) { }
 
-  private _urlAllPlatoCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/platocategoria/';
-  private _urllHTTPVerbPlatoCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/platocategoria';
+  private _urlAllPlatoCategoria = 'https://apirestdelivery.herokuapp.com/api/v1/platocategoria/';
+  private _urllHTTPVerbPlatoCategoria = 'https://apirestdelivery.herokuapp.com/api/v1/platocategoria';
 
 
   // AQUI ACCIONSE PARA PLATO CATEGORIA

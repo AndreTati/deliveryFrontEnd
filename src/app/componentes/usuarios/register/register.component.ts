@@ -145,8 +145,8 @@ muestraError(summary?: string, detail?: string){
     usuario.password = "*******";
     usuario = this.registroUsuario.value;
     console.log(this.registroUsuario.value);
-    //this.registrarUsuario(usuario);
-   /*this.authService.registerUser(usuario.email, auxPassword)
+
+   this.authService.registerUser(usuario.email, auxPassword)
      .then((res) => {
        this.registrarUsuario(usuario);
        this.router.navigate(['/componentes/home']);
@@ -155,7 +155,7 @@ muestraError(summary?: string, detail?: string){
       this.msgError = err;
       alert(err);
       this.isError = true;
-     })*/
+     })
 
 
 

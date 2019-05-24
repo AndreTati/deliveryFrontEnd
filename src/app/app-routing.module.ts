@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule, OnInit} from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './componentes/usuarios/login/login.component';
 import { RegisterComponent } from './componentes/usuarios/register/register.component';
@@ -15,10 +15,10 @@ import {CocineroComponent} from './componentes/cocinero/cocinero.component';
 import {PlatoComponent} from './componentes/usuarioAdministrador/plato/plato.component';
 import {UsuariosPaginaComponent} from './componentes/usuarioAdministrador/usuarios-pagina/usuarios-pagina.component';
 import {ComidasMasPedidasComponent} from './componentes/usuarioAdministrador/comidas-mas-pedidas/comidas-mas-pedidas.component';
-import {GraficoStockComponent} from "./componentes/usuarioAdministrador/grafico-stock/grafico-stock.component";
-import {ClientesRegistradosComponent} from "./componentes/usuarioAdministrador/clientes-registrados/clientes-registrados.component";
-import {PedidosPorPeriodoComponent} from "./componentes/usuarioAdministrador/pedidos-por-periodo/pedidos-por-periodo.component";
-import {PedidosPorClienteComponent} from "./componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component";
+import {GraficoStockComponent} from './componentes/usuarioAdministrador/grafico-stock/grafico-stock.component';
+import {ClientesRegistradosComponent} from './componentes/usuarioAdministrador/clientes-registrados/clientes-registrados.component';
+import {PedidosPorPeriodoComponent} from './componentes/usuarioAdministrador/pedidos-por-periodo/pedidos-por-periodo.component';
+import {PedidosPorClienteComponent} from './componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component';
 
 
 const routes: Routes = [
@@ -53,4 +53,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

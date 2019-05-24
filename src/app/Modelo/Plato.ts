@@ -5,7 +5,9 @@ export interface Plato {
   id: number;
   nombre: string;
   tiempoPreparacion: string;
+  precio?: number;
   detalles: any[];
   categoria: Categoria;
   imagen: Imagen;
+
 }

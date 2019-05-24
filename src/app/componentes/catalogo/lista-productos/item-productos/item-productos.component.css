@@ -1,0 +1,5 @@
+.btn {
+  /* other, unchanged, CSS */
+  line-height: 20px; /* <- changed this */
+  box-sizing: border-box; /* <- added this */
+}

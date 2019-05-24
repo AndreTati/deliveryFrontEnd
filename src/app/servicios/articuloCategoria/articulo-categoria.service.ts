@@ -9,8 +9,8 @@ import {Observable} from 'rxjs';
 export class ArticuloCategoriaService {
 
   constructor(public httpClientApi: HttpClient) { }
-  private _urlAllArticuloCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/articulocategoria/';
-  private _urlHTTPVerbArticuloCategoria = 'http://apirestdelivery.herokuapp.com/api/v1/articulocategoria';
+  private _urlAllArticuloCategoria = 'https://apirestdelivery.herokuapp.com/api/v1/articulocategoria/';
+  private _urlHTTPVerbArticuloCategoria = 'https://apirestdelivery.herokuapp.com/api/v1/articulocategoria';
 
   // ACCIONES PARA ARTICULO CATEGORIA
 

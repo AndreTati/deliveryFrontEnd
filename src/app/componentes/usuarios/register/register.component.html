@@ -30,7 +30,9 @@
                        placeholder="Nombre*"
                        pTooltip="Ingrese nombre"
                        tooltipPosition="top">
-
+              <p-message severity="error"
+                         [text]="registroUsuario.controls['nombre'].errors['required'] ? 'Campo requerido' : ''"
+                         *ngIf="!registroUsuario.controls['nombre'].valid&&registroUsuario.controls['nombre'].dirty"></p-message>
 
 
               <!-- APELLIDO -->
@@ -42,7 +44,9 @@
                        placeholder="Apellido*"
                        pTooltip="Ingrese apellido"
                        tooltipPosition="top">
-
+              <p-message severity="error"
+                         [text]="registroUsuario.controls['apellido'].errors['required'] ? 'Campo requerido' : ''"
+                         *ngIf="!registroUsuario.controls['apellido'].valid&&registroUsuario.controls['apellido'].dirty"></p-message>
               </div>
 
             <br>
@@ -62,6 +66,9 @@
                          placeholder="Correo Electronico*"
                          pTooltip="Ingrese Email"
                          tooltipPosition="top">
+              <p-message severity="error"
+                         [text]="registroUsuario.controls['email'].errors['required'] ? 'Campo requerido' : registroUsuario.controls['email'].errors['minlength'] ? 'Mas de 6 caracteres' : ''"
+                         *ngIf="!registroUsuario.controls['email'].valid&&registroUsuario.controls['email'].dirty"></p-message>
                 </div>
 
 

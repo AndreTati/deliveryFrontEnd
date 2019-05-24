@@ -49,4 +49,5 @@ export interface platoInterface {
   detalles: Detalle[];
   categoria: Categoria2;
   imagen: Imagen;
+  precio: number;
 }

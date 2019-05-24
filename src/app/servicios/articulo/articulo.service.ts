@@ -13,10 +13,10 @@ export class ArticuloService {
 
   constructor(private httpClientApi: HttpClient) { }
 
-  private _urlAllUnidadMedida= 'http://apirestdelivery.herokuapp.com/api/v1/unidadmedida/';
-  private _urlAllArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo/';
-  private _urlHTTPVerbArticulo = 'http://apirestdelivery.herokuapp.com/api/v1/articulo';
-  private _urlAllArticulosVenta= 'http://apirestdelivery.herokuapp.com/api/v1/articulo/esInsumo/false';
+  private _urlAllUnidadMedida= 'https://apirestdelivery.herokuapp.com/api/v1/unidadmedida/';
+  private _urlAllArticulo = 'https://apirestdelivery.herokuapp.com/api/v1/articulo/';
+  private _urlHTTPVerbArticulo = 'https://apirestdelivery.herokuapp.com/api/v1/articulo';
+  private _urlAllArticulosVenta= 'https://apirestdelivery.herokuapp.com/api/v1/articulo/esInsumo/false';
 
    getAllUnidadMedida(): Observable<unidadMedidaInterface[]> {
     return this.httpClientApi.get<unidadMedidaInterface[]>(this._urlAllUnidadMedida);

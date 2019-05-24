@@ -16,12 +16,12 @@ export class DataApiService {
   constructor(public httpClientApi: HttpClient) { }
 
 
- private _urlAllProvincias = 'http://apirestdelivery.herokuapp.com/api/v1/provincia/';
- private _urlAllLocalidades = 'http://apirestdelivery.herokuapp.com/api/v1/localidad/';
+ private _urlAllProvincias = 'https://apirestdelivery.herokuapp.com/api/v1/provincia/';
+ private _urlAllLocalidades = 'https://apirestdelivery.herokuapp.com/api/v1/localidad/';
 
- private _urlUsuarios = 'http://apirestdelivery.herokuapp.com/api/v1/usuariocliente/';
+ private _urlUsuarios = 'https://apirestdelivery.herokuapp.com/api/v1/usuariocliente/';
 
- private _urlRol = 'http://apirestdelivery.herokuapp.com/api/v1/usuario/rolByEmail/';
+ private _urlRol = 'https://apirestdelivery.herokuapp.com/api/v1/usuario/rolByEmail/';
 
 
 // METODOS PARA OBTENER PROVINCIAS Y LOCALIDADES EN EL SELECT DEL FORMULARIO
@@ -34,9 +34,7 @@ export class DataApiService {
 
 
   // METODO POST PARA REGISTRAR USUARIOS
-
   setUsuario(usuario: Usuario): Observable<any>{
-
     return this.httpClientApi.post<Usuario>(this._urlUsuarios, usuario);
   }
 
