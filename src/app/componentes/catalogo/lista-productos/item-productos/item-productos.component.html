@@ -127,10 +127,11 @@
     </ng-template>
     <ng-template pTemplate="body" let-plato>
       <tr>
-        <td>{{plato.plato.nombre}}</td>
+        <td *ngIf="!plato.esArticulo">{{plato.plato.nombre}}</td>
+        <td *ngIf="plato.esArticulo">{{plato.articulo.nombre}}</td>
         <td><button type="button" class="btn btn-danger" style='width:25px; height:25px' (click)=this.carritoComponent.restarCantidad(plato)>-</button>{{plato.cantidad}}<button type="button" class="btn btn-success" style='width:25px; height:25px' (click)=this.carritoComponent.sumarCantidad(plato)>+</button></td>
         <td *ngIf="!plato.esArticulo">{{plato.plato.precio * plato.cantidad | number:'1.2-2'}}</td>
-        <td *ngIf="plato.esArticulo">{{plato.plato.precioVenta * plato.cantidad | number:'1.2-2'}}</td>
+        <td *ngIf="plato.esArticulo">{{plato.articulo.precioVenta * plato.cantidad | number:'1.2-2'}}</td>
       </tr>
     </ng-template>
   </p-table>

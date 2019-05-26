@@ -55,13 +55,15 @@ agregarPlatoaCarrito(platoSelec: any, esArticulo: string){
         id: 0,
         cantidad: 1,
         plato: platoSelec,
+        articulo: null,
         esArticulo: false
       }
     }else{
       platoCarro = {
         id: 0,
         cantidad: 1,
-        plato: platoSelec,
+        plato: null,
+        articulo: platoSelec,
         esArticulo: true
       }
     }
@@ -96,12 +98,21 @@ console.log(this.total);
 
 // BUSCO SI ESE PLATO YA EXISTE EN EL CARRITO
 existePlato(id: number, esArticulo: boolean): boolean {
-  for (let plato of this.platosEnCarrito) {
-    if (plato.plato.id == id && esArticulo ) {
-      plato.cantidad = plato.cantidad + 1;
-      return true;
+  for (let elemento of this.platosEnCarrito) {
+    if(!elemento.esArticulo && esArticulo == false){
+      if(elemento.plato.id == id){
+        elemento.cantidad += 1;
+        return true;
+      }
     }
-
+    else{
+      if(elemento.esArticulo && esArticulo) {
+        if (elemento.articulo.id == id) {
+          elemento.cantidad += 1;
+          return true;
+        }
+      }
+    }
 
   }
   return false;
@@ -114,7 +125,7 @@ existePlato(id: number, esArticulo: boolean): boolean {
     if(!plato.esArticulo){
       this.total = this.total + plato.plato.precio;
     }else{
-      this.total = this.total + plato.plato.precioVenta;
+      this.total = this.total + plato.articulo.precioVenta;
     }
 
 
@@ -126,15 +137,17 @@ existePlato(id: number, esArticulo: boolean): boolean {
     console.log('RESTO');
     plato.cantidad--;
     if(!plato.esArticulo){
+
       if(plato.cantidad == 0){
         let idx = this.platosEnCarrito.indexOf(plato);
         this.platosEnCarrito.splice(idx,1);}
       this.total = this.total - plato.plato.precio;
     }else{
+
       if(plato.cantidad == 0){
         let idx = this.platosEnCarrito.indexOf(plato);
         this.platosEnCarrito.splice(idx,1);}
-      this.total = this.total - plato.plato.precioVenta;
+      this.total = this.total - plato.articulo.precioVenta;
     }
 
     console.log(this.platosEnCarrito);
@@ -169,13 +182,14 @@ let totalfinal: number;
 
 // METODO QUE ENVIA EL PEDIDO DEL CLIENTE (CONFIRMA)
 mandarPedido(totalfinal: number){
+let fecha = new Date(this.fecha.getTime() + 2700000);
     let pedido: Pedido = {
       id: 0,
   fecha: this.fecha.toLocaleString(),
   montoDescuento: this.montoDescuento,
   total: totalfinal,
   usuarioCliente: this.cliente,
-  horaEstimadaFin: this.fecha.toLocaleTimeString(),
+  horaEstimadaFin: fecha.toLocaleDateString()+" "+fecha.toLocaleTimeString(),
   tipoEnvio: this.tipoEnvio,
   estado: {id:2, nombre:'En cocina'},
   detalle: this.platosEnCarrito

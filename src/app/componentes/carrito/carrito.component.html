@@ -15,13 +15,16 @@
     <ng-template pTemplate="body" let-plato>
       <tr>
         <td>{{plato.plato.nombre}}</td>
-        <td><button type="button" label="-" (click)=restarCantidad(plato)>-</button>{{plato.cantidad}}<button type="button" label="+" (click)=sumarCantidad(plato)>+</button></td>
+        <td><button type="button" class="btn btn-danger" label="-" (click)=restarCantidad(plato)>-</button>{{plato.cantidad}}<button type="button" label="+" class="btn btn-success" (click)=sumarCantidad(plato)>+</button></td>
         <td>{{total}}</td>
       </tr>
     </ng-template>
 
   </p-table>
-
+  <div class="form-check">
+  <input type="radio" [(ngModel)]="formato" name="formato" value="delivery"> Envio a domicilio<br>
+  <input type="radio" [(ngModel)]="formato" name="formato" value="parallevar"> Retiro local<br>
+  </div>
    <br>
   <button pButton type="button" (click)="carritoMenu = false" label="Save" class="ui-button-success"></button>
   <button pButton type="button" (click)="carritoMenu = false" label="Cancel" class="ui-button-secondary"></button>
