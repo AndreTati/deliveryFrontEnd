@@ -52,8 +52,9 @@
               </ng-template>
               <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th *ngFor="let col of columns">
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field">
                     {{col.header}}
+                    <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                   </th>
                   <th>Detalles</th>
                 </tr>
@@ -64,8 +65,16 @@
                     <div *ngIf="col.subfield;then nested_object_content else normal_content"></div>
                     <ng-template #normal_content>
 
-                      <span class="ui-column-title">{{col.header}}</span>
-                      {{rowData[col.field]}}
+                      <ng-container *ngIf="col.header == 'Total' || col.header == 'Descuento'">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        {{"$"+rowData[col.field]}}
+                      </ng-container>
+
+                      <ng-container *ngIf="col.header != 'Total' && col.header != 'Descuento'">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        {{rowData[col.field]}}
+                      </ng-container>
+
 
                     </ng-template>
                     <ng-template #nested_object_content>
