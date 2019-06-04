@@ -67,7 +67,7 @@
 
                       <ng-container *ngIf="col.header == 'Total' || col.header == 'Descuento'">
                         <span class="ui-column-title">{{col.header}}</span>
-                        {{"$"+rowData[col.field]}}
+                        {{"$"+(rowData[col.field]| number:'1.2-2')}}
                       </ng-container>
 
                       <ng-container *ngIf="col.header != 'Total' && col.header != 'Descuento'">

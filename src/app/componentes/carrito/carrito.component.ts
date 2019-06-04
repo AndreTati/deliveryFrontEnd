@@ -5,7 +5,7 @@ import {AuthService} from "../../servicios/auth.service";
 import {UsuarioService} from "../../servicios/usuario/usuario.service";
 import {Usuario} from "../../Modelo/Usuario";
 import {PedidoService} from "../../servicios/pedido/pedido.service";
-import {ConfirmationService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 
 
@@ -27,7 +27,7 @@ export class CarritoComponent implements OnInit {
   public fecha: Date = new Date();
   public cliente: Usuario;
 
-  constructor(private att: AuthService,private usuarioService: UsuarioService, private pedidoService: PedidoService,private confirmationService: ConfirmationService) {
+  constructor(private att: AuthService,private usuarioService: UsuarioService, private pedidoService: PedidoService,private confirmationService: ConfirmationService, private messageService: MessageService) {
     this.total = 0;
     this.platosEnCarrito = [];
     this.att.isAuth().subscribe((data)=>{
@@ -196,8 +196,10 @@ let fecha = new Date(this.fecha.getTime() + 2700000);
     };
     this.pedidoService.postPedido(pedido).subscribe((res)=>{
         console.log('PEDIDO REALIZADO');
-        console.log(res);
+        this.carritoMenu = false;
         this.limpiarCarrito();
+        console.log(res);
+        this.messageService.add({key:'pedidoConfirmado', severity:'success', summary:'PEDIDO REALIZADO', detail:'Tu pedido fue enviado exitosamente'});
         },
       err=>{
         console.log(" Error al enviar el pedido");
