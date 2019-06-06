@@ -19,6 +19,7 @@ import {GraficoStockComponent} from './componentes/usuarioAdministrador/grafico-
 import {ClientesRegistradosComponent} from './componentes/usuarioAdministrador/clientes-registrados/clientes-registrados.component';
 import {PedidosPorPeriodoComponent} from './componentes/usuarioAdministrador/pedidos-por-periodo/pedidos-por-periodo.component';
 import {PedidosPorClienteComponent} from './componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component';
+import {FacturaComponent} from "./componentes/perfil/pedidos/factura/factura.component";
 
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
   {path : 'user/perfil', component: PerfilComponent , canActivate: [AuthGuardPageGuard]},
   {path : 'user/perfil/pedidos', component: PedidosComponent , canActivate: [AuthGuardPageGuard]},
   {path: 'catalogo/lista', component: ListaProductosComponent},
+  {path: 'factura/:id', component: FacturaComponent},
   {path: '**', component: Page404Component}
 
 

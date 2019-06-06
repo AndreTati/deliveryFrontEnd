@@ -32,6 +32,10 @@ export class PedidoService {
     return this.httpApiService.get<Pedido[]>(this._urlAllPedidoXId+id);
   }
 
+  getPedido(id:number){
+    return this.httpApiService.get<Pedido>(this._urlAllPedidos+id);
+  }
+
   // METODO POST PARA CONFIRMAR PEDIDOS
 
   postPedido(pedido: Pedido): Observable<any>{

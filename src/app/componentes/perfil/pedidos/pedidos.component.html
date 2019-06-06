@@ -57,6 +57,7 @@
                     <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                   </th>
                   <th>Detalles</th>
+                  <th>Factura</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -84,7 +85,9 @@
 
                     </ng-template>
                   </td>
-                  <td><button (click)="abrirModal(rowData['id'])" class="btn btn-block btn-primary" [value]="rowData['id']" label="Show">Ver Más</button></td>
+                  <td><button (click)="abrirModal(rowData['id'])" class="btn btn-block btn-primary" [value]="rowData['id']" label="Show">Ver</button></td>
+                  <td *ngIf="rowData['estado']['nombre']=='Finalizado'"><button [routerLink]="['/factura/'+rowData['id']]" class="btn btn-success btn-block">Ver</button></td>
+                  <td *ngIf="rowData['estado']['nombre']!='Finalizado'"><button [routerLink]="['/factura/'+rowData['id']]" class="btn btn-danger btn-block" disabled>No</button></td>
                 </tr>
               </ng-template>
               <ng-template pTemplate="summary">
