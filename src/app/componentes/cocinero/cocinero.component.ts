@@ -12,6 +12,7 @@ import {Observable} from "rxjs";
 })
 export class CocineroComponent implements OnInit {
   mostrarDialogo: boolean;
+  mostrar:boolean = true;
 
   // @ts-ignore
   pedido: pedidoInterface = {};
@@ -82,6 +83,38 @@ export class CocineroComponent implements OnInit {
     }
     return pedido as pedidoInterface;
   }
+
+  cambiarEstado(id:number, estado:string){
+    console.log(id)
+    if(estado == "finalizar"){
+      this.updateEstado(id, 42)
+    }
+    else{
+      this.updateEstado(id, 22)
+    }
+  }
+
+  updateEstado(id:number, estado:number){
+
+    const pedidos = [...this.pedidos];
+    pedidos[this.pedidos.indexOf(this.pedidoSeleccionado)] = this.pedido;
+
+    this.pedidoApiService.updateEstado(id, estado, this.pedido).subscribe(
+      data => {
+        this.mostrarToast( 'success' , 'Actualizado con exito' , data.id.toString());
+        this.pedido = null;
+        this.mostrarDialogo = false;
+        this.clearMessage();
+        this.getAllPedidos();  },
+      error => {
+        this.mostrarToast('error', 'Error al actualizar' , error.message);
+        this.mostrarDialogo = false;
+        this.clearMessage();
+      }
+    );
+
+  }
+
   guardar() {
     const pedidos = [...this.pedidos];
     pedidos[this.pedidos.indexOf(this.pedidoSeleccionado)] = this.pedido;

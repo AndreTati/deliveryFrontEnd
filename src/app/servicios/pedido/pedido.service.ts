@@ -25,7 +25,11 @@ export class PedidoService {
 
   }
   updatePedido( objeto: pedidoInterface , id: number): Observable <pedidoInterface>  {
-    return this.httpApiService.put<pedidoInterface>( this._urlAllPedidos + '' + id, objeto  , );
+    return this.httpApiService.put<pedidoInterface>( this._urlAllPedidos + '' + id, objeto);
+  }
+
+  updateEstado(id:number, status:number, pedido:pedidoInterface){
+    return this.httpApiService.put<pedidoInterface>(this._urlAllPedidos+'changeStatus/'+id+'/'+status,pedido);
   }
 
   getAllPedidosxId(id:number){

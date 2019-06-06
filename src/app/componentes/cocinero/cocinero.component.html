@@ -99,29 +99,15 @@
             </div>
 
             <input pInputText id="id" [(ngModel)]="pedido.id" class="form-control" type="text"  readonly>
+            <button class="btn btn-danger" (click)="cambiarEstado(pedido.id,'demorar')">Demorar 10'</button>
+            <button class="btn btn-success" (click)="cambiarEstado(pedido.id,'finalizar')">Finalizar</button>
 
-          </div>
-        </div>
-        <div class="ui-g-12">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" >Estado Pedido</span>
-            </div>
-            <select class="form-control form-control-lg" [(ngModel)]="pedido.estado.id"   >
-
-              <option   *ngFor=" let estado of estados "  [selected]="estado.id == pedido.estado.id"
-                        value={{estado.id}}> {{estado.nombre}}  </option>
-
-            </select>
           </div>
         </div>
 
       </div>
       <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-
-          <button type="button" pButton icon="fa fa-check" class="ui-button-success" (click)="guardarConfirm()" label="Guardar"></button>
-        </div>
+          <button type="button" class="btn btn-danger" (click)="mostrarDialogo=false">CERRAR</button>
       </p-footer>
     </p-dialog>
 
