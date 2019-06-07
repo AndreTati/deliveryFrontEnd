@@ -16,7 +16,7 @@ export class AuthService {
  return new Promise ((resolve,reject )=> {
    this.afsAuth.auth.createUserWithEmailAndPassword(email,pass)
    .then(userData =>  {resolve (userData)
-   alert ("Joya");
+   alert ("REGISTRADO CORRECTAMENTE");
   
   },
    err => {reject (err)
@@ -41,6 +41,7 @@ export class AuthService {
   }
 
   isAuth() {
+
     return this.afsAuth.authState.pipe(map(auth => auth));
   }
 

@@ -25,7 +25,7 @@ export class PerfilComponent implements OnInit {
     this.att.isAuth().subscribe((data)=>{
       this.email = data.email;
       this.getUsuario(this.email);
-    })
+    });
 
     this.getProvincia();
     this.getLocalidad();

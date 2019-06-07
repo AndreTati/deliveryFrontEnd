@@ -6,6 +6,7 @@ import {UsuarioService} from "../../servicios/usuario/usuario.service";
 import {Usuario} from "../../Modelo/Usuario";
 import {PedidoService} from "../../servicios/pedido/pedido.service";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {async} from "@angular/core/testing";
 
 
 
@@ -24,19 +25,14 @@ export class CarritoComponent implements OnInit {
   public montoDescuento: number;
   public carritoMenu: boolean;
   private columnas: any[];
-  public fecha: Date = new Date();
+
   public cliente: Usuario;
 
   constructor(private att: AuthService,private usuarioService: UsuarioService, private pedidoService: PedidoService,private confirmationService: ConfirmationService, private messageService: MessageService) {
     this.total = 0;
     this.platosEnCarrito = [];
-    this.att.isAuth().subscribe((data)=>{
-      this.email = data.email;
-      this.usuarioService.getUsuario(this.email).subscribe((data) => {
-        this.cliente = data;
 
-    });
-  });
+
   }
 
   ngOnInit() {
@@ -44,6 +40,19 @@ export class CarritoComponent implements OnInit {
       {field: 'nombre', header: 'Nombre'},
 
     ];
+
+  }
+
+
+// OBTENGO EL USUARIO LOGUEADO
+  getUsuario(){
+    this.att.isAuth().subscribe((data)=>{
+      this.email = data.email;
+      this.usuarioService.getUsuario(this.email).subscribe((data) => {
+        this.cliente = data;
+      });
+    });
+
 
   }
 
@@ -172,6 +181,7 @@ let totalfinal: number;
     this.confirmationService.confirm({
       message: '¿DESEA REALIZAR EL PEDIDO? '+'TOTAL: $'+totalfinal.toFixed(2),
       accept: () => {
+
         this.mandarPedido(totalfinal);
       },
       reject: () =>{
@@ -180,20 +190,33 @@ let totalfinal: number;
     });
   }
 
+
 // METODO QUE ENVIA EL PEDIDO DEL CLIENTE (CONFIRMA)
 mandarPedido(totalfinal: number){
-let fecha = new Date(this.fecha.getTime() + 2700000);
+    let tiempoFinal :string;
+    let fechaPedido = new Date();
+
+let horaFinalizacion = new Date(fechaPedido.getTime() + 2700000);
+
+if(this.puedePedir(this.getNombreDia(fechaPedido.getDay()),fechaPedido) == false){
+  fechaPedido
+}else{
+  tiempoFinal = fechaPedido.toLocaleDateString()+" "+fechaPedido.toLocaleTimeString();
+}
+// ARMO EL PEDIDO
     let pedido: Pedido = {
       id: 0,
-  fecha: this.fecha.toLocaleString(),
+  fecha: tiempoFinal,
   montoDescuento: this.montoDescuento,
   total: totalfinal,
   usuarioCliente: this.cliente,
-  horaEstimadaFin: fecha.toLocaleDateString()+" "+fecha.toLocaleTimeString(),
+  horaEstimadaFin: horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString(),
   tipoEnvio: this.tipoEnvio,
   estado: {id:2, nombre:'En cocina'},
   detalle: this.platosEnCarrito
     };
+
+   // METODO QUE HACE EL POST EL PEDIDO
     this.pedidoService.postPedido(pedido).subscribe((res)=>{
         console.log('PEDIDO REALIZADO');
         this.carritoMenu = false;
@@ -209,6 +232,41 @@ let fecha = new Date(this.fecha.getTime() + 2700000);
       } );
 
 }
+// VERIFICO SI ESTA APTO PARA REALIZAR EL PEDIDO
+  puedePedir(nombreDia: string, fecha:Date){
+    switch (nombreDia) {
+      case 'Lunes': case 'Martes': case'Miercoles' : case'Jueves': case'Viernes':
+        if(fecha.toLocaleTimeString() > '12:00:00' && fecha.toLocaleTimeString() < '20:00:00'){
+return false;
+        }else{
+          return true;
+      }
+        break;
+
+        case 'Sabado': case 'Domingo':
+        if(fecha.toLocaleTimeString() > '15:00:00' && fecha.toLocaleTimeString() < '20:00:00'){
+          return false;
+        }else{
+          return true;
+        }
+        break;
+      default:
+        return true;
+    }
+  }
+// OBTENGO EL NOMBRE DEL DIA
+  getNombreDia(index: number){
+    var dia = new Array(7);
+    dia[0] = 'Domingo';
+    dia[1] = 'Lunes';
+    dia[2] = 'Martes';
+    dia[3] = 'Miércoles';
+    dia[4] = 'Jueves';
+    dia[5] = 'Viernes';
+    dia[6] = 'Sábado';
+    return dia[index];
+  }
+
 // FIN DE CLASE
 }
 
