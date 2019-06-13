@@ -20,6 +20,7 @@ import {ClientesRegistradosComponent} from './componentes/usuarioAdministrador/c
 import {PedidosPorPeriodoComponent} from './componentes/usuarioAdministrador/pedidos-por-periodo/pedidos-por-periodo.component';
 import {PedidosPorClienteComponent} from './componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component';
 import {FacturaComponent} from "./componentes/perfil/pedidos/factura/factura.component";
+import {RolCocineroGuard} from "./guards/rol-cocinero-guard.service";
 
 
 const routes: Routes = [
@@ -34,7 +35,7 @@ const routes: Routes = [
   {path : 'usuarioAdministrador/estadisticasPedidosPeriodo' , component : PedidosPorPeriodoComponent, canActivate: [AuthGuardPageGuard, RolAdminGuard] },
   {path : 'usuarioAdministrador/estadisticasPedidosUsuario' , component : PedidosPorClienteComponent },
   {path : 'usuarioAdministrador/usuarioCliente' , component : UsuariosPaginaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},
-  {path : 'cocina' , component : CocineroComponent , canActivate : [AuthGuardPageGuard]},
+  {path : 'cocina' , component : CocineroComponent , canActivate : [AuthGuardPageGuard, RolCocineroGuard]},
   {path: '', component : ListaProductosComponent },
   {path: 'usuarioAdministrador/platoCategoria', component: PlatocategoriaComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
   {path: 'usuarioAdministrador/plato', component: PlatoComponent, canActivate: [AuthGuardPageGuard,  RolAdminGuard]},
