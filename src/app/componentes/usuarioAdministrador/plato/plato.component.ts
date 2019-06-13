@@ -255,7 +255,6 @@ export class PlatoComponent implements OnInit {
       this.mostrarDialogoDetalle = false;
     } else {
       for (const arti of this.articulos) {
-        console.log( arti.id  + '' + this.detalle.articulo.id);
          if (arti.id == this.detalle.articulo.id) {
            this.detalle.articulo = arti;
            this.plato.detalles.push(this.detalle);

@@ -19,7 +19,7 @@ import {MessageService} from "primeng/api";
 
 export class ItemProductosComponent implements OnInit {
 
-
+  public informacion: string = "";
   public platos: Plato[];
   public cantidadPlatos: number;
   public articulosVenta: articulosVentaInterface[];
@@ -34,6 +34,25 @@ export class ItemProductosComponent implements OnInit {
     this.obtenerTodosLosPlatos();
     this.obtenerTodosLosArticulosVenta();
     this.carritoComponent.getUsuario();
+  }
+
+  obtenerInformacion(platos:Plato){
+    this.informacion = ""
+    for(let i = 0; i < platos.detalles.length; i++){
+      let temp = " "
+      if(i == platos.detalles.length-2){
+        temp = platos.detalles[i].articulo.nombre+' y ';
+      }
+      else{
+        if (i == platos.detalles.length-1){
+          temp = platos.detalles[i].articulo.nombre+'. ';
+        }
+        else{
+          temp = platos.detalles[i].articulo.nombre+', ';
+        }
+      }
+      this.informacion += temp
+    }
   }
 
   obtenerTodosLosPlatos() {

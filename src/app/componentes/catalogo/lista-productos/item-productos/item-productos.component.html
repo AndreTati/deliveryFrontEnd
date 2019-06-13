@@ -44,8 +44,8 @@
         <p-footer>
         <div class="btn-group ">
 
-          <button type="button" id={{platos.nombre}} class="btn-info" placement="top"
-                  ngbPopover="*Ejemplo :   Huevos,Azucar,Choclo Etc" popoverTitle="{{platos.nombre}} contiene">
+          <button type="button" id={{platos.nombre}} class="btn-info" placement="top" (click)="obtenerInformacion(platos)"
+                  ngbPopover="{{informacion}}" popoverTitle="{{platos.nombre}} contiene">
             Descripcion
           </button>
           <button type="button" (click)="mandarPlato(platos,'F')"  class="btn btn-success"><i class="fa fa-cart-plus"></i></button>
