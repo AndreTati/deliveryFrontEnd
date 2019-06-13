@@ -44,6 +44,7 @@ export class PlatoComponent implements OnInit {
   mostrarDialogoDetalles: boolean;
   platoDetalles: Detalle [];
 
+
   constructor(public platoApiSerice: PlatoService ,
               public articuloApiSerice: ArticuloService ,
               public articuloCategoriaApi: ArticuloCategoriaService ,
@@ -59,7 +60,6 @@ export class PlatoComponent implements OnInit {
       { field: 'imagen' , header : 'Imagen'},
     ];
     this.columnasDetalle = [
-      { field: 'id', header: 'ID' },
       { field: 'cantidad', header: 'Cantidad' },
       { field: 'articulo' , subfield : 'nombre', header: 'Articulo' }
     ];
@@ -229,7 +229,12 @@ export class PlatoComponent implements OnInit {
     }
   }
   abmDetalle( id: number) {
-    this.platoDetalles = this.platos[id - 1].detalles;
+    for ( const plato of this.platos) {
+      if ( plato.id === id) {
+        this.platoDetalles = plato.detalles;
+      }
+    }
+    // this.platoDetalles = this.platos[id - 1].detalles;
     this.mostrarDialogoDetalles = true;
   }
   mostrarAgregarDetalle() {
@@ -240,7 +245,7 @@ export class PlatoComponent implements OnInit {
     this.detalleNuevo = true;
     this.mostrarDialogoDetalle = true;
   }
-  guardarDetalle() {
+   async guardarDetalle() {
     const plato = this.plato;
     if (!this.detalleNuevo) {
       // @ts-ignore
@@ -249,11 +254,15 @@ export class PlatoComponent implements OnInit {
       this.abmDetalle(this.plato.id);
       this.mostrarDialogoDetalle = false;
     } else {
-      // @ts-ignore
-      this.detalle.articulo = this.articulos[this.detalle.articulo.id - 1];
-      this.plato.detalles.push(this.detalle);
-      this.mostrarDialogoDetalle = false;
-    }
+      for (const arti of this.articulos) {
+        console.log( arti.id  + '' + this.detalle.articulo.id);
+         if (arti.id == this.detalle.articulo.id) {
+           this.detalle.articulo = arti;
+           this.plato.detalles.push(this.detalle);
+           this.mostrarDialogoDetalle = false;
+         }
+      }
+   }
   }
   eliminarDetalle() {
     this.plato.detalles.splice((this.plato.detalles.indexOf(this.detalleSeleccionado)  ), 1 );

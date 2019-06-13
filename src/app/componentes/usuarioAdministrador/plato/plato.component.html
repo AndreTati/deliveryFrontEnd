@@ -50,7 +50,7 @@
             <td> {{rowData.tiempoPreparacion}}</td>
             <td> {{rowData.precio}}</td>
             <td id="DetallePlato" >
-               <li *ngFor="let detalle of rowData.detalles"> {{detalle.articulo.nombre}}: {{detalle.cantidad}} {{detalle.articulo.unidadMedida.abreviatura}}  </li>
+               <li *ngFor="let detalle of rowData.detalles"> {{detalle.articulo.nombre}}: {{detalle.cantidad}} </li>
 
             </td>
           <td> {{rowData.categoria.nombre}}</td>
@@ -154,7 +154,7 @@
           </ng-template>
           <ng-template pTemplate="body" let-detalleData let-columns="columns">
             <tr [pSelectableRow]="detalleData" align="center">
-              <td> {{detalleData.id}}</td>
+
               <td> {{detalleData.cantidad}}</td>
               <td> {{detalleData.articulo.nombre}}</td>
                </tr>
@@ -172,12 +172,7 @@
           <div class="ui-lg ui-fluid" *ngIf="detalle">
             <div class="ui-g-12">
 
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" >ID</span>
-                </div>
-                <input type="text" class="form-control" id="idDetalle" placeholder="Id registrado" [(ngModel)]="detalle.id" readonly>
-              </div>
+
 
             </div>
             <div class="ui-g-12">
