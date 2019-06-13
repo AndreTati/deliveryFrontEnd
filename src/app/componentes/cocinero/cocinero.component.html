@@ -55,7 +55,7 @@
 
 
 
-    <p-table [columns]="columnas" [value]="pedidos" selectionMode="single" [(selection)]="pedidoSeleccionado" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="5">
+    <p-table [columns]="columnas" [value]="pedidos" selectionMode="single" [(selection)]="pedidoSeleccionado" (onRowSelect)="onRowSelect($event)" [rows]="5">
       <ng-template pTemplate="caption">
         Lista de Pedidos
       </ng-template>
@@ -68,25 +68,58 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData">
+        <tr [pSelectableRow]="rowData" *ngIf="rowData.estado.nombre == 'En cocina' || rowData.estado.nombre == 'Demorado'">
           <td>{{rowData.id}} </td>
           <td>{{rowData.fecha}} </td>
           <td>{{rowData.horaEstimadaFin}} </td>
           <td>
-            <button type="button" pButton icon="fa fa-plus" (click)="mostrarDetalle()" label="Ver Detalle"></button>
+            <button type="button" pButton icon="fa fa-plus" (click)="mostrarDetalle(rowData.id)" label="Ver Detalle"></button>
 
           </td>
           <td *ngIf="rowData.estado.nombre == 'En cocina' " style="background: cyan" > {{rowData.estado.nombre}} <i class="fa fa-spinner"></i> </td>
           <td *ngIf="rowData.estado.nombre == 'Demorado' "  style="background: red" > {{rowData.estado.nombre}} <i class="fa fa-user-clock"></i>  </td>
+          <!--
           <td *ngIf="rowData.estado.nombre == 'En facturación' "  style="background: orange" > {{rowData.estado.nombre}} <i class="fa fa-paste"></i>  </td>
           <td *ngIf="rowData.estado.nombre == 'En delivery' "  style="background: springgreen" > {{rowData.estado.nombre}} <i class="fa fa-truck"></i>  </td>
             <td *ngIf="rowData.estado.nombre == 'Finalizado' " style="background: lawngreen" > {{rowData.estado.nombre}} <i class="fa fa-check"></i>  </td>
+          -->
         </tr>
       </ng-template>
       <ng-template pTemplate="summary" let-rowData>
 
       </ng-template>
     </p-table>
+
+    <p-dialog header="Detalles" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70"
+              [baseZIndex]="10000">
+
+      <p-table [columns]="cols2" [value]="pedidoDetalle.detalle" [responsive]="true">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{col.header}}
+            </th>
+            <th>Plato</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td> {{"x"+rowData['cantidad']}} </td>
+            <td *ngIf="rowData['plato'] != null"> {{rowData['plato']['nombre']}} </td>
+            <td *ngIf="rowData['articulo'] != null"> {{rowData['articulo']['nombre']}} </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          Hay {{pedidoDetalle.detalle?.length}} detalles
+        </ng-template>
+      </p-table>
+
+      <p-footer>
+        <div align="rigth">
+          <button class="btn btn-danger btn-sm" (click)="display=false" label="Cerrar">Cerrar</button>
+        </div>
+      </p-footer>
+    </p-dialog>
 
 
 

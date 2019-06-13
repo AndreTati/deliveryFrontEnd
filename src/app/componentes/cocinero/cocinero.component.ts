@@ -17,12 +17,17 @@ export class CocineroComponent implements OnInit {
   // @ts-ignore
   pedido: pedidoInterface = {};
 
+  // @ts-ignore
+  pedidoDetalle: pedidoInterface = {};
+
   pedidoSeleccionado: pedidoInterface;
   cantidadPedidos: number;
   pedidos: pedidoInterface[];
   columnas: any[];
+  cols2: any[];
   estados: estadoInterface[];
   cantidadEstados: number;
+  display:boolean = false;
   constructor(public pedidoApiService: PedidoService, private  toastMessages: MessageService) {
     this.columnas = [
       { field: 'id', header: 'Numero Comanda' },
@@ -31,6 +36,10 @@ export class CocineroComponent implements OnInit {
       { field: 'detalle', header: 'Detalle' },
       { field: 'estado.nombre' , header: 'Estado'}
     ];
+
+    this.cols2 = [
+      { field: 'cantidad', header:'Cantidad' }
+    ]
   }
 
   ngOnInit() {
@@ -152,6 +161,22 @@ export class CocineroComponent implements OnInit {
   }
   clearMessage() {
     this.toastMessages.clear('mensajeConfirmacion');
+  }
+
+  mostrarDetalle(id:number){
+    this.display = true;
+    // @ts-ignore
+    this.pedidoDetalle = {};
+    this.getOne(id)
+  }
+
+  getOne(id:number){
+    for(let pedidoInterno of this.pedidos){
+      if(pedidoInterno.id == id){
+        this.pedidoDetalle = pedidoInterno;
+        break;
+      }
+    }
   }
 
 
