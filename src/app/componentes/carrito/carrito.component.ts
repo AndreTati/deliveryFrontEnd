@@ -28,6 +28,7 @@ export class CarritoComponent implements OnInit {
   public estaLogueado: boolean;
   public cliente: Usuario;
   public tiempoPedido: number = 0;
+  public tiempoDelivery: number = 0;
   constructor(private att: AuthService,private usuarioService: UsuarioService, private pedidoService: PedidoService,private confirmationService: ConfirmationService, private messageService: MessageService) {
     this.total = 0;
     this.platosEnCarrito = [];
@@ -186,8 +187,10 @@ let totalfinal: number;
     if(this.tipoEnvio == 'local'){
       this.montoDescuento = this.total * 0.10;
       totalfinal = this.total * 0.90;
+      this.tiempoDelivery = 0;
     }else{
       totalfinal = this.total;
+      this.tiempoDelivery = 20;
     }
 
     this.confirmationService.confirm({
@@ -208,20 +211,24 @@ mandarPedido(totalfinal: number){
     let tiempoFinal: string;
     let tiempoFinal2: string;
     let fechaPedido = new Date();
-    let horaFinalizacion = new Date(fechaPedido.getTime() + ((this.tiempoPedido + 15)*60000));
+    let horaFinalizacion = new Date(fechaPedido.getTime() + ((this.tiempoPedido + 15 + this.tiempoDelivery)*60000));
 
-if(!this.puedePedir()){
+
+
+if(this.puedePedir()){
+  // ESTA EN HORARIO PARA PEDIR
   tiempoFinal = fechaPedido.toLocaleDateString()+" "+fechaPedido.toLocaleTimeString();
   tiempoFinal2 = horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
+console.log('En HORARIO');
 }else{
-  if(this.tiempoPedido < 60){
-    tiempoFinal = fechaPedido.toLocaleDateString()+" "+"20:00:00";
-    tiempoFinal2 = fechaPedido.toLocaleDateString()+" "+"20:"+(this.tiempoPedido+15)+":00";
-  }else{
-    let temp = this.tiempoPedido;
-    temp = temp - 60;
-    tiempoFinal2 = fechaPedido.toLocaleDateString()+" "+"21:"+temp+":00";
-  }
+  // NO ESTA EN HORARIO, EL PEDIDO PASA A LAS 20:00:00
+  console.log('Fuera de HORARIO');
+    horaFinalizacion.setHours(20);
+    horaFinalizacion.setMinutes(0);
+    horaFinalizacion.setSeconds(0);
+    tiempoFinal = horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
+    horaFinalizacion.setTime(horaFinalizacion.getTime() + ((this.tiempoPedido + 15 + this.tiempoDelivery)*60000));
+    tiempoFinal2 = fechaPedido.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
 }
 
 // ARMO EL PEDIDO
@@ -260,16 +267,16 @@ if(!this.puedePedir()){
     switch (this.getNombreDia(fechaPedido.getDay())) {
       case 'Lunes': case 'Martes': case'Miercoles' : case'Jueves': case'Viernes':
         if(fechaPedido.toLocaleTimeString() > '12:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
-return true;
+return false;
         }else{
-          return false;
+          return true;
       }
         break;
         case 'Sábado': case 'Domingo':
         if(fechaPedido.toLocaleTimeString() > '15:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
-          return true;
-        }else{
           return false;
+        }else{
+          return true;
         }
         break;
 
