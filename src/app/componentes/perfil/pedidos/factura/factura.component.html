@@ -10,7 +10,7 @@
     </div>
     <div class="col-6">
 
-      <button class="btn btn-block btn-danger" [routerLink]="['/user/perfil/pedidos']">VOLVER</button>
+      <button class="btn btn-block btn-danger" [routerLink]="['/catalogo/lista']">VOLVER</button>
 
     </div>
 
@@ -98,7 +98,7 @@
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr>
+        <tr >
           <td>
             <span class="ui-column-title">{{"Cantidad"}}</span> {{"x"+rowData['cantidad']}}
           </td>
@@ -121,20 +121,23 @@
             <div class="text-left"><span class="ui-column-title text-left">{{"Importe"}}</span></div>{{rowData['articulo']['precioVenta']*rowData['cantidad'] | currency}}
           </td>
         </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td class="text-right"><b>DESCUENTO:</b></td>
-          <td class="text-right">{{pedido.montoDescuento | currency}}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td class="text-right"><b>TOTAL:</b></td>
-          <td class="text-right">{{pedido.total | currency}}</td>
-        </tr>
       </ng-template>
       <ng-template pTemplate="summary">
+        <table class="table table-borderless">
+          <tr>
+            <td></td>
+            <td></td>
+            <td class="text-left">DESCUENTO</td>
+            <td class="text-right">{{pedido.montoDescuento | currency}}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td class="text-left">TOTAL</td>
+            <td class="text-right">{{pedido.total | currency}}</td>
+          </tr>
+        </table>
+        <hr>
         Hay {{pedido.detalle?.length}} detalles
       </ng-template>
     </p-table>

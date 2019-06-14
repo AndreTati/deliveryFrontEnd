@@ -21,6 +21,7 @@ import {PedidosPorPeriodoComponent} from './componentes/usuarioAdministrador/ped
 import {PedidosPorClienteComponent} from './componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component';
 import {FacturaComponent} from "./componentes/perfil/pedidos/factura/factura.component";
 import {RolCocineroGuard} from "./guards/rol-cocinero-guard.service";
+import {ComprobantesComponent} from './componentes/usuarioAdministrador/comprobantes/comprobantes.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,8 @@ const routes: Routes = [
   {path : 'user/perfil/pedidos', component: PedidosComponent , canActivate: [AuthGuardPageGuard]},
   {path: 'catalogo/lista', component: ListaProductosComponent},
   {path: 'factura/:id', component: FacturaComponent},
+  {path: 'usuarioAdministrador/comprobantes', component: ComprobantesComponent},
+  {path: 'usuarioAdministrador/comprobantes/:id', component: FacturaComponent},
   {path: '**', component: Page404Component}
 
 

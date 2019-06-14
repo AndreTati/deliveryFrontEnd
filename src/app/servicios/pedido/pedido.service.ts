@@ -47,4 +47,8 @@ export class PedidoService {
     return this.httpApiService.post<Usuario>(this._urlAllPedidos, pedido);
   }
 
+  getPedidosPosta(){
+    return this.httpApiService.get<Pedido[]>(this._urlAllPedidos);
+  }
+
 }

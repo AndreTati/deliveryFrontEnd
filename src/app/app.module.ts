@@ -53,6 +53,7 @@ import { ClientesRegistradosComponent } from './componentes/usuarioAdministrador
 import { PedidosPorClienteComponent } from './componentes/usuarioAdministrador/pedidos-por-cliente/pedidos-por-cliente.component';
 import { PedidosPorPeriodoComponent } from './componentes/usuarioAdministrador/pedidos-por-periodo/pedidos-por-periodo.component';
 import { FacturaComponent } from './componentes/perfil/pedidos/factura/factura.component';
+import { ComprobantesComponent } from './componentes/usuarioAdministrador/comprobantes/comprobantes.component';
 
 
 @NgModule({
@@ -70,7 +71,7 @@ import { FacturaComponent } from './componentes/perfil/pedidos/factura/factura.c
     ArticuloComponent, PerfilComponent, CarritoComponent, PedidosComponent,
     CocineroComponent,
     PlatoComponent,
-    PedidosComponent, UsuariosPaginaComponent, ComidasMasPedidasComponent, GraficoStockComponent, ClientesRegistradosComponent, PedidosPorClienteComponent, PedidosPorPeriodoComponent, FacturaComponent
+    PedidosComponent, UsuariosPaginaComponent, ComidasMasPedidasComponent, GraficoStockComponent, ClientesRegistradosComponent, PedidosPorClienteComponent, PedidosPorPeriodoComponent, FacturaComponent, ComprobantesComponent
 
   ],
   imports: [
