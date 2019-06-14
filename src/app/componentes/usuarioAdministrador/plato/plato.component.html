@@ -146,7 +146,7 @@
           </ng-template>
           <ng-template pTemplate="header" let-columns align="center">
             <tr>
-              <th *ngFor="let columna of columns" [pSortableColumn]="columna.field">
+              <th *n  gFor="let columna of columns" [pSortableColumn]="columna.field">
                 {{columna.header}}
                 <p-sortIcon [field]="columna.field"></p-sortIcon>
               </th>

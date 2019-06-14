@@ -56,7 +56,15 @@
           <td> {{rowData.stock}}</td>
           <td> {{rowData.stockMinimo}}</td>
           <td> {{rowData.stockMaximo}}</td>
-          <td> {{rowData.esInsumo}} </td>
+          <td>
+            <ng-template [ngIf]="rowData.esInsumo == true ">
+              Si
+            </ng-template>
+            <ng-template  [ngIf]="rowData.esInsumo == false ">
+              No
+            </ng-template>
+          </td>
+
           <td> {{rowData.categoria.nombre}}</td>
           <td> {{rowData.unidadMedida.nombre}}</td>
           <td> <img src={{rowData.imagen.url}} style=" width: 40px; height: 40px"> </td>
