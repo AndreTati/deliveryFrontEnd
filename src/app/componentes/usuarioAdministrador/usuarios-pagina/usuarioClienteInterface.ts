@@ -33,4 +33,5 @@ export interface usuarioClienteInterface {
   imagen: Imagen;
   fechaNacimiento: any;
   sexo: string;
+  alta: string;
 }

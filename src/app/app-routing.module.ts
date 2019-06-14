@@ -22,6 +22,7 @@ import {PedidosPorClienteComponent} from './componentes/usuarioAdministrador/ped
 import {FacturaComponent} from "./componentes/perfil/pedidos/factura/factura.component";
 import {RolCocineroGuard} from "./guards/rol-cocinero-guard.service";
 import {ComprobantesComponent} from './componentes/usuarioAdministrador/comprobantes/comprobantes.component';
+import {RecaudacionesPorPeriodoComponent} from "./componentes/usuarioAdministrador/recaudaciones-por-periodo/recaudaciones-por-periodo.component";
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
 
   {path: 'componentes/home', component : ListaProductosComponent },
   {path : 'usuarioAdministrador/articuloCategoria' , component : ArticulocategoriaComponent , canActivate : [AuthGuardPageGuard, RolAdminGuard]},
+  {path : 'usuarioAdministrador/recaudaciones' , component : RecaudacionesPorPeriodoComponent , canActivate : [AuthGuardPageGuard]},
   {path : 'usuarioAdministrador/estadisticasComidas' , component : ComidasMasPedidasComponent, canActivate : [AuthGuardPageGuard, RolAdminGuard] },
   {path : 'usuarioAdministrador/estadisticasStock' , component : GraficoStockComponent , canActivate : [AuthGuardPageGuard, RolAdminGuard]},
   {path : 'usuarioAdministrador/estadisticasUsuarios' , component : ClientesRegistradosComponent, canActivate: [AuthGuardPageGuard, RolAdminGuard] },
