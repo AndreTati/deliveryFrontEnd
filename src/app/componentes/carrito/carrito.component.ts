@@ -266,7 +266,7 @@ console.log('En HORARIO');
 
     switch (this.getNombreDia(fechaPedido.getDay())) {
       case 'Lunes': case 'Martes': case'Miercoles' : case'Jueves': case'Viernes':
-        if(fechaPedido.toLocaleTimeString() > '12:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
+        if(fechaPedido.toLocaleTimeString() > '11:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
 return false;
         }else{
           return true;

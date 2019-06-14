@@ -136,23 +136,64 @@
         <td *ngIf="plato.esArticulo">{{plato.articulo.precioVenta * plato.cantidad | number:'1.2-2'}}</td>
       </tr>
     </ng-template>
+    <ng-template pTemplate="summary" class="text-right">
+      <!-- TOTAL -->
+      <label class="text-right" style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'local'">TOTAL: ${{this.carritoComponent.total * 0.90 | number:'1.2-2'}}</label>
+      <label class="text-right" style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'delivery'" >TOTAL: ${{this.carritoComponent.total | number:'1.2-2'}}</label>
+    </ng-template>
   </p-table>
-  <!-- TOTAL -->
-  <h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'local'">TOTAL: ${{this.carritoComponent.total * 0.90 | number:'1.2-2'}}</label></h5><h5><label style="font-weight:bold" *ngIf="this.carritoComponent.tipoEnvio == 'delivery'" >TOTAL: ${{this.carritoComponent.total | number:'1.2-2'}}</label></h5>
+
   <!-- RADIO DE TIPO ENVIO -->
-  <div class="ui-g" style="width:250px;margin-bottom:5px">
-    <div class="ui-g-8"><p-radioButton name="tipoEnvio" value="local" label="Retiro Local - 10%" [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt1"></p-radioButton></div>
-    <div class="ui-g-8"><p-radioButton name="tipoEnvio" value="delivery" label="Delivery " [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt2"></p-radioButton></div>
+  <div class="ui-g row" style="width:250px;margin-bottom:5px">
+    <div class="ui-g-8"></div>
+    <div class="ui-g-8"></div>
   </div>
-  <br>
+
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th colspan="2">Tipo de retiro</th>
+    </tr>
+    <tr>
+      <td>
+        <p-radioButton name="tipoEnvio" value="local" label="Retiro Local - 10%" [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt1"></p-radioButton>
+      </td>
+      <td>
+        <p-radioButton name="tipoEnvio" value="delivery" label="Delivery " [(ngModel)]="this.carritoComponent.tipoEnvio" inputId="opt2"></p-radioButton>
+      </td>
+    </tr>
+  </table>
+
   <!-- BOTONES DEL CARRITO-->
-  <button pButton *ngIf="this.carritoComponent.estaLogueado" type="button" (click)="mandarPedido()" label="Confirmar pedido" class="ui-button-success"></button>
-  <button pButton *ngIf="this.carritoComponent.estaLogueado" type="button" (click)="limpiarCarrito()" label="Limpiar Carrito" class="ui-button-danger"></button>
-  <button pButton type="button" (click)="this.carritoComponent.carritoMenu = false" label="Cerrar" class="ui-button-secondary"></button>
-  <br>
-  <h5><label>HORARIOS:<br>
-  Lunes a viernes : 20:00 a 12:00<br>
-  Sabados y Domingos: 20:00 a 15:00</label></h5>
+  <table class="table table-borderless">
+    <tr>
+      <td>
+        <button *ngIf="this.carritoComponent.estaLogueado" type="button" (click)="mandarPedido()" label="Confirmar pedido" class="btn btn-success btn-block">CONFIRMAR PEDIDO</button>
+      </td>
+      <td>
+        <button *ngIf="this.carritoComponent.estaLogueado" type="button" (click)="limpiarCarrito()" label="Limpiar Carrito" class="btn btn-danger btn-block">LIMPIAR CARRITO</button>
+      </td>
+      <td>
+        <button type="button" (click)="this.carritoComponent.carritoMenu = false" label="Cerrar" class="btn btn-secondary btn-block">CERRAR</button>
+      </td>
+    </tr>
+  </table>
+
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th colspan="2">
+        <h6><b>Horarios</b></h6>
+      </th>
+    </tr>
+    <tr>
+      <th>Lunes a Viernes</th>
+      <th>Sabados y Domingos</th>
+    </tr>
+    <tr>
+      <td>20:00 a 12:00</td>
+      <td>20:00 a 15:00</td>
+    </tr>
+  </table>
+
   <!-- DIALOGO PARA CONFIRMAR QUE SE QUIERE REALIZAR EL PEDIDO-->
   <p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </p-sidebar>
