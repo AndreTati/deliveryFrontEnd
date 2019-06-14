@@ -146,10 +146,10 @@
   </div>
   <br>
   <!-- BOTONES DEL CARRITO-->
-  <button pButton type="button" (click)="mandarPedido()" label="Confirmar pedido" class="ui-button-success"></button>
-  <button pButton type="button" (click)="limpiarCarrito()" label="Limpiar Carrito" class="ui-button-danger"></button>
+  <button pButton *ngIf="this.carritoComponent.estaLogueado" type="button" (click)="mandarPedido()" label="Confirmar pedido" class="ui-button-success"></button>
+  <button pButton *ngIf="this.carritoComponent.estaLogueado" type="button" (click)="limpiarCarrito()" label="Limpiar Carrito" class="ui-button-danger"></button>
   <button pButton type="button" (click)="this.carritoComponent.carritoMenu = false" label="Cerrar" class="ui-button-secondary"></button>
-
+  <h5><label *ngIf=""></label></h5>
   <!-- DIALOGO PARA CONFIRMAR QUE SE QUIERE REALIZAR EL PEDIDO-->
   <p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </p-sidebar>

@@ -25,9 +25,9 @@ export class CarritoComponent implements OnInit {
   public montoDescuento: number;
   public carritoMenu: boolean;
   private columnas: any[];
-
+  public estaLogueado: boolean;
   public cliente: Usuario;
-
+  public tiempoPedido: number = 0;
   constructor(private att: AuthService,private usuarioService: UsuarioService, private pedidoService: PedidoService,private confirmationService: ConfirmationService, private messageService: MessageService) {
     this.total = 0;
     this.platosEnCarrito = [];
@@ -47,10 +47,16 @@ export class CarritoComponent implements OnInit {
 // OBTENGO EL USUARIO LOGUEADO
   getUsuario(){
     this.att.isAuth().subscribe((data)=>{
-      this.email = data.email;
-      this.usuarioService.getUsuario(this.email).subscribe((data) => {
-        this.cliente = data;
-      });
+      if(data){
+        this.email = data.email;
+        this.usuarioService.getUsuario(this.email).subscribe((data) => {
+          this.cliente = data;
+          this.estaLogueado = true;
+        });
+      }else{
+        this.estaLogueado = false;
+      }
+
     });
 
 
@@ -97,6 +103,11 @@ if(this.existePlato(platoSelec.id, platoCarro.esArticulo)){
     console.log(this.platosEnCarrito);
   }
 
+if(!platoCarro.esArticulo){
+  if(Number(platoCarro.plato.tiempoPreparacion) > this.tiempoPedido){
+  this.tiempoPedido = Number(platoCarro.plato.tiempoPreparacion);
+  }
+}
     console.log(platoSelec);
     console.log(this.platosEnCarrito);
 
@@ -167,6 +178,7 @@ existePlato(id: number, esArticulo: boolean): boolean {
   limpiarCarrito(){
     this.platosEnCarrito = [];
     this.total = 0;
+    this.tiempoPedido = 0;
   }
 // METODO QUE SE EJECUTA CUANDO SE CONFIRMA EL PEDIDO EN EL DIALOG
   confirmarPedido() {
@@ -193,16 +205,25 @@ let totalfinal: number;
 
 // METODO QUE ENVIA EL PEDIDO DEL CLIENTE (CONFIRMA)
 mandarPedido(totalfinal: number){
-    let tiempoFinal :string;
+    let tiempoFinal: string;
+    let tiempoFinal2: string;
     let fechaPedido = new Date();
+    let horaFinalizacion = new Date(fechaPedido.getTime() + ((this.tiempoPedido + 15)*60000));
 
-let horaFinalizacion = new Date(fechaPedido.getTime() + 2700000);
-
-if(this.puedePedir(this.getNombreDia(fechaPedido.getDay()),fechaPedido) == false){
-  fechaPedido
-}else{
+if(!this.puedePedir()){
   tiempoFinal = fechaPedido.toLocaleDateString()+" "+fechaPedido.toLocaleTimeString();
+  tiempoFinal2 = horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
+}else{
+  if(this.tiempoPedido < 60){
+    tiempoFinal = fechaPedido.toLocaleDateString()+" "+"20:00:00";
+    tiempoFinal2 = fechaPedido.toLocaleDateString()+" "+"20:"+(this.tiempoPedido+15)+":00";
+  }else{
+    let temp = this.tiempoPedido;
+    temp = temp - 60;
+    tiempoFinal2 = fechaPedido.toLocaleDateString()+" "+"21:"+temp+":00";
+  }
 }
+
 // ARMO EL PEDIDO
     let pedido: Pedido = {
       id: 0,
@@ -210,7 +231,7 @@ if(this.puedePedir(this.getNombreDia(fechaPedido.getDay()),fechaPedido) == false
   montoDescuento: this.montoDescuento,
   total: totalfinal,
   usuarioCliente: this.cliente,
-  horaEstimadaFin: horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString(),
+  horaEstimadaFin: tiempoFinal2 /*horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString()*/,
   tipoEnvio: this.tipoEnvio,
   estado: {id:2, nombre:'En cocina'},
   detalle: this.platosEnCarrito
@@ -233,27 +254,29 @@ if(this.puedePedir(this.getNombreDia(fechaPedido.getDay()),fechaPedido) == false
 
 }
 // VERIFICO SI ESTA APTO PARA REALIZAR EL PEDIDO
-  puedePedir(nombreDia: string, fecha:Date){
-    switch (nombreDia) {
+  puedePedir(){
+    let fechaPedido = new Date();
+
+    switch (this.getNombreDia(fechaPedido.getDay())) {
       case 'Lunes': case 'Martes': case'Miercoles' : case'Jueves': case'Viernes':
-        if(fecha.toLocaleTimeString() > '12:00:00' && fecha.toLocaleTimeString() < '20:00:00'){
-return false;
+        if(fechaPedido.toLocaleTimeString() > '12:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
+return true;
         }else{
-          return true;
+          return false;
       }
         break;
-
-        case 'Sabado': case 'Domingo':
-        if(fecha.toLocaleTimeString() > '15:00:00' && fecha.toLocaleTimeString() < '20:00:00'){
-          return false;
-        }else{
+        case 'Sábado': case 'Domingo':
+        if(fechaPedido.toLocaleTimeString() > '15:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
           return true;
+        }else{
+          return false;
         }
         break;
-      default:
-        return true;
+
     }
+    fechaPedido = null;
   }
+
 // OBTENGO EL NOMBRE DEL DIA
   getNombreDia(index: number){
     var dia = new Array(7);
