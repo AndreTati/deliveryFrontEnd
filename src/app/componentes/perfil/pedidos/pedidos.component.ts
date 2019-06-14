@@ -32,8 +32,8 @@ export class PedidosComponent implements OnInit {
     this.cols = [
       { field: 'id', header: 'Nº' },
       { field: 'fecha', header: 'Fecha' },
+      { field: 'horaEstimadaFin', header: 'F. Final'},
       { field: 'total', header: 'Total' },
-      { field: 'montoDescuento', header: 'Descuento' },
       { field: 'estado', subfield: 'nombre', header: 'Estado' }
     ];
     this.cols2 = [
