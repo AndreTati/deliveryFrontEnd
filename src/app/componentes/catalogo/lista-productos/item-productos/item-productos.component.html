@@ -112,6 +112,8 @@
 
 <p-toast [style]="{marginTop: '80px'}" key="pedidoConfirmado" position="top-center"></p-toast>
 
+
+
 <!-- CARRITO (HTML PUESTO EN CATALOGO, TS EN CARRITO.COMPONENT)-->
 <p-sidebar [(visible)]="this.carritoComponent.carritoMenu" position="right"  styleClass="ui-sidebar-md" [baseZIndex]="150000">
 
@@ -201,6 +203,8 @@
     </tr>
   </table>
 
+  <!-- DIALOGO FUERA DE HORARIO -->
+  <p-toast [style]="{marginTop: '80px'}" key="horario" position="top-center"></p-toast>
   <!-- DIALOGO PARA CONFIRMAR QUE SE QUIERE REALIZAR EL PEDIDO-->
   <p-confirmDialog header="Confirmar" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </p-sidebar>

@@ -183,7 +183,8 @@ existePlato(id: number, esArticulo: boolean): boolean {
   }
 // METODO QUE SE EJECUTA CUANDO SE CONFIRMA EL PEDIDO EN EL DIALOG
   confirmarPedido() {
-let totalfinal: number;
+
+    let totalfinal: number;
     if(this.tipoEnvio == 'local'){
       this.montoDescuento = this.total * 0.10;
       totalfinal = this.total * 0.90;
@@ -196,7 +197,6 @@ let totalfinal: number;
     this.confirmationService.confirm({
       message: '¿DESEA REALIZAR EL PEDIDO? '+'TOTAL: $'+totalfinal.toFixed(2),
       accept: () => {
-
         this.mandarPedido(totalfinal);
       },
       reject: () =>{
@@ -213,9 +213,7 @@ mandarPedido(totalfinal: number){
     let fechaPedido = new Date();
     let horaFinalizacion = new Date(fechaPedido.getTime() + ((this.tiempoPedido + 15 + this.tiempoDelivery)*60000));
 
-
-
-if(this.puedePedir()){
+    if(this.puedePedir()){
   // ESTA EN HORARIO PARA PEDIR
   tiempoFinal = fechaPedido.toLocaleDateString()+" "+fechaPedido.toLocaleTimeString();
   tiempoFinal2 = horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
@@ -223,12 +221,14 @@ console.log('En HORARIO');
 }else{
   // NO ESTA EN HORARIO, EL PEDIDO PASA A LAS 20:00:00
   console.log('Fuera de HORARIO');
-    horaFinalizacion.setHours(20);
+  tiempoFinal = fechaPedido.toLocaleDateString()+" "+fechaPedido.toLocaleTimeString();
+  horaFinalizacion.setHours(20);
     horaFinalizacion.setMinutes(0);
     horaFinalizacion.setSeconds(0);
-    tiempoFinal = horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
     horaFinalizacion.setTime(horaFinalizacion.getTime() + ((this.tiempoPedido + 15 + this.tiempoDelivery)*60000));
     tiempoFinal2 = fechaPedido.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
+  this.messageService.add({key:'horario', life:5000, severity:'info', summary:'HORARIO PEDIDO', detail:'Su pedido se preparará cuando abra el local a las 20:00:00'});
+setTimeout(() => {console.log(''),3000});
 }
 
 // ARMO EL PEDIDO
@@ -250,7 +250,7 @@ console.log('En HORARIO');
         this.carritoMenu = false;
         this.limpiarCarrito();
         console.log(res);
-        this.messageService.add({key:'pedidoConfirmado', severity:'success', summary:'PEDIDO REALIZADO', detail:'Tu pedido fue enviado exitosamente'});
+        this.messageService.add({key:'pedidoConfirmado', life:3000, severity:'success', summary:'PEDIDO REALIZADO', detail:'Tu pedido fue enviado exitosamente'});
         },
       err=>{
         console.log(" Error al enviar el pedido");
@@ -266,7 +266,7 @@ console.log('En HORARIO');
 
     switch (this.getNombreDia(fechaPedido.getDay())) {
       case 'Lunes': case 'Martes': case'Miercoles' : case'Jueves': case'Viernes':
-        if(fechaPedido.toLocaleTimeString() > '11:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
+        if(fechaPedido.toLocaleTimeString() > '12:00:00' && fechaPedido.toLocaleTimeString() < '20:00:00'){
 return false;
         }else{
           return true;
@@ -297,6 +297,10 @@ return false;
     return dia[index];
   }
 
+  // funcion que provoca un delay en la ejecucion
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log(""));
+  }
 // FIN DE CLASE
 }
 
