@@ -18,6 +18,9 @@ export class GraficoStockComponent implements OnInit {
   public stockMinimo : any [];
   public colorArray: any [];
   private colorArrayStockMinimo: any [];
+  graficos:boolean = false;
+  cols:any[] = []
+
   constructor( private stockApiSerivce: ArticuloService) {
     this.datosEstadisticos = [];
     this.labels = [];
@@ -25,6 +28,13 @@ export class GraficoStockComponent implements OnInit {
     this.colorArray = [];
     this.stockMinimo = [];
     this.colorArrayStockMinimo = [];
+    this.cols = [
+      { field: 'id', header: 'Nº' },
+      { field: 'nombre', header: 'Nombre' },
+      { field: 'stockMinimo', header: 'Minimo'},
+      { field: 'stock', header: 'Actual' },
+      { field: 'stockMaximo', header: 'Maximo' }
+    ];
   }
 
   ngOnInit() {
@@ -72,6 +82,15 @@ export class GraficoStockComponent implements OnInit {
         }
          ]
     };
+  }
+
+  cambiarEstado(){
+    if(this.graficos == true){
+      this.graficos = false;
+    }
+    else{
+      this.graficos = true;
+    }
   }
 
 }

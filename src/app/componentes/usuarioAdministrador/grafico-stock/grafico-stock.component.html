@@ -14,9 +14,43 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Stock</h5>
-          <div style="background: white">
+
+          <button *ngIf="!graficos" class="btn btn-block btn-secondary" (click)="cambiarEstado()">CAMBIAR A VISTA GRAFICA</button>
+          <button *ngIf="graficos" class="btn btn-block btn-secondary" (click)="cambiarEstado()">CAMBIAR A TABLA</button>
+
+          <div style="background: white" *ngIf="graficos == true">
             <p-chart *ngIf="cargo" type="bar" [data]="datosEstadisticos"></p-chart>
           </div>
+
+          <p-table #dt [columns]="cols" [value]="articulos" [responsive]="true" *ngIf="graficos == false" [paginator]="true" [rows]="10">
+            <ng-template pTemplate="caption">
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="50" placeholder="Busqueda" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns">
+                  {{col.header}}
+                </th>
+                <th>Nivel</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr>
+                <td *ngFor="let col of columns"> {{rowData[col.field]}} </td>
+                <td style="background: lawngreen" *ngIf="rowData.stock/rowData.stockMaximo>=0.66">ALTO</td>
+                <td style="background: yellow" *ngIf="rowData.stock/rowData.stockMaximo>0.33 && rowData.stock/rowData.stockMaximo<0.66">MEDIO</td>
+                <td style="background: orange" *ngIf="rowData.stock/rowData.stockMaximo<=0.33">BAJO</td>
+                <td style="background: orangered" *ngIf="rowData.stock<rowData.stockMinimo">REPONER</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              Hay {{articulos?.length}} detalles
+            </ng-template>
+          </p-table>
+
         </div>
       </div>
 

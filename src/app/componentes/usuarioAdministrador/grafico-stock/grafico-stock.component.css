@@ -1,3 +1,15 @@
 .container {
   background: rgba(44, 44, 44, 0.562)
 }
+
+.rojo {
+  background-color:red;
+}
+
+.verde {
+  background-color:green;
+}
+
+.amarillo {
+  background-color:yellow;
+}
