@@ -114,11 +114,14 @@ export class PlatoComponent implements OnInit {
   }
 
   mostrarAgregar() {
+    // @ts-ignore
+    this.platoDetalles = [];
+
     this.platoNuevo = true;
     // @ts-ignore
     this.plato = {};
     // @ts-ignore
-    this.plato.detalles = {};
+    this.plato.detalles = [];
     // @ts-ignore
     this.plato.categoria = {};
     // @ts-ignore
@@ -210,7 +213,8 @@ export class PlatoComponent implements OnInit {
       );
 
     } else {
-      this.plato.detalles = [];
+
+      this.plato.detalles = this.platoDetalles
 
       this.platoApiSerice.postPlato(this.plato).subscribe(
         data => {
@@ -225,7 +229,6 @@ export class PlatoComponent implements OnInit {
           this.mostrarToast( 'error' , 'Hubo un error' , error.message);
         }
       );
-
     }
   }
   abmDetalle( id: number) {
@@ -248,21 +251,36 @@ export class PlatoComponent implements OnInit {
    async guardarDetalle() {
     const plato = this.plato;
     if (!this.detalleNuevo) {
+      console.log("if")
       // @ts-ignore
       this.plato.detalles[this.plato.detalles.indexOf(this.detalleSeleccionado)] = this.detalle;
-
       this.abmDetalle(this.plato.id);
       this.mostrarDialogoDetalle = false;
     } else {
+      console.log("else")
       for (const arti of this.articulos) {
          if (arti.id == this.detalle.articulo.id) {
            this.detalle.articulo = arti;
-           this.plato.detalles.push(this.detalle);
+           //this.plato.detalles.push(this.detalle);
+           this.platoDetalles.push(this.detalle)
            this.mostrarDialogoDetalle = false;
          }
       }
    }
   }
+
+  guardarDetalle1(){
+
+    for(let arti of this.articulos){
+      if (arti.id == this.detalle.articulo.id){
+        this.detalle.articulo = arti;
+        this.plato.detalles.push(this.detalle)
+        console.log(this.plato.detalles)
+      }
+    }
+
+  }
+
   eliminarDetalle() {
     this.plato.detalles.splice((this.plato.detalles.indexOf(this.detalleSeleccionado)  ), 1 );
     this.mostrarDialogoDetalle = false;
