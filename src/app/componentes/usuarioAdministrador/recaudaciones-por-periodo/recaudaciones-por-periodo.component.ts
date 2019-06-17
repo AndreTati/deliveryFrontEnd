@@ -61,18 +61,19 @@ export class RecaudacionesPorPeriodoComponent implements OnInit {
     this.fechaFiltro2 = new Date (fecha2);
 
     for (const pedido of this.pedidos) {
-      alert(this.fechaPedido);
-      this.fechaPedido = new Date(pedido.fecha);
+
+      let arrayString  = pedido.fecha.split('/');
+      let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
+      this.fechaPedido = new Date(fechaFixeada);
 
 
       if ( (this.fechaPedido >= this.fechaFiltro)  && (this.fechaPedido <= this.fechaFiltro2) ) {
-        alert(this.fechaPedido + ' | ' + this.fechaFiltro  + ' : ' + this.fechaFiltro2);
-        this.totalRecaudado += pedido.total;
+         this.totalRecaudado += pedido.total;
            }
     }
     this.colorArray.push(this.getRandomColor());
     this.labels = ['Dinero Recaudado en el periodo'];
-    alert(this.totalRecaudado);
+
     this.datos = [this.totalRecaudado];
     this.implementarDatos();
   }

@@ -34,7 +34,7 @@ const routes: Routes = [
   {path : 'usuarioAdministrador/recaudaciones' , component : RecaudacionesPorPeriodoComponent , canActivate : [AuthGuardPageGuard]},
   {path : 'usuarioAdministrador/estadisticasComidas' , component : ComidasMasPedidasComponent, canActivate : [AuthGuardPageGuard, RolAdminGuard] },
   {path : 'usuarioAdministrador/estadisticasStock' , component : GraficoStockComponent , canActivate : [AuthGuardPageGuard, RolAdminGuard]},
-  {path : 'usuarioAdministrador/estadisticasUsuarios' , component : ClientesRegistradosComponent, canActivate: [AuthGuardPageGuard, RolAdminGuard] },
+  {path : 'usuarioAdministrador/estadisticasUsuarios' , component : ClientesRegistradosComponent, canActivate: [AuthGuardPageGuard] },
   {path : 'usuarioAdministrador/estadisticasPedidosPeriodo' , component : PedidosPorPeriodoComponent, canActivate: [AuthGuardPageGuard, RolAdminGuard] },
   {path : 'usuarioAdministrador/estadisticasPedidosUsuario' , component : PedidosPorClienteComponent },
   {path : 'usuarioAdministrador/usuarioCliente' , component : UsuariosPaginaComponent , canActivate: [AuthGuardPageGuard, RolAdminGuard]},

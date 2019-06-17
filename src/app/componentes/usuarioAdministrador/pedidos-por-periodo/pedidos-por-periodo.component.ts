@@ -56,8 +56,9 @@ export class PedidosPorPeriodoComponent implements OnInit {
     this.colorArray = [];
     this.fechaFiltro = new Date( fecha );
     for (const pedido of this.pedidos) {
-
-      const fechaPedido = new Date(pedido.fecha);
+      let arrayString  = pedido.fecha.split('/');
+      let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
+      const fechaPedido = new Date(fechaFixeada);
       if ( fechaPedido > this.fechaFiltro) {
         for ( const detalle of pedido.detalle) {
           if ( this.datosEncontado.length > 0) {

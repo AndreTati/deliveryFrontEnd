@@ -70,8 +70,9 @@ export class PedidosPorClienteComponent implements OnInit {
     this.label.push('Pedidos');
     this.colorArray.push(this.getRandomColor());
     for (const pedido of this.pedidosUsuario) {
-
-      const fechaPedido = new Date(pedido.fecha);
+      let arrayString  = pedido.fecha.split('/');
+      let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
+      const fechaPedido = new Date(fechaFixeada);
       if ( fechaPedido > this.fechaFiltro) {
         this.totalPedidos += 1 ;
       }

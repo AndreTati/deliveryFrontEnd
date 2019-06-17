@@ -55,6 +55,7 @@ import { PedidosPorPeriodoComponent } from './componentes/usuarioAdministrador/p
 import { FacturaComponent } from './componentes/perfil/pedidos/factura/factura.component';
 import { ComprobantesComponent } from './componentes/usuarioAdministrador/comprobantes/comprobantes.component';
 import { RecaudacionesPorPeriodoComponent } from './componentes/usuarioAdministrador/recaudaciones-por-periodo/recaudaciones-por-periodo.component';
+import {DatePipe} from "@angular/common";
 
 
 @NgModule({
@@ -101,7 +102,7 @@ import { RecaudacionesPorPeriodoComponent } from './componentes/usuarioAdministr
     RadioButtonModule,
 
   ],
-  providers: [AngularFireAuth, MessageService, CarritoComponent, ConfirmationService],
+  providers: [AngularFireAuth, MessageService, CarritoComponent, ConfirmationService , DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

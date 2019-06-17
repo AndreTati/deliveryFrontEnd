@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {usuarioClienteInterface} from '../usuarios-pagina/usuarioClienteInterface';
 import {UsuarioClienteABMService} from '../../../servicios/usuarioClienteABM/usuario-cliente-abm.service';
-
+import {DatePipe} from '@angular/common';
 @Component({
   selector: 'app-clientes-registrados',
   templateUrl: './clientes-registrados.component.html',
@@ -18,7 +18,7 @@ export class ClientesRegistradosComponent implements OnInit {
   public  fechaFiltro: any ;
   private fecha: string;
   public totalUsuarios = 0;
-  constructor(private userApiSerice: UsuarioClienteABMService) {
+  constructor(private userApiSerice: UsuarioClienteABMService , private datePipe: DatePipe) {
     this.labels = [];
     this.datos = [];
     this.colorArray = [];
@@ -36,7 +36,7 @@ export class ClientesRegistradosComponent implements OnInit {
   obtenerAllUsuarios() {
     this.userApiSerice.getAllUsuarios().subscribe(data => {
     this.usuarios = data ;
-    this.impedanciaEstadisticas('1930/20/11');
+    //this.impedanciaEstadisticas('1930/20/11');
     }
     , error => {
     alert('Error al cargar usuarios ' + error);
@@ -51,11 +51,10 @@ export class ClientesRegistradosComponent implements OnInit {
     this.labels = []; this.datosTraidos = [];
     this.fechaFiltro = new Date( fecha );
     for (const usuario of this.usuarios) {
-
-      const altaUsuario = new Date(usuario.alta);
-      alert(altaUsuario);
+      let arrayString  = usuario.alta.split('/');
+      let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
+      const altaUsuario = new Date(fechaFixeada);
       if ( altaUsuario >= this.fechaFiltro) {
-        alert(usuario.alta + '' + usuario.email);
         this.totalUsuarios += 1;
         this.labels.push(usuario.email);
         this.datosTraidos.push(1);
