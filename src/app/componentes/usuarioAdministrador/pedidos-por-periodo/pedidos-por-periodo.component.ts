@@ -59,18 +59,20 @@ export class PedidosPorPeriodoComponent implements OnInit {
       let arrayString  = pedido.fecha.split('/');
       let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
       const fechaPedido = new Date(fechaFixeada);
-      if ( fechaPedido > this.fechaFiltro) {
+      if ( fechaPedido >= this.fechaFiltro) {
+        this.totalPedidos += 1;
         for ( const detalle of pedido.detalle) {
           if ( this.datosEncontado.length > 0) {
-          if (this.existePlato(detalle.plato.nombre)) {
-             this.totalPedidos += 1;
+            try {
+              if ( this.existePlato(detalle.plato.nombre)) {
+               } else {
+                this.colorArray.push(this.getRandomColor());
+                const auxiliar: datosInterface = {nombre: detalle.plato.nombre , cantidad : 1};
+                this.datosEncontado.push(auxiliar);
+              }
+            } catch (e) {
+             }
            } else {
-            this.colorArray.push(this.getRandomColor());
-            const auxiliar: datosInterface = {nombre: detalle.plato.nombre , cantidad : 1};
-            this.datosEncontado.push(auxiliar);
-          }
-
-          } else {
             const auxiliar: datosInterface = {nombre: detalle.plato.nombre , cantidad : 1};
             this.colorArray.push(this.getRandomColor());
             this.datosEncontado.push(auxiliar);

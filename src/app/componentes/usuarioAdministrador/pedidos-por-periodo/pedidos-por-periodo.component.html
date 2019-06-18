@@ -19,8 +19,9 @@
         </form>
         <div class="card-body">
           <h5 class="card-title">Pedidos por periodos de tiempo</h5>
-          <h6>Total de pedidos en base al filtro : {{totalPedidos}}</h6>
+          <h6>Total de cantidad de pedidos en base al filtro : {{totalPedidos}}</h6>
           <div style="background: white">
+            <h6>Estas fueron las comidas encontradas en todos los pedidos</h6>
             <p-chart *ngIf="cargo" type="doughnut" [data]="datosEstadisticos"></p-chart>
           </div>
         </div>
