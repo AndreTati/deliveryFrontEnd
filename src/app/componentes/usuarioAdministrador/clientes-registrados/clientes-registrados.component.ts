@@ -56,10 +56,11 @@ export class ClientesRegistradosComponent implements OnInit {
       const altaUsuario = new Date(fechaFixeada);
       if ( altaUsuario >= this.fechaFiltro) {
         this.totalUsuarios += 1;
-        this.labels.push(usuario.email);
-        this.datosTraidos.push(1);
-        this.colorArray.push(this.getRandomColor()); }
+         }
     }
+    this.datosTraidos.push(this.totalUsuarios);
+    this.labels.push('Usuarios Registrados');
+    this.colorArray.push(this.getRandomColor());
     this.implementarDatos();
   }
   implementarDatos() {
