@@ -24,9 +24,16 @@ export class ItemProductosComponent implements OnInit {
   public cantidadPlatos: number;
   public articulosVenta: articulosVentaInterface[];
   public cantidadArticulos: number;
-
+logueado : boolean;
   constructor( private router:Router,public platoService: PlatoService , public apiArticuloVenta: ArticuloService, private carritoComponent: CarritoComponent,private authService: AuthService, private messageService: MessageService) {
+    this.authService.isAuth().subscribe(auth => {
+      if (auth) {
+        this.logueado = true;
 
+      } else {
+        this.logueado = false;
+      }
+    });
   }
 
 
@@ -70,17 +77,15 @@ export class ItemProductosComponent implements OnInit {
   }
 // FUNCION QUE ENVIA UN OBJETO PLATO AL CARRITO
 mandarPlato(plato: any, esArticulo: string){
-    this.authService.isAuth().subscribe(auth => {
+  if (this.logueado) {
+    this.carritoComponent.agregarPlatoaCarrito(plato,esArticulo);
+    this.messageService.add({key:'platoAgregado', severity:'info', summary:plato.nombre, detail:'Agregado al carrito'});
 
-      if (auth) {
-      this.carritoComponent.agregarPlatoaCarrito(plato,esArticulo);
-      this.messageService.add({key:'platoAgregado', severity:'info', summary:plato.nombre, detail:'Agregado al carrito'});
-    } else {
-      alert('AVISO : Debes estar logueado como usuario para utilizar el carrito.');
-      this.router.navigate(['user/login']);
+  } else {
 
-    }
-  });
+      alert('AVISO : Debes estar logueado como usuario para agregar al carrito.');
+      this.router.navigate(['user/login']);}
+
   }
 
 // funcion que provoca un delay en la ejecucion
@@ -93,4 +98,6 @@ limpiarCarrito(){
 mandarPedido(){
     this.carritoComponent.confirmarPedido();
 }
+
+
 }

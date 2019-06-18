@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
         piso: new FormControl('', Validators.compose([Validators.maxLength(2)])),
         departamento:new FormControl(null, Validators.compose([Validators.maxLength(3)])),
         localidad:this.formBuilder.group({
-         id:new FormControl('', Validators.required)
+          id:new FormControl('', Validators.required)
         }),
         cp:new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(5)]))
       }),
@@ -79,16 +79,16 @@ export class RegisterComponent implements OnInit {
   }
 
   // METODO QUE SE EJECUTA CUANDO SE INTENTE REGISTRAR A LA PERSONA PARA VALIDAR EL FORM
-ngOnSubmit(usuario: Usuario){
-  this.submitted = true;
-  this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
-  this.registrar(usuario);
-}
+  ngOnSubmit(usuario: Usuario){
+    this.submitted = true;
+    this.messageService.add({severity:'info', summary:'Success', detail:'Form Submitted'});
+    this.registrar(usuario);
+  }
 
 
 // MUESTRO CON UN TOAST EL ERROR DE INPUT
-muestraError(summary?: string, detail?: string){
-  this.messageService.add({sticky: true, key: 'toast1', severity:'error', summary: summary, detail: detail});
+  muestraError(summary?: string, detail?: string){
+    this.messageService.add({sticky: true, key: 'toast1', severity:'error', summary: summary, detail: detail});
 
 
   }
@@ -146,16 +146,16 @@ muestraError(summary?: string, detail?: string){
     usuario = this.registroUsuario.value;
     console.log(this.registroUsuario.value);
 
-   this.authService.registerUser(usuario.email, auxPassword)
-     .then((res) => {
-       this.registrarUsuario(usuario);
-       this.router.navigate(['/componentes/home']);
-    this.isError = false;
-     }).catch (err => {
+    this.authService.registerUser(usuario.email, auxPassword)
+      .then((res) => {
+        this.registrarUsuario(usuario);
+        this.router.navigate(['/componentes/home']);
+        this.isError = false;
+      }).catch (err => {
       this.msgError = err;
       alert(err);
       this.isError = true;
-     })
+    })
 
 
 

@@ -218,6 +218,13 @@ mandarPedido(totalfinal: number){
   tiempoFinal = fechaPedido.toLocaleDateString()+" "+fechaPedido.toLocaleTimeString();
   tiempoFinal2 = horaFinalizacion.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
 console.log('En HORARIO');
+      this.messageService.add({
+        key: 'horario',
+        life: 4000,
+        severity: 'info',
+        summary: 'EN PROCESO',
+        detail: 'Se esta procesando su pedido'
+      });
 }else{
   // NO ESTA EN HORARIO, EL PEDIDO PASA A LAS 20:00:00
   console.log('Fuera de HORARIO');
@@ -227,8 +234,14 @@ console.log('En HORARIO');
     horaFinalizacion.setSeconds(0);
     horaFinalizacion.setTime(horaFinalizacion.getTime() + ((this.tiempoPedido + 15 + this.tiempoDelivery)*60000));
     tiempoFinal2 = fechaPedido.toLocaleDateString()+" "+horaFinalizacion.toLocaleTimeString();
-  this.messageService.add({key:'horario', life:5000, severity:'info', summary:'HORARIO PEDIDO', detail:'Su pedido se preparará cuando abra el local a las 20:00:00'});
-setTimeout(() => {console.log(''),3000});
+      this.messageService.add({
+        key: 'horario',
+        life: 4000,
+        severity: 'info',
+        summary: 'LOCAL CERRADO',
+        detail: 'Su pedido se preparará a las 20:00:00'
+      });
+
 }
 
 // ARMO EL PEDIDO
@@ -247,10 +260,13 @@ setTimeout(() => {console.log(''),3000});
    // METODO QUE HACE EL POST EL PEDIDO
     this.pedidoService.postPedido(pedido).subscribe((res)=>{
         console.log('PEDIDO REALIZADO');
-        this.carritoMenu = false;
-        this.limpiarCarrito();
-        console.log(res);
-        this.messageService.add({key:'pedidoConfirmado', life:3000, severity:'success', summary:'PEDIDO REALIZADO', detail:'Tu pedido fue enviado exitosamente'});
+        this.delay(4000).then(any => {
+          this.carritoMenu = false;
+          this.limpiarCarrito();
+          console.log(res);
+          this.messageService.add({key:'pedidoConfirmado', life:3000, severity:'success', summary:'PEDIDO REALIZADO', detail:'Tu pedido fue enviado exitosamente'});
+        });
+
         },
       err=>{
         console.log(" Error al enviar el pedido");
