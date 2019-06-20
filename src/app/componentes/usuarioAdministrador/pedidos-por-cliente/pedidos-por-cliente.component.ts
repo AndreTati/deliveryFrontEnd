@@ -4,6 +4,7 @@ import {usuarioClienteInterface} from '../usuarios-pagina/usuarioClienteInterfac
 import {PedidoService} from '../../../servicios/pedido/pedido.service';
 
 import {Pedido} from '../../../Modelo/Pedido';
+import {pedidoInterface} from "../../cocinero/pedidoInterface";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class PedidosPorClienteComponent implements OnInit {
   public datosEstadisticos: any ;
   public label: any [];
   public pedidosUsuario: Pedido[];
+  public pedidosFiltrados: Pedido[];
   public data: any [];
   public datosObtenido: any [];
   public totalPedidos = 0;
@@ -24,6 +26,11 @@ export class PedidosPorClienteComponent implements OnInit {
   public userSeleccionado: string;
   private colorArray: any[];
   private fechaFiltro: Date;
+  private columnas: any;
+  private cols2: any;
+  // @ts-ignore
+  pedidoDetalle: Pedido = {};
+  private display = false;
 
   constructor( private usuariosApiSerivce: UsuarioClienteABMService , private pedidoApiSerivce: PedidoService) {
     this.usuarios = [];
@@ -31,6 +38,15 @@ export class PedidosPorClienteComponent implements OnInit {
     this.label = [];
     this.data = [];
     this.datosObtenido = [];
+    this.columnas = [
+      { field: 'id', header: 'Numero Comanda' },
+      { field: 'fecha', header: 'Fecha' },
+      { field: 'horaEstimadaFin', header: 'Hora Estimada Fin' },
+      { field: 'detalle', header: 'Detalle' }
+    ];
+    this.cols2 = [
+      { field: 'cantidad', header: 'Cantidad' }
+    ];
   }
 
   ngOnInit() {
@@ -67,6 +83,7 @@ export class PedidosPorClienteComponent implements OnInit {
     this.obtenerAllPedidosXid(id);
   }
   implementarFiltro() {
+    this.pedidosFiltrados = [];
     this.label.push('Pedidos');
     this.colorArray.push(this.getRandomColor());
     for (const pedido of this.pedidosUsuario) {
@@ -74,6 +91,7 @@ export class PedidosPorClienteComponent implements OnInit {
       let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
       const fechaPedido = new Date(fechaFixeada);
       if ( fechaPedido > this.fechaFiltro) {
+        this.pedidosFiltrados.push(pedido);
         this.totalPedidos += 1 ;
       }
     }
@@ -94,6 +112,22 @@ export class PedidosPorClienteComponent implements OnInit {
         }
       ]
     };
+  }
+
+  mostrarDetalle(id: number ) {
+    this.display = true;
+    // @ts-ignore
+    this.pedidoDetalle = {};
+    this.getOne(id);
+  }
+
+  getOne(id: number ) {
+    for (let pedidoInterno of this.pedidosUsuario) {
+      if (pedidoInterno.id == id) {
+        this.pedidoDetalle = pedidoInterno;
+        break;
+      }
+    }
   }
 
 }

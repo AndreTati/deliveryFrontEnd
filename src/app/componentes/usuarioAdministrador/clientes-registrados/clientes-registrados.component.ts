@@ -11,6 +11,7 @@ export class ClientesRegistradosComponent implements OnInit {
   public datosEstadisticos: any ;
   public datosTraidos: any [];
   public usuarios: usuarioClienteInterface [];
+  public usuariosFiltrado: usuarioClienteInterface [] = [];
   public labels: any[];
   public datos: any [];
   public colorArray: any [];
@@ -18,6 +19,7 @@ export class ClientesRegistradosComponent implements OnInit {
   public  fechaFiltro: any ;
   private fecha: string;
   public totalUsuarios = 0;
+  private columnas: any;
   constructor(private userApiSerice: UsuarioClienteABMService , private datePipe: DatePipe) {
     this.labels = [];
     this.datos = [];
@@ -31,6 +33,18 @@ export class ClientesRegistradosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.columnas = [
+      { field: 'id' , header: 'ID'},
+      { field: 'email', header: 'Email'},
+      { field: 'dni', header: 'D.N.I'},
+      { field: 'nombre', header: 'Nombre'},
+      { field: 'apellido', header: 'Apellido'},
+      { field: 'telefono', header: 'Telefono'},
+      { field: 'fechaNacimiento', header: 'Fecha Nacimiento'},
+      { field: 'sexo', header: 'Sexo'},
+      { field: 'alta', header: 'Fecha Alta Usuario '},
+      { field: 'domicilio', subfield : 'calle' , thirdfield: 'numero', header: 'Domicilio'}
+    ];
     this.obtenerAllUsuarios();
   }
   obtenerAllUsuarios() {
@@ -47,6 +61,7 @@ export class ClientesRegistradosComponent implements OnInit {
     return '#' + ('000000' + color).slice(-6);
   }
   impedanciaEstadisticas(fecha: string) {
+    this.usuariosFiltrado = [];
     this.totalUsuarios = 0;
     this.labels = []; this.datosTraidos = [];
     this.fechaFiltro = new Date( fecha );
@@ -55,6 +70,7 @@ export class ClientesRegistradosComponent implements OnInit {
       let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
       const altaUsuario = new Date(fechaFixeada);
       if ( altaUsuario >= this.fechaFiltro) {
+        this.usuariosFiltrado.push(usuario);
         this.totalUsuarios += 1;
          }
     }

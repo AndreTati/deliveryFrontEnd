@@ -13,6 +13,7 @@ export class PedidosPorPeriodoComponent implements OnInit {
   public datosEstadisticos: any ;
   public datosEncontado: datosInterface [];
   public pedidos: pedidoInterface[];
+  public pedidosFiltrados: pedidoInterface[];
   public labels: any[];
   public datos: any [];
   public colorArray: any [];
@@ -20,7 +21,23 @@ export class PedidosPorPeriodoComponent implements OnInit {
   public  fechaFiltro: any ;
   private fecha: string;
   public totalPedidos = 0;
-  constructor(private pedidosApiSerivice: PedidoService) { }
+  private columnas: any;
+  private display = false;
+  // @ts-ignore
+  pedidoDetalle: pedidoInterface = {};
+  private cols2: any;
+
+  constructor(private pedidosApiSerivice: PedidoService) {
+    this.columnas = [
+      { field: 'id', header: 'Numero Comanda' },
+      { field: 'fecha', header: 'Fecha' },
+      { field: 'horaEstimadaFin', header: 'Hora Estimada Fin' },
+      { field: 'detalle', header: 'Detalle' }
+    ];
+    this.cols2 = [
+      { field: 'cantidad', header: 'Cantidad' }
+    ];
+  }
 
   ngOnInit() {
     this.labels = [];
@@ -49,6 +66,7 @@ export class PedidosPorPeriodoComponent implements OnInit {
   }
   impedanciaEstadisticas(fecha: string) {
     this.totalPedidos = 0;
+    this.pedidosFiltrados = [];
     this.labels = [];
     this.datos = [];
     this.datosEncontado = [];
@@ -60,6 +78,7 @@ export class PedidosPorPeriodoComponent implements OnInit {
       let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
       const fechaPedido = new Date(fechaFixeada);
       if ( fechaPedido >= this.fechaFiltro) {
+        this.pedidosFiltrados.push(pedido);
         this.totalPedidos += 1;
         for ( const detalle of pedido.detalle) {
           if ( this.datosEncontado.length > 0) {
@@ -114,6 +133,21 @@ export class PedidosPorPeriodoComponent implements OnInit {
         }
       ]
     };
+  }
+  mostrarDetalle(id: number ) {
+    this.display = true;
+    // @ts-ignore
+    this.pedidoDetalle = {};
+    this.getOne(id)
+  }
+
+  getOne(id: number ) {
+    for (let pedidoInterno of this.pedidos) {
+      if (pedidoInterno.id == id) {
+        this.pedidoDetalle = pedidoInterno;
+        break;
+      }
+    }
   }
 
 }

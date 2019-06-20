@@ -28,6 +28,72 @@
           </div>
         </div>
       </div>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <p-table [columns]="columnas" [value]="pedidosFiltrados" selectionMode="single" [paginator]="true" [rows]="15" >
+            <ng-template pTemplate="caption">
+              Lista de Pedidos
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let columna of columnas" [pSortableColumn]="columna.field">
+                  {{columna.header}}
+                  <p-sortIcon [field]="columna.field"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr [pSelectableRow]="rowData" >
+                <td>{{rowData.id}} </td>
+                <td>{{rowData.fecha}} </td>
+                <td>{{rowData.horaEstimadaFin}} </td>
+                <td>
+                  <button type="button" pButton icon="fa fa-plus" (click)="mostrarDetalle(rowData.id)" label="Ver Detalle"></button>
+
+                </td>
+
+
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary" let-rowData>
+
+            </ng-template>
+          </p-table>
+        </div>
+
+      </div>
+
+      <p-dialog header="Detalles" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70"
+                [baseZIndex]="10000">
+
+        <p-table [columns]="cols2" [value]="pedidoDetalle.detalle" [responsive]="true">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+              <th>Plato</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td> {{"x"+rowData['cantidad']}} </td>
+              <td *ngIf="rowData['plato'] != null"> {{rowData['plato']['nombre']}} </td>
+              <td *ngIf="rowData['articulo'] != null"> {{rowData['articulo']['nombre']}} </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            Hay {{pedidoDetalle.detalle?.length}} detalles
+          </ng-template>
+        </p-table>
+
+        <p-footer>
+          <div align="rigth">
+            <button class="btn btn-danger btn-sm" (click)="display=false" label="Cerrar">Cerrar</button>
+          </div>
+        </p-footer>
+      </p-dialog>
 
     </div>
   </div>
