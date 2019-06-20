@@ -4,29 +4,71 @@
   <br>
   <div class="row" align="center">
 
-
     <div class="col-md-12">
       <div class="card">
 
-        <form class="example col-md-4" >
-          <div class="form-group">
-            <h6>Pedidos Entre las siguientes fechas</h6>
-            <input type="date" class="form-control" placeholder="Buscar por fecha" name="search" [(ngModel)]="fechaInicio">
-            <input type="date" class="form-control" placeholder="Buscar por fecha" name="search" [(ngModel)]="fechaFin">
-            <button class="btn btn-outline-primary" type="submit"(click)="estadisticas(fechaInicio , fechaFin)"><i class="fa fa-search"></i>Buscar</button>
-          </div>
+        <div>
+          <form class="example col-md-4" >
+            <div class="form-group">
+              <h6>Pedidos Entre las siguientes fechas</h6>
+              <input type="date" class="form-control" placeholder="Buscar por fecha" name="search" [(ngModel)]="fechaInicio">
+              <input type="date" class="form-control" placeholder="Buscar por fecha" name="search" [(ngModel)]="fechaFin">
+              <button class="btn btn-outline-primary" type="submit"(click)="estadisticas(fechaInicio , fechaFin)"><i class="fa fa-search"></i>Buscar</button>
 
-        </form>
-        <div class="card-body">
-          <h5 class="card-title">Recaudacion por el periodo de tiempo</h5>
-          <h6>Total de recaudaciones : $ {{totalRecaudado}}  </h6>
-          <div style="background: white">
-            <p-chart *ngIf="cargo" type="bar" [data]="datosEstadisticos"></p-chart>
+            </div>
+
+          </form>
+          <div class="card">
+            <div class="card-header">
+              Grafica
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Recaudacion por el periodo de tiempo</h5>
+              <h6>Total de recaudaciones : $ {{totalRecaudado}}  </h6>
+              <div style="background: white">
+                <p-chart *ngIf="cargo" type="bar" [data]="datosEstadisticos"></p-chart>
+              </div>
+            </div>
           </div>
         </div>
+
+        <br>
+
+        <div class="card">
+          <div class="card-header">
+            Tabla de recaudaciones
+          </div>
+          <div class="card-body">
+            <p-table [value]="pedidosTabla">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Nro Pedido</th>
+                  <th>Factura</th>
+                  <th>Fecha</th>
+                  <th>Total</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-pedidoTb>
+                <tr>
+                  <td>{{pedidoTb.id}}</td>
+                  <td><button class="btn btn-success btn-block" [routerLink]="['/usuarioAdministrador/comprobantes/'+pedidoTb.id]">VER</button></td>
+                  <td>{{pedidoTb.fecha}}</td>
+                  <td class="text-right">{{pedidoTb.total | currency}}</td>
+                </tr>
+              </ng-template >
+              <ng-template pTemplate="summary" >
+                <h6 class="text-right">TOTAL: {{totalRecaudado | currency}}</h6>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+
       </div>
 
     </div>
+
   </div>
   <br>
+
 </div>
+

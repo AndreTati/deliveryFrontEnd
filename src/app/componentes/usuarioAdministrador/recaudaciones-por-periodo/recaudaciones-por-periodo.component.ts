@@ -23,9 +23,9 @@ export class RecaudacionesPorPeriodoComponent implements OnInit {
   public totalRecaudado = 0;
   private fechaFiltro2: any;
   private fechaPedido: Date;
-  constructor(private pedidosApiSerivice: PedidoService) { }
+  private pedidosTabla:pedidoInterface[] = []
+  constructor(private pedidosApiSerivice: PedidoService) {
 
-  ngOnInit() {
     this.labels = [];
     this.datos = [];
     this.colorArray = [];
@@ -38,10 +38,15 @@ export class RecaudacionesPorPeriodoComponent implements OnInit {
     this.obtenerAllPedidos();
 
   }
+
+  ngOnInit() {
+
+
+  }
   obtenerAllPedidos( ) {
     this.pedidosApiSerivice.getAllPedidos().subscribe(data => {
-        this.pedidos = data ;
-        }
+      this.pedidos = data ;
+      }
       , error => {
         alert('Error al cargar pedidos ' + error);
       });
@@ -66,10 +71,12 @@ export class RecaudacionesPorPeriodoComponent implements OnInit {
       let fechaFixeada = (arrayString[1] + '/' + arrayString[0] + '/' + arrayString[2]);
       this.fechaPedido = new Date(fechaFixeada);
 
-
-      if ( (this.fechaPedido >= this.fechaFiltro)  && (this.fechaPedido <= this.fechaFiltro2) ) {
-         this.totalRecaudado += pedido.total;
-           }
+      if(pedido.estado.nombre == "Finalizado") {
+        if ((this.fechaPedido >= this.fechaFiltro) && (this.fechaPedido <= this.fechaFiltro2)) {
+          this.totalRecaudado += pedido.total;
+          this.pedidosTabla.push(pedido)
+        }
+      }
     }
     this.colorArray.push(this.getRandomColor());
     this.labels = ['Dinero Recaudado en el periodo'];

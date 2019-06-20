@@ -42,7 +42,7 @@ export class PlatoComponent implements OnInit {
   detalleNuevo: boolean;
   categoriasArticulos: articuloCategoriaInterface [];
   mostrarDialogoDetalles: boolean;
-  platoDetalles: Detalle [];
+  platoDetalles: Detalle [] = [];
 
 
   constructor(public platoApiSerice: PlatoService ,
@@ -63,6 +63,7 @@ export class PlatoComponent implements OnInit {
       { field: 'cantidad', header: 'Cantidad' },
       { field: 'articulo' , subfield : 'nombre', header: 'Articulo' }
     ];
+
   }
 
   ngOnInit() {
@@ -215,6 +216,7 @@ export class PlatoComponent implements OnInit {
     } else {
 
       this.plato.detalles = this.platoDetalles
+      console.log(this.platoDetalles.length)
 
       this.platoApiSerice.postPlato(this.plato).subscribe(
         data => {
@@ -282,7 +284,7 @@ export class PlatoComponent implements OnInit {
   }
 
   eliminarDetalle() {
-    this.plato.detalles.splice((this.plato.detalles.indexOf(this.detalleSeleccionado)  ), 1 );
+    this.platoDetalles.splice(this.platoDetalles.indexOf(this.detalleSeleccionado),1 )
     this.mostrarDialogoDetalle = false;
   }
 
